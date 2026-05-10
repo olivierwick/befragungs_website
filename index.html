@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div id="container">
+    <div id="Frage1" >Was erhoffst du dir von Klybeck <div id="Plus">+</div> ?</div>
+            <div id="container2">
+    <textarea id="Eingabe" placeholder="..."></textarea>
+</div>
+<div id="Submit">Absenden</div>
+    </div>
+
+</body>
+    <style>
+
+        body {
+            background-color: black;
+        }
+
+        #container{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vw;
+            border: 1px solid rgb(255, 255, 255);
+        }
+
+        #Frage1{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 60px;
+            line-height: 60px;
+            color: white;
+            text-align: center;
+        }
+
+        #container2{
+            display: flex;
+            background-color: rgb(76, 76, 76);
+            justify-content: center;
+            margin-top: 30px;
+            width: 40vw;
+            border: 1px solid rgb(255, 255, 255);
+        }
+
+        #Eingabe{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 60px;
+            line-height: 60px;
+            color: white;
+            background-color: transparent;
+            border: none;
+            outline: none;
+            width: 100%;
+            resize: none;
+        }
+
+        #Submit{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 30px;
+            line-height: 60px;
+            color: white;
+            margin-top: 20px;
+            text-align: center;
+            cursor: pointer;
+        }
+
+       #Plus{
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 200px;
+            color: white;
+            display: inline;
+            vertical-align: middle;
+        }
+    </style>
+    <script>
+        document.getElementById("Submit").onclick = function() {
+            const text = document.getElementById("Eingabe").value.trim();
+            const btn = document.getElementById("Submit");
+
+            if (text === "") {
+                btn.textContent = "Bitte etwas einfügen.";
+                setTimeout(function() {
+                    btn.textContent = "Absenden";
+                }, 3000);
+                return;
+            }
+
+            document.getElementById("Eingabe").value = "";
+            btn.textContent = "Danke für deine Einsendung!";
+            setTimeout(function() {
+                btn.textContent = "Absenden";
+            }, 3000);
+
+            fetch("/absenden", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ text: text })
+            });
+        }
+
+    </script>
+</html>
