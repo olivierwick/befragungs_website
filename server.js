@@ -6,6 +6,11 @@ const app = express();
 app.use(express.json());
 app.use(express.static(__dirname));
 
+const antwortOrdner = path.join(__dirname, "antworten");
+if (!fs.existsSync(antwortOrdner)) {
+    fs.mkdirSync(antwortOrdner);
+}
+
 app.post("/absenden", (req, res) => {
     const text = req.body.text;
     if (!text || text.trim() === "") {
@@ -14,6 +19,8 @@ app.post("/absenden", (req, res) => {
 
     const datum = new Date().toISOString().replace(/[:.]/g, "-");
     const dateiname = path.join(__dirname, "antworten", `antwort_${datum}.txt`);
+
+    console.log("Neue Antwort:", text);
 
     fs.writeFile(dateiname, text, "utf8", (err) => {
         if (err) return res.status(500).json({ fehler: "Fehler beim Speichern" });
