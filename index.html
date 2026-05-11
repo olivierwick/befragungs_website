@@ -40,20 +40,13 @@
     }
 
     body {
-        background-color: rgb(255, 0, 149);
+        background-color: white;
         height: 100dvh;
         overflow: hidden;
         font-family: Helvetica, Arial, sans-serif;
-        padding: 20px;
-        padding-top: max(20px, env(safe-area-inset-top));
-        padding-bottom: max(20px, env(safe-area-inset-bottom));
-        padding-left: max(20px, env(safe-area-inset-left));
-        padding-right: max(20px, env(safe-area-inset-right));
     }
 
     #frame {
-        background: white;
-        border-radius: 30px;
         height: 100%;
         overflow: hidden;
         position: relative;
@@ -61,7 +54,7 @@
 
     #InfoButton {
         position: fixed;
-        top: max(30px, calc(env(safe-area-inset-top) + 10px));
+        top: max(8px, env(safe-area-inset-top));
         left: 50%;
         transform: translateX(-50%);
         background: #e0e0e0;
@@ -87,9 +80,6 @@
     }
 
     #Frage1 {
-        background: #e0e0e0;
-        border-radius: 50px;
-        padding: 3px 10px;
         font-size: 38px;
         font-weight: 500;
         color: black;
@@ -125,7 +115,7 @@
 
     #LangButton {
         position: fixed;
-        bottom: max(30px, calc(env(safe-area-inset-bottom) + 10px));
+        bottom: max(8px, env(safe-area-inset-bottom));
         left: 50%;
         transform: translateX(-50%);
         background: #e0e0e0;
