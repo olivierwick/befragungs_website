@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>Klybeck</title>
 </head>
 <body>
@@ -45,6 +45,10 @@
         overflow: hidden;
         font-family: Helvetica, Arial, sans-serif;
         padding: 20px;
+        padding-top: max(20px, env(safe-area-inset-top));
+        padding-bottom: max(20px, env(safe-area-inset-bottom));
+        padding-left: max(20px, env(safe-area-inset-left));
+        padding-right: max(20px, env(safe-area-inset-right));
     }
 
     #frame {
@@ -57,7 +61,7 @@
 
     #InfoButton {
         position: fixed;
-        top: 30px;
+        top: max(30px, calc(env(safe-area-inset-top) + 10px));
         left: 50%;
         transform: translateX(-50%);
         background: #e0e0e0;
@@ -121,7 +125,7 @@
 
     #LangButton {
         position: fixed;
-        bottom: 30px;
+        bottom: max(30px, calc(env(safe-area-inset-bottom) + 10px));
         left: 50%;
         transform: translateX(-50%);
         background: #e0e0e0;
