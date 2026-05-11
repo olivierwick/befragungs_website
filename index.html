@@ -9,32 +9,32 @@
 
     <div id="frame">
 
-        <div id="InfoButton">INFO</div>
+        <div id="InfoButton">Info</div>
 
         <div id="container">
-            <div id="Frage1">WAS WÜNSCHST DU<br>DIR IM NEUEN <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>?</div>
+            <div id="Frage1">Was wünschst du<br>dir im neuen <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?</div>
             <textarea id="Eingabe" placeholder="..."></textarea>
-            <div id="Submit">ABSENDEN</div>
+            <div id="Submit">Absenden</div>
         </div>
 
         <div id="InfoView">
             <div class="InfoPill" id="InfoPill1" lang="de">Hallo! Mein Name ist Olivier Wick und ich studiere visuelle Kommunikation in Basel.</div>
-            <div class="InfoPill" id="InfoPill2" lang="de">Für meine Bachelorarbeit sammle ich anonyme Meinungen zum Klybeck Plus Projekt, diese werden als Installation am Hafen visualisiert.</div>
+            <div class="InfoPill" id="InfoPill2" lang="de">Für meine Bachelorarbeit sammle ich anonyme Meinungen zum <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> Projekt, diese werden als Installation am Hafen visualisiert.</div>
             <div class="InfoPill" id="InfoPill3" lang="de">Fragen? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> oder <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a></div>
         </div>
 
         <div id="LangView">
-            <div class="LangPill" data-lang="de">DEUTSCH</div>
-            <div class="LangPill" data-lang="it">ITALIANO</div>
-            <div class="LangPill" data-lang="fr">FRANÇAIS</div>
+            <div class="LangPill" data-lang="de">Deutsch</div>
+            <div class="LangPill" data-lang="it">Italiano</div>
+            <div class="LangPill" data-lang="fr">Français</div>
             <div class="LangPill" data-lang="ar">عربي</div>
-            <div class="LangPill" data-lang="tr">TÜRKÇE</div>
-            <div class="LangPill" data-lang="en">ENGLISH</div>
-            <div class="LangPill" data-lang="es">ESPAÑOL</div>
-            <div class="LangPill" data-lang="sr">SRPSKI</div>
+            <div class="LangPill" data-lang="tr">Türkçe</div>
+            <div class="LangPill" data-lang="en">English</div>
+            <div class="LangPill" data-lang="es">Español</div>
+            <div class="LangPill" data-lang="sr">Srpski</div>
         </div>
 
-        <div id="LangButton">LANGUAGES</div>
+        <div id="LangButton">Languages</div>
 
     </div>
 
@@ -77,11 +77,11 @@
         left: 50%;
         transform: translateX(-50%);
         background: #e0e0e0;
-        border-radius: 50px;
+        border-radius: 8px;
         padding: 3px 10px;
         font-size: 38px;
         font-weight: 500;
-        color: white;
+        color: #ff009d;
         cursor: pointer;
         white-space: nowrap;
         opacity: 0;
@@ -104,11 +104,11 @@
 
     #Frage1 {
         background: #e0e0e0;
-        border-radius: 50px;
+        border-radius: 8px;
         padding: 3px 10px;
         font-size: 38px;
         font-weight: 500;
-        color: white;
+        color: #ff009d;
         text-align: center;
         line-height: 1;
         width: auto;
@@ -118,29 +118,31 @@
 
     #Eingabe {
         background: #e0e0e0;
-        border-radius: 50px;
+        border-radius: 8px;
         border: none;
         outline: none;
-        padding: 3px 10px;
+        padding: 30px 10px 3px 10px;
         font-size: 38px;
         font-weight: 500;
         font-family: Helvetica, Arial, sans-serif;
-        color: white;
+        color: #ff009d;
         width: 65%;
         resize: none;
-        height: 80px;
+        overflow: hidden;
+        height: 100px;
         opacity: 0;
         animation: einblenden 0.5s ease forwards 0.7s;
     }
 
     #Submit {
         background: #e0e0e0;
-        border-radius: 50px;
+        border-radius: 8px;
         padding: 3px 10px;
         font-size: 38px;
         font-weight: 500;
         cursor: pointer;
-        color: white;
+        color: #ff009d;
+        text-align: center;
         opacity: 0;
         animation: einblenden 0.5s ease forwards 1.0s;
     }
@@ -152,11 +154,11 @@
         left: 50%;
         transform: translateX(-50%);
         background: #e0e0e0;
-        border-radius: 50px;
+        border-radius: 8px;
         padding: 3px 10px;
         font-size: 38px;
         font-weight: 500;
-        color: white;
+        color: #ff009d;
         cursor: pointer;
         white-space: nowrap;
         opacity: 0;
@@ -184,19 +186,16 @@
 
     .LangPill {
         background: #e0e0e0;
-        border-radius: 50px;
+        border-radius: 8px;
         padding: 3px 20px;
         font-size: 38px;
         font-weight: 500;
-        color: white;
+        color: #ff009d;
         cursor: pointer;
         text-align: center;
         opacity: 0;
     }
 
-    .LangPill:hover {
-        background: #cccccc;
-    }
 
     /* ── Info Ansicht ── */
     #InfoView {
@@ -218,13 +217,12 @@
 
     .InfoPill {
         background: #e0e0e0;
-        border-radius: 50px;
+        border-radius: 8px;
         padding: 3px 20px;
         font-size: 38px;
         font-weight: 500;
-        color: white;
+        color: #ff009d;
         text-align: center;
-        text-transform: uppercase;
         opacity: 0;
         line-height: 1;
         max-width: 80vw;
@@ -243,7 +241,7 @@
 
     /* ── Links ── */
     .InfoPill a, #Frage1 a {
-        color: #0d00ff;
+        color: #ff009d;
         text-decoration: none;
         display: inline-block;
     }
@@ -261,10 +259,14 @@
         animation: wackeln 0.5s ease;
     }
 
+    .InfoPill a:hover, #Frage1 a:hover {
+        animation: wackeln 0.4s ease;
+    }
+
     /* ── Eingabe Placeholder ── */
     #Eingabe::placeholder {
-        color: white;
-        font-size: 40px;
+        color: #ff009d;
+        font-size: 55px;
         text-align: center;
     }
 
@@ -280,21 +282,21 @@
 <script>
 
     const uebersetzungen = {
-        de: { frage: 'WAS WÜNSCHST DU<br>DIR IM NEUEN <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>?', placeholder: "...", absenden: "ABSENDEN", danke: "DANKE FÜR DEINE EINSENDUNG!", leer: "BITTE ETWAS EINFÜGEN.", dir: "ltr", lang: "de",
+        de: { frage: 'Was wünschst du<br>dir im neuen <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?', placeholder: "...", absenden: "Absenden", danke: "Danke", leer: "Bitte etwas schreiben.", dir: "ltr", lang: "de", infobtn: "Info", langbtn: "Sprachen", zurueck: "Zurück",
               info: ["Hallo! Mein Name ist Olivier Wick und ich studiere visuelle Kommunikation in Basel.", 'Für meine Bachelorarbeit sammle ich anonyme Meinungen zum <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> Projekt, diese werden als Installation am Hafen visualisiert.', 'Fragen? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> oder <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
-        it: { frage: 'COSA DESIDERI<br>NEL NUOVO <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>?', placeholder: "...", absenden: "INVIA", danke: "GRAZIE PER IL TUO CONTRIBUTO!", leer: "PER FAVORE SCRIVI QUALCOSA.", dir: "ltr", lang: "it",
+        it: { frage: 'Cosa desideri<br>nel nuovo <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?', placeholder: "...", absenden: "Invia", danke: "Grazie", leer: "Scrivi qualcosa.", dir: "ltr", lang: "it", infobtn: "Info", langbtn: "Lingue", zurueck: "Indietro",
               info: ["Ciao! Mi chiamo Olivier Wick e studio Comunicazione Visiva a Basilea.", 'Per la mia tesi di bachelor raccolgo opinioni anonime sul progetto <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, che verranno visualizzate come installazione al porto.', 'Domande? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> o <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
-        fr: { frage: 'QUE SOUHAITES-TU<br>DANS LE NOUVEAU <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>?', placeholder: "...", absenden: "ENVOYER", danke: "MERCI POUR TA RÉPONSE!", leer: "VEUILLEZ ÉCRIRE QUELQUE CHOSE.", dir: "ltr", lang: "fr",
+        fr: { frage: 'Que souhaites-tu<br>dans le nouveau <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?', placeholder: "...", absenden: "Envoyer", danke: "Merci", leer: "Écris quelque chose.", dir: "ltr", lang: "fr", infobtn: "Info", langbtn: "Langues", zurueck: "Retour",
               info: ["Bonjour! Je m'appelle Olivier Wick et j'étudie la Communication Visuelle à Bâle.", 'Pour mon bachelor, je collecte des opinions anonymes sur le projet <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, qui seront visualisées comme installation au port.', 'Questions? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> ou <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
-        ar: { frage: 'ماذا تتمنى<br>في <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a> الجديد؟', placeholder: "...", absenden: "إرسال", danke: "شكراً على مشاركتك!", leer: "يرجى كتابة شيء ما.", dir: "rtl", lang: "ar",
+        ar: { frage: 'ماذا تتمنى<br>في <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a> الجديد؟', placeholder: "...", absenden: "إرسال", danke: "شكراً", leer: "اكتب شيئاً.", dir: "rtl", lang: "ar", infobtn: "معلومات", langbtn: "اللغات", zurueck: "رجوع",
               info: ["مرحباً! اسمي أوليفييه ويك وأدرس التواصل البصري في بازل.", 'لأطروحتي أجمع آراء مجهولة حول مشروع <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> وستُعرض كتركيب فني في الميناء.', 'أسئلة؟ Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> أو <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
-        tr: { frage: 'YENİ <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>\'TE<br>NE İSTERSİN?', placeholder: "...", absenden: "GÖNDER", danke: "KATKIN İÇİN TEŞEKKÜRLER!", leer: "LÜTFEN BİR ŞEYLER YAZ.", dir: "ltr", lang: "tr",
+        tr: { frage: 'Yeni <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>\'te<br>ne istersin?', placeholder: "...", absenden: "Gönder", danke: "Teşekkürler", leer: "Bir şeyler yaz.", dir: "ltr", lang: "tr", infobtn: "Bilgi", langbtn: "Diller", zurueck: "Geri",
               info: ["Merhaba! Adım Olivier Wick ve Basel'de Görsel İletişim okuyorum.", 'Lisans tezim için <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> projesi hakkında anonim görüşler topluyorum; bunlar limanda bir enstalasyon olarak görselleştirilecek.', 'Sorular? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> veya <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
-        en: { frage: 'WHAT DO YOU WISH FOR<br>IN THE NEW <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>?', placeholder: "...", absenden: "SUBMIT", danke: "THANK YOU FOR YOUR SUBMISSION!", leer: "PLEASE ENTER SOMETHING.", dir: "ltr", lang: "en",
+        en: { frage: 'What do you wish for<br>in the new <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?', placeholder: "...", absenden: "Submit", danke: "Thank you", leer: "Please write something.", dir: "ltr", lang: "en", infobtn: "Info", langbtn: "Languages", zurueck: "Back",
               info: ["Hello! My name is Olivier Wick and I study Visual Communication in Basel.", 'For my bachelor\'s thesis I collect anonymous opinions about the <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> project, which will be visualised as an installation at the harbour.', 'Questions? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> or <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
-        es: { frage: '¿QUÉ DESEAS<br>EN EL NUEVO <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>?', placeholder: "...", absenden: "ENVIAR", danke: "¡GRACIAS POR TU APORTACIÓN!", leer: "POR FAVOR ESCRIBE ALGO.", dir: "ltr", lang: "es",
+        es: { frage: '¿Qué deseas<br>en el nuevo <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?', placeholder: "...", absenden: "Enviar", danke: "Gracias", leer: "Escribe algo.", dir: "ltr", lang: "es", infobtn: "Info", langbtn: "Idiomas", zurueck: "Volver",
               info: ["¡Hola! Me llamo Olivier Wick y estudio Comunicación Visual en Basilea.", 'Para mi tesis de grado recopilo opiniones anónimas sobre el proyecto <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, que se visualizarán como instalación en el puerto.', '¿Preguntas? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> o <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
-        sr: { frage: 'ŠTA ŽELIŠ<br>U NOVOM <a href="https://www.klybeckplus.ch" target="_blank">KLYBECKU</a>?', placeholder: "...", absenden: "POŠALJI", danke: "HVALA NA TVOM DOPRINOSU!", leer: "MOLIMO UNESITE NEŠTO.", dir: "ltr", lang: "sr",
+        sr: { frage: 'Šta želiš<br>u novom <a href="https://www.klybeckplus.ch" target="_blank">Klybecku</a>?', placeholder: "...", absenden: "Pošalji", danke: "Hvala", leer: "Napiši nešto.", dir: "ltr", lang: "sr", infobtn: "Info", langbtn: "Jezici", zurueck: "Nazad",
               info: ["Zdravo! Moje ime je Olivier Wick i studiram Vizuelnu Komunikaciju u Bazelu.", 'Za moj bachelor rad prikupljam anonimna mišljenja o projektu <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, koja će biti vizualizovana kao instalacija u luci.', 'Pitanja? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> ili <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] }
     };
 
@@ -309,11 +311,12 @@
     }
 
     function zeigeHauptansicht() {
+        const t = uebersetzungen[aktiveSprache];
         document.getElementById("container").style.display = "flex";
         document.getElementById("LangView").classList.remove("aktiv");
         document.getElementById("InfoView").classList.remove("aktiv");
-        document.getElementById("LangButton").textContent = "LANGUAGES";
-        document.getElementById("InfoButton").textContent = "INFO";
+        document.getElementById("LangButton").textContent = "Languages";
+        document.getElementById("InfoButton").textContent = t.infobtn;
         langViewOffen = false;
         infoViewOffen = false;
     }
@@ -337,8 +340,8 @@
         langViewOffen = true;
         infoViewOffen = false;
         versteckeAlles();
-        document.getElementById("LangButton").textContent = "ZURÜCK";
-        document.getElementById("InfoButton").textContent = "INFO";
+        document.getElementById("LangButton").textContent = uebersetzungen[aktiveSprache].zurueck;
+        document.getElementById("InfoButton").textContent = uebersetzungen[aktiveSprache].infobtn;
         const view = document.getElementById("LangView");
         view.classList.add("aktiv");
         view.querySelectorAll(".LangPill").forEach(function(pill, i) {
@@ -354,8 +357,8 @@
         infoViewOffen = true;
         langViewOffen = false;
         versteckeAlles();
-        document.getElementById("InfoButton").textContent = "ZURÜCK";
-        document.getElementById("LangButton").textContent = "LANGUAGES";
+        document.getElementById("InfoButton").textContent = uebersetzungen[aktiveSprache].zurueck;
+        document.getElementById("LangButton").textContent = "Languages";
         const view = document.getElementById("InfoView");
         view.classList.add("aktiv");
         view.querySelectorAll(".InfoPill").forEach(function(pill, i) {
