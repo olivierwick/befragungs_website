@@ -41,7 +41,7 @@
 
     body {
         background-color: rgb(255, 0, 149);
-        height: 100vh;
+        height: 100dvh;
         overflow: hidden;
         font-family: Helvetica, Arial, sans-serif;
         padding: 20px;
@@ -104,7 +104,7 @@
         font-weight: 500;
         font-family: Helvetica, Arial, sans-serif;
         color: black;
-        width: 100%;
+        width: 65%;
         resize: none;
         height: 80px;
     }
@@ -162,6 +162,15 @@
         color: black;
         font-size: 40px;
         text-align: center;
+    }
+
+    @media (max-width: 430px) {
+        #InfoButton, #Frage1, #Eingabe, #Submit, #LangButton, .LangOption {
+            font-size: 28px;
+        }
+        #Eingabe::placeholder {
+            font-size: 28px;
+        }
     }
 </style>
 <script>
