@@ -95,9 +95,7 @@
 
             document.getElementById("Eingabe").value = "";
             btn.textContent = "Danke für deine Einsendung!";
-            setTimeout(function() {
-                btn.textContent = "Absenden";
-            }, 3000);
+            setTimeout(function() { btn.textContent = "Absenden"; }, 3000);
 
             fetch("/absenden", {
                 method: "POST",
