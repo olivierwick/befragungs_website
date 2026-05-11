@@ -9,27 +9,28 @@
 
     <div id="frame">
 
-    <div id="InfoButton">INFO</div>
+        <div id="InfoButton">INFO</div>
 
-    <div id="container">
-        <div id="Frage1">WAS WÜNSCHST DU<br>DIR IM NEUEN KLYBECK?</div>
-        <textarea id="Eingabe" placeholder="..."></textarea>
-        <div id="Submit">ABSENDEN</div>
+        <div id="container">
+            <div id="Frage1">WAS WÜNSCHST DU<br>DIR IM NEUEN KLYBECK?</div>
+            <textarea id="Eingabe" placeholder="..."></textarea>
+            <div id="Submit">ABSENDEN</div>
+        </div>
+
+        <div id="LangView">
+            <div class="LangPill" data-lang="de">DEUTSCH</div>
+            <div class="LangPill" data-lang="it">ITALIANO</div>
+            <div class="LangPill" data-lang="fr">FRANÇAIS</div>
+            <div class="LangPill" data-lang="ar">عربي</div>
+            <div class="LangPill" data-lang="tr">TÜRKÇE</div>
+            <div class="LangPill" data-lang="en">ENGLISH</div>
+            <div class="LangPill" data-lang="es">ESPAÑOL</div>
+            <div class="LangPill" data-lang="sr">SRPSKI</div>
+        </div>
+
+        <div id="LangButton">LANGUAGES</div>
+
     </div>
-
-    <div id="LangButton">LANGUAGES</div>
-    <div id="LangMenu">
-        <div class="LangOption" data-lang="de">DEUTSCH</div>
-        <div class="LangOption" data-lang="it">ITALIANO</div>
-        <div class="LangOption" data-lang="fr">FRANÇAIS</div>
-        <div class="LangOption" data-lang="ar">عربي</div>
-        <div class="LangOption" data-lang="tr">TÜRKÇE</div>
-        <div class="LangOption" data-lang="en">ENGLISH</div>
-        <div class="LangOption" data-lang="es">ESPAÑOL</div>
-        <div class="LangOption" data-lang="sr">SRPSKI</div>
-    </div>
-
-    </div> <!-- end frame -->
 
 </body>
 <style>
@@ -52,6 +53,18 @@
         position: relative;
     }
 
+    /* ── Keyframes ── */
+    @keyframes einblenden {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    @keyframes einblenden-center {
+        from { opacity: 0; transform: translateX(-50%); }
+        to   { opacity: 1; transform: translateX(-50%); }
+    }
+
+    /* ── INFO ── */
     #InfoButton {
         position: fixed;
         top: max(8px, env(safe-area-inset-top));
@@ -62,10 +75,14 @@
         padding: 3px 10px;
         font-size: 38px;
         font-weight: 500;
+        color: white;
         cursor: pointer;
         white-space: nowrap;
+        opacity: 0;
+        animation: einblenden-center 0.5s ease forwards 0.1s;
     }
 
+    /* ── Hauptinhalt ── */
     #container {
         position: absolute;
         top: 50%;
@@ -80,12 +97,17 @@
     }
 
     #Frage1 {
+        background: #e0e0e0;
+        border-radius: 50px;
+        padding: 3px 10px;
         font-size: 38px;
         font-weight: 500;
-        color: black;
+        color: white;
         text-align: center;
         line-height: 1;
         width: 100%;
+        opacity: 0;
+        animation: einblenden 0.5s ease forwards 0.4s;
     }
 
     #Eingabe {
@@ -97,10 +119,12 @@
         font-size: 38px;
         font-weight: 500;
         font-family: Helvetica, Arial, sans-serif;
-        color: black;
+        color: white;
         width: 65%;
         resize: none;
         height: 80px;
+        opacity: 0;
+        animation: einblenden 0.5s ease forwards 0.7s;
     }
 
     #Submit {
@@ -110,9 +134,12 @@
         font-size: 38px;
         font-weight: 500;
         cursor: pointer;
-        color: black;
+        color: white;
+        opacity: 0;
+        animation: einblenden 0.5s ease forwards 1.0s;
     }
 
+    /* ── LANGUAGES Button ── */
     #LangButton {
         position: fixed;
         bottom: max(8px, env(safe-area-inset-bottom));
@@ -123,43 +150,62 @@
         padding: 3px 10px;
         font-size: 38px;
         font-weight: 500;
+        color: white;
         cursor: pointer;
         white-space: nowrap;
+        opacity: 0;
+        animation: einblenden-center 0.5s ease forwards 1.3s;
+        z-index: 10;
     }
 
-    #LangMenu {
+    /* ── Sprachenansicht ── */
+    #LangView {
         display: none;
-        position: fixed;
-        bottom: 85px;
+        position: absolute;
+        top: 50%;
         left: 50%;
-        transform: translateX(-50%);
-        background: #e0e0e0;
-        border-radius: 20px;
-        overflow: hidden;
-        white-space: nowrap;
+        transform: translate(-50%, -50%);
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+        width: 85%;
+        max-width: 520px;
     }
 
-    .LangOption {
+    #LangView.aktiv {
+        display: flex;
+    }
+
+    .LangPill {
+        background: #e0e0e0;
+        border-radius: 50px;
+        padding: 3px 20px;
         font-size: 38px;
         font-weight: 500;
-        color: black;
-        padding: 3px 10px;
+        color: white;
         cursor: pointer;
         text-align: center;
+        opacity: 0;
     }
 
-    .LangOption:hover {
-        background-color: #b0b0b0;
+    .LangPill:hover {
+        background: #cccccc;
     }
 
+    @keyframes langEinblenden {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    /* ── Eingabe Placeholder ── */
     #Eingabe::placeholder {
-        color: black;
+        color: white;
         font-size: 40px;
         text-align: center;
     }
 
     @media (max-width: 430px) {
-        #InfoButton, #Frage1, #Eingabe, #Submit, #LangButton, .LangOption {
+        #InfoButton, #Frage1, #Eingabe, #Submit, #LangButton, .LangPill {
             font-size: 28px;
         }
         #Eingabe::placeholder {
@@ -170,73 +216,18 @@
 <script>
 
     const uebersetzungen = {
-        de: {
-            frage: "WAS WÜNSCHST DU<br>DIR IM NEUEN KLYBECK?",
-            placeholder: "...",
-            absenden: "ABSENDEN",
-            danke: "DANKE FÜR DEINE EINSENDUNG!",
-            leer: "BITTE ETWAS EINFÜGEN.",
-            dir: "ltr"
-        },
-        it: {
-            frage: "COSA DESIDERI<br>NEL NUOVO KLYBECK?",
-            placeholder: "...",
-            absenden: "INVIA",
-            danke: "GRAZIE PER IL TUO CONTRIBUTO!",
-            leer: "PER FAVORE SCRIVI QUALCOSA.",
-            dir: "ltr"
-        },
-        fr: {
-            frage: "QUE SOUHAITES-TU<br>DANS LE NOUVEAU KLYBECK?",
-            placeholder: "...",
-            absenden: "ENVOYER",
-            danke: "MERCI POUR TA RÉPONSE!",
-            leer: "VEUILLEZ ÉCRIRE QUELQUE CHOSE.",
-            dir: "ltr"
-        },
-        ar: {
-            frage: "ماذا تتمنى<br>في KLYBECK الجديد؟",
-            placeholder: "...",
-            absenden: "إرسال",
-            danke: "شكراً على مشاركتك!",
-            leer: "يرجى كتابة شيء ما.",
-            dir: "rtl"
-        },
-        tr: {
-            frage: "YENİ KLYBECK'TE<br>NE İSTERSİN?",
-            placeholder: "...",
-            absenden: "GÖNDER",
-            danke: "KATKIN İÇİN TEŞEKKÜRLER!",
-            leer: "LÜTFEN BİR ŞEYLER YAZ.",
-            dir: "ltr"
-        },
-        en: {
-            frage: "WHAT DO YOU WISH FOR<br>IN THE NEW KLYBECK?",
-            placeholder: "...",
-            absenden: "SUBMIT",
-            danke: "THANK YOU FOR YOUR SUBMISSION!",
-            leer: "PLEASE ENTER SOMETHING.",
-            dir: "ltr"
-        },
-        es: {
-            frage: "¿QUÉ DESEAS<br>EN EL NUEVO KLYBECK?",
-            placeholder: "...",
-            absenden: "ENVIAR",
-            danke: "¡GRACIAS POR TU APORTACIÓN!",
-            leer: "POR FAVOR ESCRIBE ALGO.",
-            dir: "ltr"
-        },
-        sr: {
-            frage: "ŠTA ŽELIŠ<br>U NOVOM KLYBECKU?",
-            placeholder: "...",
-            absenden: "POŠALJI",
-            danke: "HVALA NA TVOM DOPRINOSU!",
-            leer: "MOLIMO UNESITE NEŠTO.",
-            dir: "ltr"
-        }
+        de: { frage: "WAS WÜNSCHST DU<br>DIR IM NEUEN KLYBECK?", placeholder: "...", absenden: "ABSENDEN", danke: "DANKE FÜR DEINE EINSENDUNG!", leer: "BITTE ETWAS EINFÜGEN.", dir: "ltr" },
+        it: { frage: "COSA DESIDERI<br>NEL NUOVO KLYBECK?", placeholder: "...", absenden: "INVIA", danke: "GRAZIE PER IL TUO CONTRIBUTO!", leer: "PER FAVORE SCRIVI QUALCOSA.", dir: "ltr" },
+        fr: { frage: "QUE SOUHAITES-TU<br>DANS LE NOUVEAU KLYBECK?", placeholder: "...", absenden: "ENVOYER", danke: "MERCI POUR TA RÉPONSE!", leer: "VEUILLEZ ÉCRIRE QUELQUE CHOSE.", dir: "ltr" },
+        ar: { frage: "ماذا تتمنى<br>في KLYBECK الجديد؟", placeholder: "...", absenden: "إرسال", danke: "شكراً على مشاركتك!", leer: "يرجى كتابة شيء ما.", dir: "rtl" },
+        tr: { frage: "YENİ KLYBECK'TE<br>NE İSTERSİN?", placeholder: "...", absenden: "GÖNDER", danke: "KATKIN İÇİN TEŞEKKÜRLER!", leer: "LÜTFEN BİR ŞEYLER YAZ.", dir: "ltr" },
+        en: { frage: "WHAT DO YOU WISH FOR<br>IN THE NEW KLYBECK?", placeholder: "...", absenden: "SUBMIT", danke: "THANK YOU FOR YOUR SUBMISSION!", leer: "PLEASE ENTER SOMETHING.", dir: "ltr" },
+        es: { frage: "¿QUÉ DESEAS<br>EN EL NUEVO KLYBECK?", placeholder: "...", absenden: "ENVIAR", danke: "¡GRACIAS POR TU APORTACIÓN!", leer: "POR FAVOR ESCRIBE ALGO.", dir: "ltr" },
+        sr: { frage: "ŠTA ŽELIŠ<br>U NOVOM KLYBECKU?", placeholder: "...", absenden: "POŠALJI", danke: "HVALA NA TVOM DOPRINOSU!", leer: "MOLIMO UNESITE NEŠTO.", dir: "ltr" }
     };
 
     let aktiveSprache = "de";
+    let langViewOffen = false;
 
     function spracheWechseln(lang) {
         aktiveSprache = lang;
@@ -245,16 +236,44 @@
         document.getElementById("Eingabe").placeholder = t.placeholder;
         document.getElementById("Submit").textContent = t.absenden;
         document.getElementById("container").style.direction = t.dir;
-        document.getElementById("LangMenu").style.display = "none";
+        langViewSchliessen();
+    }
+
+    function langViewOeffnen() {
+        langViewOffen = true;
+        document.getElementById("container").style.display = "none";
+        document.getElementById("LangButton").textContent = "ZURÜCK";
+        const view = document.getElementById("LangView");
+        view.classList.add("aktiv");
+
+        const pills = view.querySelectorAll(".LangPill");
+        pills.forEach(function(pill, i) {
+            pill.style.opacity = "0";
+            pill.style.animation = "none";
+            setTimeout(function() {
+                pill.style.animation = "langEinblenden 0.4s ease forwards";
+            }, i * 120);
+        });
+    }
+
+    function langViewSchliessen() {
+        langViewOffen = false;
+        document.getElementById("container").style.display = "flex";
+        document.getElementById("LangButton").textContent = "LANGUAGES";
+        const view = document.getElementById("LangView");
+        view.classList.remove("aktiv");
     }
 
     document.getElementById("LangButton").onclick = function() {
-        const menu = document.getElementById("LangMenu");
-        menu.style.display = menu.style.display === "block" ? "none" : "block";
+        if (langViewOffen) {
+            langViewSchliessen();
+        } else {
+            langViewOeffnen();
+        }
     };
 
-    document.querySelectorAll(".LangOption").forEach(function(option) {
-        option.onclick = function() {
+    document.querySelectorAll(".LangPill").forEach(function(pill) {
+        pill.onclick = function() {
             spracheWechseln(this.dataset.lang);
         };
     });
