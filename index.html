@@ -12,7 +12,7 @@
         <div id="InfoButton">INFO</div>
 
         <div id="container">
-            <div id="Frage1">WAS WÜNSCHST DU<br>DIR IM NEUEN KLYBECK?</div>
+            <div id="Frage1">WAS WÜNSCHST DU<br>DIR IM NEUEN <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>?</div>
             <textarea id="Eingabe" placeholder="..."></textarea>
             <div id="Submit">ABSENDEN</div>
         </div>
@@ -20,7 +20,7 @@
         <div id="InfoView">
             <div class="InfoPill" id="InfoPill1" lang="de">Hallo! Mein Name ist Olivier Wick und ich studiere visuelle Kommunikation in Basel.</div>
             <div class="InfoPill" id="InfoPill2" lang="de">Für meine Bachelorarbeit sammle ich anonyme Meinungen zum Klybeck Plus Projekt, diese werden als Installation am Hafen visualisiert.</div>
-            <div class="InfoPill" id="InfoPill3" lang="de">Fragen? Instagram: 076_olivier oder olivier.wick@yahoo.com</div>
+            <div class="InfoPill" id="InfoPill3" lang="de">Fragen? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> oder <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a></div>
         </div>
 
         <div id="LangView">
@@ -241,6 +241,26 @@
         to   { opacity: 1; }
     }
 
+    /* ── Links ── */
+    .InfoPill a, #Frage1 a {
+        color: #0d00ff;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    @keyframes wackeln {
+        0%   { transform: rotate(0deg); }
+        15%  { transform: rotate(-8deg); }
+        35%  { transform: rotate(8deg); }
+        55%  { transform: rotate(-5deg); }
+        75%  { transform: rotate(5deg); }
+        100% { transform: rotate(0deg); }
+    }
+
+    a.wackeln {
+        animation: wackeln 0.5s ease;
+    }
+
     /* ── Eingabe Placeholder ── */
     #Eingabe::placeholder {
         color: white;
@@ -260,22 +280,22 @@
 <script>
 
     const uebersetzungen = {
-        de: { frage: "WAS WÜNSCHST DU<br>DIR IM NEUEN KLYBECK?", placeholder: "...", absenden: "ABSENDEN", danke: "DANKE FÜR DEINE EINSENDUNG!", leer: "BITTE ETWAS EINFÜGEN.", dir: "ltr", lang: "de",
-              info: ["Hallo! Mein Name ist Olivier Wick und ich studiere visuelle Kommunikation in Basel.", "Für meine Bachelorarbeit sammle ich anonyme Meinungen zum Klybeck Plus Projekt, diese werden als Installation am Hafen visualisiert.", "Fragen? Instagram: 076_olivier oder olivier.wick@yahoo.com"] },
-        it: { frage: "COSA DESIDERI<br>NEL NUOVO KLYBECK?", placeholder: "...", absenden: "INVIA", danke: "GRAZIE PER IL TUO CONTRIBUTO!", leer: "PER FAVORE SCRIVI QUALCOSA.", dir: "ltr", lang: "it",
-              info: ["Ciao! Mi chiamo Olivier Wick e studio Comunicazione Visiva a Basilea.", "Per la mia tesi di bachelor raccolgo opinioni anonime sul progetto Klybeck Plus, che verranno visualizzate come installazione al porto.", "Domande? Instagram: 076_olivier o olivier.wick@yahoo.com"] },
-        fr: { frage: "QUE SOUHAITES-TU<br>DANS LE NOUVEAU KLYBECK?", placeholder: "...", absenden: "ENVOYER", danke: "MERCI POUR TA RÉPONSE!", leer: "VEUILLEZ ÉCRIRE QUELQUE CHOSE.", dir: "ltr", lang: "fr",
-              info: ["Bonjour! Je m'appelle Olivier Wick et j'étudie la Communication Visuelle à Bâle.", "Pour mon bachelor, je collecte des opinions anonymes sur le projet Klybeck Plus, qui seront visualisées comme installation au port.", "Questions? Instagram: 076_olivier ou olivier.wick@yahoo.com"] },
-        ar: { frage: "ماذا تتمنى<br>في KLYBECK الجديد؟", placeholder: "...", absenden: "إرسال", danke: "شكراً على مشاركتك!", leer: "يرجى كتابة شيء ما.", dir: "rtl", lang: "ar",
-              info: ["مرحباً! اسمي أوليفييه ويك وأدرس التواصل البصري في بازل.", "لأطروحتي أجمع آراء مجهولة حول مشروع Klybeck Plus وستُعرض كتركيب فني في الميناء.", "أسئلة؟ Instagram: 076_olivier أو olivier.wick@yahoo.com"] },
-        tr: { frage: "YENİ KLYBECK'TE<br>NE İSTERSİN?", placeholder: "...", absenden: "GÖNDER", danke: "KATKIN İÇİN TEŞEKKÜRLER!", leer: "LÜTFEN BİR ŞEYLER YAZ.", dir: "ltr", lang: "tr",
-              info: ["Merhaba! Adım Olivier Wick ve Basel'de Görsel İletişim okuyorum.", "Lisans tezim için Klybeck Plus projesi hakkında anonim görüşler topluyorum; bunlar limanda bir enstalasyon olarak görselleştirilecek.", "Sorular? Instagram: 076_olivier veya olivier.wick@yahoo.com"] },
-        en: { frage: "WHAT DO YOU WISH FOR<br>IN THE NEW KLYBECK?", placeholder: "...", absenden: "SUBMIT", danke: "THANK YOU FOR YOUR SUBMISSION!", leer: "PLEASE ENTER SOMETHING.", dir: "ltr", lang: "en",
-              info: ["Hello! My name is Olivier Wick and I study Visual Communication in Basel.", "For my bachelor's thesis I collect anonymous opinions about the Klybeck Plus project, which will be visualised as an installation at the harbour.", "Questions? Instagram: 076_olivier or olivier.wick@yahoo.com"] },
-        es: { frage: "¿QUÉ DESEAS<br>EN EL NUEVO KLYBECK?", placeholder: "...", absenden: "ENVIAR", danke: "¡GRACIAS POR TU APORTACIÓN!", leer: "POR FAVOR ESCRIBE ALGO.", dir: "ltr", lang: "es",
-              info: ["¡Hola! Me llamo Olivier Wick y estudio Comunicación Visual en Basilea.", "Para mi tesis de grado recopilo opiniones anónimas sobre el proyecto Klybeck Plus, que se visualizarán como instalación en el puerto.", "¿Preguntas? Instagram: 076_olivier o olivier.wick@yahoo.com"] },
-        sr: { frage: "ŠTA ŽELIŠ<br>U NOVOM KLYBECKU?", placeholder: "...", absenden: "POŠALJI", danke: "HVALA NA TVOM DOPRINOSU!", leer: "MOLIMO UNESITE NEŠTO.", dir: "ltr", lang: "sr",
-              info: ["Zdravo! Moje ime je Olivier Wick i studiram Vizuelnu Komunikaciju u Bazelu.", "Za moj bachelor rad prikupljam anonimna mišljenja o projektu Klybeck Plus, koja će biti vizualizovana kao instalacija u luci.", "Pitanja? Instagram: 076_olivier ili olivier.wick@yahoo.com"] }
+        de: { frage: 'WAS WÜNSCHST DU<br>DIR IM NEUEN <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>?', placeholder: "...", absenden: "ABSENDEN", danke: "DANKE FÜR DEINE EINSENDUNG!", leer: "BITTE ETWAS EINFÜGEN.", dir: "ltr", lang: "de",
+              info: ["Hallo! Mein Name ist Olivier Wick und ich studiere visuelle Kommunikation in Basel.", 'Für meine Bachelorarbeit sammle ich anonyme Meinungen zum <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> Projekt, diese werden als Installation am Hafen visualisiert.', 'Fragen? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> oder <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        it: { frage: 'COSA DESIDERI<br>NEL NUOVO <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>?', placeholder: "...", absenden: "INVIA", danke: "GRAZIE PER IL TUO CONTRIBUTO!", leer: "PER FAVORE SCRIVI QUALCOSA.", dir: "ltr", lang: "it",
+              info: ["Ciao! Mi chiamo Olivier Wick e studio Comunicazione Visiva a Basilea.", 'Per la mia tesi di bachelor raccolgo opinioni anonime sul progetto <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, che verranno visualizzate come installazione al porto.', 'Domande? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> o <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        fr: { frage: 'QUE SOUHAITES-TU<br>DANS LE NOUVEAU <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>?', placeholder: "...", absenden: "ENVOYER", danke: "MERCI POUR TA RÉPONSE!", leer: "VEUILLEZ ÉCRIRE QUELQUE CHOSE.", dir: "ltr", lang: "fr",
+              info: ["Bonjour! Je m'appelle Olivier Wick et j'étudie la Communication Visuelle à Bâle.", 'Pour mon bachelor, je collecte des opinions anonymes sur le projet <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, qui seront visualisées comme installation au port.', 'Questions? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> ou <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        ar: { frage: 'ماذا تتمنى<br>في <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a> الجديد؟', placeholder: "...", absenden: "إرسال", danke: "شكراً على مشاركتك!", leer: "يرجى كتابة شيء ما.", dir: "rtl", lang: "ar",
+              info: ["مرحباً! اسمي أوليفييه ويك وأدرس التواصل البصري في بازل.", 'لأطروحتي أجمع آراء مجهولة حول مشروع <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> وستُعرض كتركيب فني في الميناء.', 'أسئلة؟ Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> أو <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        tr: { frage: 'YENİ <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>\'TE<br>NE İSTERSİN?', placeholder: "...", absenden: "GÖNDER", danke: "KATKIN İÇİN TEŞEKKÜRLER!", leer: "LÜTFEN BİR ŞEYLER YAZ.", dir: "ltr", lang: "tr",
+              info: ["Merhaba! Adım Olivier Wick ve Basel'de Görsel İletişim okuyorum.", 'Lisans tezim için <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> projesi hakkında anonim görüşler topluyorum; bunlar limanda bir enstalasyon olarak görselleştirilecek.', 'Sorular? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> veya <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        en: { frage: 'WHAT DO YOU WISH FOR<br>IN THE NEW <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>?', placeholder: "...", absenden: "SUBMIT", danke: "THANK YOU FOR YOUR SUBMISSION!", leer: "PLEASE ENTER SOMETHING.", dir: "ltr", lang: "en",
+              info: ["Hello! My name is Olivier Wick and I study Visual Communication in Basel.", 'For my bachelor\'s thesis I collect anonymous opinions about the <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> project, which will be visualised as an installation at the harbour.', 'Questions? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> or <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        es: { frage: '¿QUÉ DESEAS<br>EN EL NUEVO <a href="https://www.klybeckplus.ch" target="_blank">KLYBECK</a>?', placeholder: "...", absenden: "ENVIAR", danke: "¡GRACIAS POR TU APORTACIÓN!", leer: "POR FAVOR ESCRIBE ALGO.", dir: "ltr", lang: "es",
+              info: ["¡Hola! Me llamo Olivier Wick y estudio Comunicación Visual en Basilea.", 'Para mi tesis de grado recopilo opiniones anónimas sobre el proyecto <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, que se visualizarán como instalación en el puerto.', '¿Preguntas? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> o <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        sr: { frage: 'ŠTA ŽELIŠ<br>U NOVOM <a href="https://www.klybeckplus.ch" target="_blank">KLYBECKU</a>?', placeholder: "...", absenden: "POŠALJI", danke: "HVALA NA TVOM DOPRINOSU!", leer: "MOLIMO UNESITE NEŠTO.", dir: "ltr", lang: "sr",
+              info: ["Zdravo! Moje ime je Olivier Wick i studiram Vizuelnu Komunikaciju u Bazelu.", 'Za moj bachelor rad prikupljam anonimna mišljenja o projektu <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, koja će biti vizualizovana kao instalacija u luci.', 'Pitanja? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> ili <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] }
     };
 
     let aktiveSprache = "de";
@@ -305,6 +325,11 @@
         document.getElementById("Eingabe").placeholder = t.placeholder;
         document.getElementById("Submit").textContent = t.absenden;
         document.getElementById("container").style.direction = t.dir;
+        const pills = document.querySelectorAll(".InfoPill");
+        t.info.forEach(function(text, i) {
+            pills[i].innerHTML = text;
+            pills[i].setAttribute("lang", t.lang);
+        });
         zeigeHauptansicht();
     }
 
@@ -385,6 +410,13 @@
             body: JSON.stringify({ text: text })
         });
     };
+
+    setInterval(function() {
+        document.querySelectorAll("a").forEach(function(a) {
+            a.classList.add("wackeln");
+            setTimeout(function() { a.classList.remove("wackeln"); }, 500);
+        });
+    }, 10000);
 
 </script>
 </html>
