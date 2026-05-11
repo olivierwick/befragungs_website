@@ -17,6 +17,12 @@
             <div id="Submit">ABSENDEN</div>
         </div>
 
+        <div id="InfoView">
+            <div class="InfoPill" id="InfoPill1" lang="de">Hallo! Mein Name ist Olivier Wick und ich studiere visuelle Kommunikation in Basel.</div>
+            <div class="InfoPill" id="InfoPill2" lang="de">Für meine Bachelorarbeit sammle ich anonyme Meinungen zum Klybeck Plus Projekt, diese werden als Installation am Hafen visualisiert.</div>
+            <div class="InfoPill" id="InfoPill3" lang="de">Fragen? Instagram: 076_olivier oder olivier.wick@yahoo.com</div>
+        </div>
+
         <div id="LangView">
             <div class="LangPill" data-lang="de">DEUTSCH</div>
             <div class="LangPill" data-lang="it">ITALIANO</div>
@@ -192,6 +198,44 @@
         background: #cccccc;
     }
 
+    /* ── Info Ansicht ── */
+    #InfoView {
+        display: none;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        width: 85%;
+        max-width: 520px;
+    }
+
+    #InfoView.aktiv {
+        display: flex;
+    }
+
+    .InfoPill {
+        background: #e0e0e0;
+        border-radius: 50px;
+        padding: 3px 20px;
+        font-size: 38px;
+        font-weight: 500;
+        color: white;
+        text-align: center;
+        text-transform: uppercase;
+        opacity: 0;
+        line-height: 1;
+        max-width: 80vw;
+        hyphens: auto;
+        word-break: break-word;
+    }
+
+    #InfoPill1 { min-width: 45vw; }
+    #InfoPill2 { min-width: 55vw; }
+    #InfoPill3 { min-width: 30vw; }
+
     @keyframes langEinblenden {
         from { opacity: 0; }
         to   { opacity: 1; }
@@ -216,18 +260,43 @@
 <script>
 
     const uebersetzungen = {
-        de: { frage: "WAS WÜNSCHST DU<br>DIR IM NEUEN KLYBECK?", placeholder: "...", absenden: "ABSENDEN", danke: "DANKE FÜR DEINE EINSENDUNG!", leer: "BITTE ETWAS EINFÜGEN.", dir: "ltr" },
-        it: { frage: "COSA DESIDERI<br>NEL NUOVO KLYBECK?", placeholder: "...", absenden: "INVIA", danke: "GRAZIE PER IL TUO CONTRIBUTO!", leer: "PER FAVORE SCRIVI QUALCOSA.", dir: "ltr" },
-        fr: { frage: "QUE SOUHAITES-TU<br>DANS LE NOUVEAU KLYBECK?", placeholder: "...", absenden: "ENVOYER", danke: "MERCI POUR TA RÉPONSE!", leer: "VEUILLEZ ÉCRIRE QUELQUE CHOSE.", dir: "ltr" },
-        ar: { frage: "ماذا تتمنى<br>في KLYBECK الجديد؟", placeholder: "...", absenden: "إرسال", danke: "شكراً على مشاركتك!", leer: "يرجى كتابة شيء ما.", dir: "rtl" },
-        tr: { frage: "YENİ KLYBECK'TE<br>NE İSTERSİN?", placeholder: "...", absenden: "GÖNDER", danke: "KATKIN İÇİN TEŞEKKÜRLER!", leer: "LÜTFEN BİR ŞEYLER YAZ.", dir: "ltr" },
-        en: { frage: "WHAT DO YOU WISH FOR<br>IN THE NEW KLYBECK?", placeholder: "...", absenden: "SUBMIT", danke: "THANK YOU FOR YOUR SUBMISSION!", leer: "PLEASE ENTER SOMETHING.", dir: "ltr" },
-        es: { frage: "¿QUÉ DESEAS<br>EN EL NUEVO KLYBECK?", placeholder: "...", absenden: "ENVIAR", danke: "¡GRACIAS POR TU APORTACIÓN!", leer: "POR FAVOR ESCRIBE ALGO.", dir: "ltr" },
-        sr: { frage: "ŠTA ŽELIŠ<br>U NOVOM KLYBECKU?", placeholder: "...", absenden: "POŠALJI", danke: "HVALA NA TVOM DOPRINOSU!", leer: "MOLIMO UNESITE NEŠTO.", dir: "ltr" }
+        de: { frage: "WAS WÜNSCHST DU<br>DIR IM NEUEN KLYBECK?", placeholder: "...", absenden: "ABSENDEN", danke: "DANKE FÜR DEINE EINSENDUNG!", leer: "BITTE ETWAS EINFÜGEN.", dir: "ltr", lang: "de",
+              info: ["Hallo! Mein Name ist Olivier Wick und ich studiere visuelle Kommunikation in Basel.", "Für meine Bachelorarbeit sammle ich anonyme Meinungen zum Klybeck Plus Projekt, diese werden als Installation am Hafen visualisiert.", "Fragen? Instagram: 076_olivier oder olivier.wick@yahoo.com"] },
+        it: { frage: "COSA DESIDERI<br>NEL NUOVO KLYBECK?", placeholder: "...", absenden: "INVIA", danke: "GRAZIE PER IL TUO CONTRIBUTO!", leer: "PER FAVORE SCRIVI QUALCOSA.", dir: "ltr", lang: "it",
+              info: ["Ciao! Mi chiamo Olivier Wick e studio Comunicazione Visiva a Basilea.", "Per la mia tesi di bachelor raccolgo opinioni anonime sul progetto Klybeck Plus, che verranno visualizzate come installazione al porto.", "Domande? Instagram: 076_olivier o olivier.wick@yahoo.com"] },
+        fr: { frage: "QUE SOUHAITES-TU<br>DANS LE NOUVEAU KLYBECK?", placeholder: "...", absenden: "ENVOYER", danke: "MERCI POUR TA RÉPONSE!", leer: "VEUILLEZ ÉCRIRE QUELQUE CHOSE.", dir: "ltr", lang: "fr",
+              info: ["Bonjour! Je m'appelle Olivier Wick et j'étudie la Communication Visuelle à Bâle.", "Pour mon bachelor, je collecte des opinions anonymes sur le projet Klybeck Plus, qui seront visualisées comme installation au port.", "Questions? Instagram: 076_olivier ou olivier.wick@yahoo.com"] },
+        ar: { frage: "ماذا تتمنى<br>في KLYBECK الجديد؟", placeholder: "...", absenden: "إرسال", danke: "شكراً على مشاركتك!", leer: "يرجى كتابة شيء ما.", dir: "rtl", lang: "ar",
+              info: ["مرحباً! اسمي أوليفييه ويك وأدرس التواصل البصري في بازل.", "لأطروحتي أجمع آراء مجهولة حول مشروع Klybeck Plus وستُعرض كتركيب فني في الميناء.", "أسئلة؟ Instagram: 076_olivier أو olivier.wick@yahoo.com"] },
+        tr: { frage: "YENİ KLYBECK'TE<br>NE İSTERSİN?", placeholder: "...", absenden: "GÖNDER", danke: "KATKIN İÇİN TEŞEKKÜRLER!", leer: "LÜTFEN BİR ŞEYLER YAZ.", dir: "ltr", lang: "tr",
+              info: ["Merhaba! Adım Olivier Wick ve Basel'de Görsel İletişim okuyorum.", "Lisans tezim için Klybeck Plus projesi hakkında anonim görüşler topluyorum; bunlar limanda bir enstalasyon olarak görselleştirilecek.", "Sorular? Instagram: 076_olivier veya olivier.wick@yahoo.com"] },
+        en: { frage: "WHAT DO YOU WISH FOR<br>IN THE NEW KLYBECK?", placeholder: "...", absenden: "SUBMIT", danke: "THANK YOU FOR YOUR SUBMISSION!", leer: "PLEASE ENTER SOMETHING.", dir: "ltr", lang: "en",
+              info: ["Hello! My name is Olivier Wick and I study Visual Communication in Basel.", "For my bachelor's thesis I collect anonymous opinions about the Klybeck Plus project, which will be visualised as an installation at the harbour.", "Questions? Instagram: 076_olivier or olivier.wick@yahoo.com"] },
+        es: { frage: "¿QUÉ DESEAS<br>EN EL NUEVO KLYBECK?", placeholder: "...", absenden: "ENVIAR", danke: "¡GRACIAS POR TU APORTACIÓN!", leer: "POR FAVOR ESCRIBE ALGO.", dir: "ltr", lang: "es",
+              info: ["¡Hola! Me llamo Olivier Wick y estudio Comunicación Visual en Basilea.", "Para mi tesis de grado recopilo opiniones anónimas sobre el proyecto Klybeck Plus, que se visualizarán como instalación en el puerto.", "¿Preguntas? Instagram: 076_olivier o olivier.wick@yahoo.com"] },
+        sr: { frage: "ŠTA ŽELIŠ<br>U NOVOM KLYBECKU?", placeholder: "...", absenden: "POŠALJI", danke: "HVALA NA TVOM DOPRINOSU!", leer: "MOLIMO UNESITE NEŠTO.", dir: "ltr", lang: "sr",
+              info: ["Zdravo! Moje ime je Olivier Wick i studiram Vizuelnu Komunikaciju u Bazelu.", "Za moj bachelor rad prikupljam anonimna mišljenja o projektu Klybeck Plus, koja će biti vizualizovana kao instalacija u luci.", "Pitanja? Instagram: 076_olivier ili olivier.wick@yahoo.com"] }
     };
 
     let aktiveSprache = "de";
     let langViewOffen = false;
+    let infoViewOffen = false;
+
+    function versteckeAlles() {
+        document.getElementById("container").style.display = "none";
+        document.getElementById("LangView").classList.remove("aktiv");
+        document.getElementById("InfoView").classList.remove("aktiv");
+    }
+
+    function zeigeHauptansicht() {
+        document.getElementById("container").style.display = "flex";
+        document.getElementById("LangView").classList.remove("aktiv");
+        document.getElementById("InfoView").classList.remove("aktiv");
+        document.getElementById("LangButton").textContent = "LANGUAGES";
+        document.getElementById("InfoButton").textContent = "INFO";
+        langViewOffen = false;
+        infoViewOffen = false;
+    }
 
     function spracheWechseln(lang) {
         aktiveSprache = lang;
@@ -236,18 +305,18 @@
         document.getElementById("Eingabe").placeholder = t.placeholder;
         document.getElementById("Submit").textContent = t.absenden;
         document.getElementById("container").style.direction = t.dir;
-        langViewSchliessen();
+        zeigeHauptansicht();
     }
 
     function langViewOeffnen() {
         langViewOffen = true;
-        document.getElementById("container").style.display = "none";
+        infoViewOffen = false;
+        versteckeAlles();
         document.getElementById("LangButton").textContent = "ZURÜCK";
+        document.getElementById("InfoButton").textContent = "INFO";
         const view = document.getElementById("LangView");
         view.classList.add("aktiv");
-
-        const pills = view.querySelectorAll(".LangPill");
-        pills.forEach(function(pill, i) {
+        view.querySelectorAll(".LangPill").forEach(function(pill, i) {
             pill.style.opacity = "0";
             pill.style.animation = "none";
             setTimeout(function() {
@@ -256,17 +325,34 @@
         });
     }
 
-    function langViewSchliessen() {
+    function infoViewOeffnen() {
+        infoViewOffen = true;
         langViewOffen = false;
-        document.getElementById("container").style.display = "flex";
+        versteckeAlles();
+        document.getElementById("InfoButton").textContent = "ZURÜCK";
         document.getElementById("LangButton").textContent = "LANGUAGES";
-        const view = document.getElementById("LangView");
-        view.classList.remove("aktiv");
+        const view = document.getElementById("InfoView");
+        view.classList.add("aktiv");
+        view.querySelectorAll(".InfoPill").forEach(function(pill, i) {
+            pill.style.opacity = "0";
+            pill.style.animation = "none";
+            setTimeout(function() {
+                pill.style.animation = "langEinblenden 0.4s ease forwards";
+            }, i * 150);
+        });
     }
+
+    document.getElementById("InfoButton").onclick = function() {
+        if (infoViewOffen) {
+            zeigeHauptansicht();
+        } else {
+            infoViewOeffnen();
+        }
+    };
 
     document.getElementById("LangButton").onclick = function() {
         if (langViewOffen) {
-            langViewSchliessen();
+            zeigeHauptansicht();
         } else {
             langViewOeffnen();
         }
