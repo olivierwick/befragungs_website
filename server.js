@@ -18,6 +18,8 @@ async function moderieren(text) {
         body: JSON.stringify({ input: text })
     });
     const data = await res.json();
+    console.log("OpenAI Antwort:", JSON.stringify(data));
+    if (!data.results) throw new Error("Keine results: " + JSON.stringify(data));
     const result = data.results[0];
     if (result.flagged) {
         const kategorien = Object.entries(result.categories)
