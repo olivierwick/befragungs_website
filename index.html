@@ -14,16 +14,16 @@
         <div id="container">
             <div id="content">
                 <div id="frage-nav">
-                    <span id="frage-prev">&#8249;</span>
+                    <span id="frage-prev"></span>
                     <span id="frage-nav-label">Andere Frage</span>
-                    <span id="frage-next">&#8250;</span>
+                    <span id="frage-next"></span>
                 </div>
                 <div id="Frage1"></div>
                 <div id="eingabe-wrapper">
                     <textarea id="Eingabe" placeholder=""></textarea>
                     <div id="cursor-bar"></div>
                 </div>
-                <div id="Submit"><span id="SubmitText">Absenden</span><span id="pfeil"></span></div>
+                <div id="Submit"><span id="pfeil-phantom"></span><span id="SubmitText">Absenden</span><span id="pfeil"></span></div>
             </div>
         </div>
 
@@ -53,7 +53,7 @@
     :root {
         --linie: 8px solid #ff009d;
         --fs: 46px;
-        --pad: 6px 14px;
+        --pad: 1px 14px;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -93,7 +93,6 @@
         background: white;
         cursor: pointer;
         opacity: 0;
-        animation: einblenden 0.5s ease forwards 0.1s;
         z-index: 10;
     }
 
@@ -111,7 +110,6 @@
         background: white;
         cursor: pointer;
         opacity: 0;
-        animation: einblenden 0.5s ease forwards 1.3s;
         z-index: 10;
     }
 
@@ -141,21 +139,28 @@
         align-items: center;
         cursor: pointer;
         opacity: 0;
-        animation: einblenden 0.5s ease forwards 0.3s;
         user-select: none;
     }
 
-    #frage-prev, #frage-next { padding: 0 8px; }
+    #frage-prev, #frage-next {
+        display: inline-block;
+        height: 1.3em;
+        width: 1.3em;
+        background-color: #ff009d;
+        -webkit-mask: url('weiter.png') no-repeat center / contain;
+        mask: url('weiter.png') no-repeat center / contain;
+        flex-shrink: 0;
+    }
+    #frage-prev { transform: rotate(180deg); }
 
     #Frage1 {
         border-bottom: var(--linie);
-        padding: var(--pad);
+        padding: 3px 14px;
         font-size: var(--fs);
         color: #ff009d;
         text-align: center;
         line-height: 1;
         opacity: 0;
-        animation: einblenden 0.5s ease forwards 0.5s;
     }
 
     #eingabe-wrapper {
@@ -163,7 +168,6 @@
         border-bottom: var(--linie);
         overflow: hidden;
         opacity: 0;
-        animation: einblenden 0.5s ease forwards 0.7s;
     }
 
     #Eingabe {
@@ -189,10 +193,10 @@
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        width: 8px;
-        height: 92px;
+        width: 10px;
+        height: 100px;
         background: #ff009d;
-        border-radius: 4px;
+        border-radius: 20px;
         display: block;
         animation: cursor-puls 1.4s ease-in-out infinite;
         pointer-events: none;
@@ -203,7 +207,6 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 8px;
         border-bottom: var(--linie);
         padding: var(--pad);
         font-size: var(--fs);
@@ -211,18 +214,27 @@
         text-align: center;
         cursor: pointer;
         opacity: 0;
-        animation: einblenden 0.5s ease forwards 0.9s;
+    }
+
+    #pfeil-phantom {
+        display: inline-block;
+        height: 1.0em;
+        width: 1.0em;
+        margin-right: 8px;
+        flex-shrink: 0;
     }
 
     #pfeil {
         display: inline-block;
-        height: 0.7em;
-        width: 0.7em;
+        height: 1.0em;
+        width: 1.0em;
+        margin-left: 8px;
         background-color: #ff009d;
-        -webkit-mask: url('pfeil2.png') no-repeat center / contain;
-        mask: url('pfeil2.png') no-repeat center / contain;
-        transform: rotate(180deg);
+        -webkit-mask: url('pfeil.png') no-repeat center / contain;
+        mask: url('pfeil.png') no-repeat center / contain;
         flex-shrink: 0;
+        opacity: 0;
+        transition: opacity 0.35s ease;
     }
 
     #LangView {
@@ -300,7 +312,7 @@
             fragen: [
                 'Was stört dich<br>am <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a><br>Projekt?',
                 'Was wünschst<br>du dir im neuen<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?',
-                'Was soll im<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a><br>nicht verschwinden?'
+                'Was soll im<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a> nicht<br> verschwinden?'
             ],
             andereFrage: "Andere Frage",
             placeholder: "", absenden: "Absenden", danke: "Danke", leer: "Bitte etwas schreiben",
@@ -545,6 +557,8 @@
         }
         document.getElementById("Eingabe").value = "";
         document.getElementById("cursor-bar").style.display = "block";
+        const p = document.getElementById("pfeil");
+        p.style.opacity = "0";
         submitText.textContent = t.danke;
         setTimeout(function() { submitText.textContent = t.absenden; }, 3000);
         fetch("/absenden", {
@@ -556,6 +570,12 @@
 
     document.getElementById("Eingabe").addEventListener("input", function() {
         document.getElementById("cursor-bar").style.display = this.value ? "none" : "block";
+        var p = document.getElementById("pfeil");
+        if (this.value) {
+            p.style.opacity = "1";
+        } else {
+            p.style.opacity = "0";
+        }
     });
 
     document.getElementById("Eingabe").addEventListener("focus", function() {
@@ -574,7 +594,99 @@
         });
     }, 10000);
 
+    function pageLoadAnimation() {
+        const t = uebersetzungen[aktiveSprache];
+        const STEP = 0.1;
+        const GAP = 0.08;
+        let d = 0.1;
+
+        // Wrap HTML in per-word spans, each with its own delay
+        function wordSpans(html) {
+            const re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|(\S+)/g;
+            const parts = [];
+            let m;
+            while ((m = re.exec(html)) !== null) {
+                if (/^<br/i.test(m[0])) {
+                    parts.push('<br>');
+                } else {
+                    parts.push('<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + m[0] + '</span>');
+                    d += STEP;
+                }
+            }
+            let out = '';
+            for (let i = 0; i < parts.length; i++) {
+                if (i > 0 && parts[i] !== '<br>' && parts[i - 1] !== '<br>') out += ' ';
+                out += parts[i];
+            }
+            return out;
+        }
+
+        // Make element visible instantly at time d (border hidden by matching background)
+        function startRow(el) {
+            el.style.borderColor = 'white';
+            el.style.animation = 'einblenden 0.001s ease forwards ' + d + 's';
+        }
+
+        // Reveal border after the last word's animation FINISHES (start + 0.3s duration)
+        function endRow(el) {
+            var borderDelay = d - STEP + 0.3; // last word started at d-STEP, takes 0.3s
+            setTimeout(function() { el.style.borderColor = '#ff009d'; }, borderDelay * 1000);
+            d = borderDelay + GAP; // next row starts after border appears
+        }
+
+        // Info button
+        var infoBtn = document.getElementById('InfoButton');
+        startRow(infoBtn);
+        infoBtn.innerHTML = '<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + infoBtn.textContent + '</span>';
+        d += STEP;
+        endRow(infoBtn);
+
+        // frage-nav
+        var nav = document.getElementById('frage-nav');
+        startRow(nav);
+        var prevEl = document.getElementById('frage-prev');
+        prevEl.style.opacity = '0';
+        prevEl.style.animation = 'einblenden 0.3s ease forwards ' + d + 's';
+        d += STEP;
+        document.getElementById('frage-nav-label').innerHTML = t.andereFrage.split(/\s+/).map(function(w) {
+            var s = '<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + w + '</span>';
+            d += STEP; return s;
+        }).join(' ');
+        var nextEl = document.getElementById('frage-next');
+        nextEl.style.opacity = '0';
+        nextEl.style.animation = 'einblenden 0.3s ease forwards ' + d + 's';
+        d += STEP;
+        endRow(nav);
+
+        // Frage1
+        var f1 = document.getElementById('Frage1');
+        startRow(f1);
+        f1.innerHTML = wordSpans(t.fragen[aktiveFrageIndex]);
+        endRow(f1);
+
+        // eingabe-wrapper — no words, fade in whole
+        document.getElementById('eingabe-wrapper').style.animation = 'einblenden 0.3s ease forwards ' + d + 's';
+        d += 0.3 + GAP;
+
+        // Submit
+        var sub = document.getElementById('Submit');
+        startRow(sub);
+        document.getElementById('SubmitText').innerHTML = t.absenden.split(/\s+/).map(function(w) {
+            var s = '<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + w + '</span>';
+            d += STEP; return s;
+        }).join(' ');
+        endRow(sub);
+
+        // LangButton
+        var langBtn = document.getElementById('LangButton');
+        startRow(langBtn);
+        langBtn.innerHTML = '<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + langBtn.textContent + '</span>';
+        d += STEP;
+        endRow(langBtn);
+    }
+
     spracheWechseln("de");
+    pageLoadAnimation();
 
     document.fonts.ready.then(function() {
         syncButtons();
