@@ -28,9 +28,11 @@
         </div>
 
         <div id="InfoView">
-            <div class="InfoPill" id="InfoPill1" lang="de"></div>
-            <div class="InfoPill" id="InfoPill2" lang="de"></div>
-            <div class="InfoPill" id="InfoPill3" lang="de"></div>
+            <div id="info-row">
+                <span id="info-prev"></span>
+                <div id="InfoText"></div>
+                <span id="info-next"></span>
+            </div>
         </div>
 
         <div id="LangView">
@@ -131,11 +133,11 @@
     #frage-nav {
         border-top: var(--linie);
         border-bottom: var(--linie);
-        padding: var(--pad);
+        padding: 1px 0;
         font-size: var(--fs);
         color: #ff009d;
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr auto 1fr;
         align-items: center;
         cursor: pointer;
         opacity: 0;
@@ -143,15 +145,17 @@
     }
 
     #frage-prev, #frage-next {
-        display: inline-block;
+        display: block;
         height: 1.3em;
         width: 1.3em;
         background-color: #ff009d;
         -webkit-mask: url('weiter.png') no-repeat center / contain;
         mask: url('weiter.png') no-repeat center / contain;
-        flex-shrink: 0;
+        justify-self: center;
     }
-    #frage-prev { transform: rotate(180deg); }
+    #frage-nav-label { padding: 0 14px; }
+    #frage-prev { transform: rotate(180deg); justify-self: start; margin-left: -12px; }
+    #frage-next { justify-self: end; margin-right: -12px; }
 
     #Frage1 {
         border-bottom: var(--linie);
@@ -194,13 +198,13 @@
         left: 50%;
         transform: translate(-50%, -50%);
         width: 10px;
-        height: 100px;
+        height: 90px;
         background: #ff009d;
         border-radius: 20px;
-        display: block;
         animation: cursor-puls 1.4s ease-in-out infinite;
         pointer-events: none;
         z-index: 1;
+        transition: height 0.2s ease;
     }
 
     #Submit {
@@ -234,6 +238,7 @@
         mask: url('pfeil.png') no-repeat center / contain;
         flex-shrink: 0;
         opacity: 0;
+        will-change: opacity;
         transition: opacity 0.35s ease;
     }
 
@@ -279,29 +284,49 @@
     }
     #InfoView.aktiv { display: flex; }
 
-    .InfoPill {
+    #info-row {
+        border-top: var(--linie);
         border-bottom: var(--linie);
-        padding: var(--pad);
+        padding: 1px 0;
+        font-size: var(--fs);
+        display: flex;
+        align-items: center;
+        user-select: none;
+        cursor: pointer;
+    }
+
+    #info-prev, #info-next {
+        display: block;
+        flex-shrink: 0;
+        height: 1.3em;
+        width: 1.3em;
+        background-color: #ff009d;
+        -webkit-mask: url('weiter.png') no-repeat center / contain;
+        mask: url('weiter.png') no-repeat center / contain;
+    }
+    #info-prev { transform: rotate(180deg); margin-left: -12px; }
+    #info-next { margin-right: -12px; }
+
+    #InfoText {
+        flex: 1;
+        padding: 0 14px;
         font-size: var(--fs);
         color: #ff009d;
         text-align: center;
-        opacity: 0;
-        background: white;
         line-height: 1.15;
         hyphens: auto;
-        flex-shrink: 0;
     }
 
-    .InfoPill:first-child, .LangPill:first-child { border-top: var(--linie); }
+    .LangPill:first-child { border-top: var(--linie); }
 
-    .InfoPill a, #Frage1 a {
+    #InfoText a, #Frage1 a {
         color: #ff009d;
         text-decoration: none;
         display: inline-block;
     }
 
     a.wackeln { animation: wackeln 0.5s ease; }
-    .InfoPill a:hover, #Frage1 a:hover { animation: wackeln 0.4s ease; }
+    #InfoText a:hover, #Frage1 a:hover { animation: wackeln 0.4s ease; }
 
     @media (max-width: 430px) { :root { --fs: 38px; } }
 </style>
@@ -314,7 +339,7 @@
                 'Was wünschst<br>du dir im neuen<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?',
                 'Was soll im<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a> nicht<br> verschwinden?'
             ],
-            andereFrage: "Andere Frage",
+            andereFrage: "Fragen",
             placeholder: "", absenden: "Absenden", danke: "Danke", leer: "Bitte etwas schreiben",
             dir: "ltr", lang: "de", infobtn: "Info", langbtn: "Sprachen", zurueck: "Zurück",
             info: [
@@ -329,7 +354,7 @@
                 'Cosa desideri<br>nel nuovo<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?',
                 'Cosa non dovrebbe<br>sparire dal<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?'
             ],
-            andereFrage: "Altra domanda",
+            andereFrage: "Fragen",
             placeholder: "", absenden: "Invia", danke: "Grazie", leer: "Scrivi qualcosa",
             dir: "ltr", lang: "it", infobtn: "Info", langbtn: "Lingue", zurueck: "Indietro",
             info: [
@@ -344,7 +369,7 @@
                 'Que souhaites-tu<br>dans le nouveau<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?',
                 'Que ne doit pas<br>disparaître<br>du <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?'
             ],
-            andereFrage: "Autre question",
+            andereFrage: "Fragen",
             placeholder: "", absenden: "Envoyer", danke: "Merci", leer: "Écris quelque chose",
             dir: "ltr", lang: "fr", infobtn: "Info", langbtn: "Langues", zurueck: "Retour",
             info: [
@@ -359,7 +384,7 @@
                 'ماذا تتمنى<br>في <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a><br>الجديد؟',
                 'ما الذي يجب<br>ألا يختفي من<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>؟'
             ],
-            andereFrage: "سؤال آخر",
+            andereFrage: "Fragen",
             placeholder: "", absenden: "إرسال", danke: "شكراً", leer: "اكتب شيئاً",
             dir: "rtl", lang: "ar", infobtn: "معلومات", langbtn: "اللغات", zurueck: "رجوع",
             info: [
@@ -374,7 +399,7 @@
                 "Yeni <a href=\"https://www.klybeckplus.ch\" target=\"_blank\">Klybeck</a>'te<br>ne<br>istersin?",
                 "<a href=\"https://www.klybeckplus.ch\" target=\"_blank\">Klybeck</a>'te<br>ne<br>kaybolmamalı?"
             ],
-            andereFrage: "Başka soru",
+            andereFrage: "Fragen",
             placeholder: "", absenden: "Gönder", danke: "Teşekkürler", leer: "Bir şeyler yaz",
             dir: "ltr", lang: "tr", infobtn: "Bilgi", langbtn: "Diller", zurueck: "Geri",
             info: [
@@ -389,7 +414,7 @@
                 'What do you<br>wish for in the<br>new <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?',
                 'What should<br>not disappear<br>from <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?'
             ],
-            andereFrage: "Other question",
+            andereFrage: "Fragen",
             placeholder: "", absenden: "Submit", danke: "Thank you", leer: "Please write something",
             dir: "ltr", lang: "en", infobtn: "Info", langbtn: "Languages", zurueck: "Back",
             info: [
@@ -404,7 +429,7 @@
                 '¿Qué deseas<br>en el nuevo<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?',
                 '¿Qué no debería<br>desaparecer<br>del <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?'
             ],
-            andereFrage: "Otra pregunta",
+            andereFrage: "Fragen",
             placeholder: "", absenden: "Enviar", danke: "Gracias", leer: "Escribe algo",
             dir: "ltr", lang: "es", infobtn: "Info", langbtn: "Idiomas", zurueck: "Volver",
             info: [
@@ -419,7 +444,7 @@
                 'Šta želiš<br>u novom<br><a href="https://www.klybeckplus.ch" target="_blank">Klybecku</a>?',
                 'Šta ne bi trebalo<br>da nestane<br>iz <a href="https://www.klybeckplus.ch" target="_blank">Klybecka</a>?'
             ],
-            andereFrage: "Drugo pitanje",
+            andereFrage: "Fragen",
             placeholder: "", absenden: "Pošalji", danke: "Hvala", leer: "Napiši nešto",
             dir: "ltr", lang: "sr", infobtn: "Info", langbtn: "Jezici", zurueck: "Nazad",
             info: [
@@ -432,12 +457,35 @@
 
     let aktiveSprache = "de";
     let aktiveFrageIndex = 0;
+    let aktiveInfoIndex = 0;
     let langViewOffen = false;
     let infoViewOffen = false;
 
+    function animiereFrageText(el, html) {
+        var STEP = 0.07;
+        var d = 0;
+        var re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|([^\s<]+)/g;
+        var parts = [];
+        var m;
+        while ((m = re.exec(html)) !== null) {
+            if (/^<br/i.test(m[0])) {
+                parts.push('<br>');
+            } else {
+                parts.push('<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + m[0] + '</span>');
+                d += STEP;
+            }
+        }
+        var out = '';
+        for (var i = 0; i < parts.length; i++) {
+            if (i > 0 && parts[i] !== '<br>' && parts[i - 1] !== '<br>') out += ' ';
+            out += parts[i];
+        }
+        el.innerHTML = out;
+    }
+
     function zeigeFrageAktuell() {
         const t = uebersetzungen[aktiveSprache];
-        document.getElementById("Frage1").innerHTML = t.fragen[aktiveFrageIndex];
+        animiereFrageText(document.getElementById("Frage1"), t.fragen[aktiveFrageIndex]);
         document.getElementById("frage-nav-label").textContent = t.andereFrage;
     }
 
@@ -448,11 +496,9 @@
     }
 
     let cachedWidth = 0;
-
     function syncButtons() {
-        const content = document.getElementById("content");
-        const rect = content.getBoundingClientRect();
-        if (rect.width > 0) { cachedWidth = rect.width; }
+        const rect = document.getElementById("content").getBoundingClientRect();
+        if (rect.width > 0) cachedWidth = rect.width;
         if (cachedWidth === 0) return;
         ["InfoButton", "LangButton", "LangView", "InfoView"].forEach(function(id) {
             document.getElementById(id).style.width = cachedWidth + "px";
@@ -468,7 +514,6 @@
         document.getElementById("InfoButton").textContent = t.infobtn;
         langViewOffen = false;
         infoViewOffen = false;
-        requestAnimationFrame(syncButtons);
     }
 
     function spracheWechseln(lang) {
@@ -477,12 +522,15 @@
         document.getElementById("Eingabe").placeholder = t.placeholder;
         document.getElementById("SubmitText").textContent = t.absenden;
         document.getElementById("container").style.direction = t.dir;
-        document.querySelectorAll(".InfoPill").forEach(function(pill, i) {
-            pill.innerHTML = t.info[i];
-            pill.setAttribute("lang", t.lang);
-        });
         zeigeFrageAktuell();
         zeigeHauptansicht();
+    }
+
+    function zeigeInfoAktuell() {
+        const t = uebersetzungen[aktiveSprache];
+        const el = document.getElementById("InfoText");
+        el.setAttribute("lang", t.lang);
+        animiereFrageText(el, t.info[aktiveInfoIndex]);
     }
 
     function langViewOeffnen() {
@@ -508,13 +556,10 @@
         versteckeAlles();
         document.getElementById("InfoButton").textContent = uebersetzungen[aktiveSprache].zurueck;
         document.getElementById("LangButton").textContent = "Languages";
-        const view = document.getElementById("InfoView");
-        view.classList.add("aktiv");
-        view.querySelectorAll(".InfoPill").forEach(function(pill, i) {
-            pill.style.opacity = "0";
-            pill.style.animation = "none";
-            setTimeout(function() { pill.style.animation = "langEinblenden 0.4s ease forwards"; }, i * 150);
-        });
+        aktiveInfoIndex = 0;
+        document.getElementById("InfoView").style.direction = uebersetzungen[aktiveSprache].dir;
+        document.getElementById("InfoView").classList.add("aktiv");
+        zeigeInfoAktuell();
     }
 
     document.getElementById("InfoButton").onclick = function() {
@@ -528,6 +573,18 @@
     document.querySelectorAll(".LangPill").forEach(function(pill) {
         pill.onclick = function() { spracheWechseln(this.dataset.lang); };
     });
+
+    document.getElementById("info-prev").onclick = function() {
+        const t = uebersetzungen[aktiveSprache];
+        aktiveInfoIndex = (aktiveInfoIndex - 1 + t.info.length) % t.info.length;
+        zeigeInfoAktuell();
+    };
+
+    document.getElementById("info-next").onclick = function() {
+        const t = uebersetzungen[aktiveSprache];
+        aktiveInfoIndex = (aktiveInfoIndex + 1) % t.info.length;
+        zeigeInfoAktuell();
+    };
 
     document.getElementById("frage-prev").onclick = function() {
         const t = uebersetzungen[aktiveSprache];
@@ -556,9 +613,8 @@
             return;
         }
         document.getElementById("Eingabe").value = "";
-        document.getElementById("cursor-bar").style.display = "block";
-        const p = document.getElementById("pfeil");
-        p.style.opacity = "0";
+        showCursorBar();
+        pfeilEl.style.opacity = "0";
         submitText.textContent = t.danke;
         setTimeout(function() { submitText.textContent = t.absenden; }, 3000);
         fetch("/absenden", {
@@ -568,23 +624,40 @@
         });
     };
 
+    var barEl = document.getElementById("cursor-bar");
+    var pfeilEl = document.getElementById("pfeil");
+
+    function showCursorBar() {
+        barEl.style.opacity = "";
+        barEl.style.animation = "cursor-puls 1.4s ease-in-out infinite";
+    }
+    function hideCursorBar() {
+        barEl.style.animation = "none";
+        barEl.style.opacity = "0";
+    }
+
     document.getElementById("Eingabe").addEventListener("input", function() {
-        document.getElementById("cursor-bar").style.display = this.value ? "none" : "block";
-        var p = document.getElementById("pfeil");
         if (this.value) {
-            p.style.opacity = "1";
+            hideCursorBar();
+            pfeilEl.style.opacity = "1";
         } else {
-            p.style.opacity = "0";
+            showCursorBar();
+            pfeilEl.style.opacity = "0";
         }
     });
 
     document.getElementById("Eingabe").addEventListener("focus", function() {
         if (!this.value) {
-            const bar = document.getElementById("cursor-bar");
-            bar.style.animation = "none";
-            bar.offsetHeight;
-            bar.style.animation = "cursor-puls 1.4s ease-in-out infinite";
+            barEl.style.opacity = "";
+            barEl.style.animation = "none";
+            barEl.style.height = "100px";
+            barEl.offsetHeight;
+            barEl.style.animation = "cursor-puls 1.4s ease-in-out infinite";
         }
+    });
+
+    document.getElementById("Eingabe").addEventListener("blur", function() {
+        barEl.style.height = "90px";
     });
 
     setInterval(function() {
@@ -602,7 +675,7 @@
 
         // Wrap HTML in per-word spans, each with its own delay
         function wordSpans(html) {
-            const re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|(\S+)/g;
+            const re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|([^\s<]+)/g;
             const parts = [];
             let m;
             while ((m = re.exec(html)) !== null) {
@@ -687,11 +760,13 @@
 
     spracheWechseln("de");
     pageLoadAnimation();
-
-    document.fonts.ready.then(function() {
-        syncButtons();
-        window.addEventListener("resize", syncButtons);
+    requestAnimationFrame(syncButtons);
+    var resizeTimer;
+    window.addEventListener("resize", function() {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(syncButtons, 150);
     });
+
 
 </script>
 </html>
