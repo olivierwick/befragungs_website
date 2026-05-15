@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Klybeck</title>
+</head>
+<body>
+
+    <div id="frame">
+
+        <div id="InfoButton">Info</div>
+
+        <div id="container">
+            <div id="Frage1">Was stört dich am <br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a><br>Projekt?</div>
+            <div id="eingabe-gruppe">
+                <div id="eingabe-wrapper">
+                    <textarea id="Eingabe" placeholder=""></textarea>
+                    <div id="cursor-bar"></div>
+                </div>
+                <div id="Submit"><span id="SubmitText">Absenden</span><span id="pfeil"></span></div>
+            </div>
+        </div>
+
+        <div id="InfoView">
+            <div class="InfoPill" id="InfoPill1" lang="de">Hallo! Mein Name ist Olivier Wick und ich studiere visuelle Kommunikation in Basel.</div>
+            <div class="InfoPill" id="InfoPill2" lang="de">Für meine Bachelorarbeit sammle ich anonyme Meinungen zum <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> Projekt, diese werden als Installation am Hafen visualisiert.</div>
+            <div class="InfoPill" id="InfoPill3" lang="de">Fragen? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> oder <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a></div>
+        </div>
+
+        <div id="LangView">
+            <div class="LangPill" data-lang="de">Deutsch</div>
+            <div class="LangPill" data-lang="it">Italiano</div>
+            <div class="LangPill" data-lang="fr">Français</div>
+            <div class="LangPill" data-lang="ar">عربي</div>
+            <div class="LangPill" data-lang="tr">Türkçe</div>
+            <div class="LangPill" data-lang="en">English</div>
+            <div class="LangPill" data-lang="es">Español</div>
+            <div class="LangPill" data-lang="sr">Srpski</div>
+        </div>
+
+        <div id="LangButton">Languages</div>
+
+    </div>
+
+</body>
+<style>
+    :root {
+        --breite: 90vw; /* ← Breite hier anpassen */
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        background-color: white;
+        height: 100dvh;
+        overflow: hidden;
+        font-family: Helvetica, Arial, sans-serif;
+    }
+
+    #frame {
+        height: 100%;
+        overflow: hidden;
+        position: relative;
+    }
+
+    /* ── Keyframes ── */
+    @keyframes einblenden {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    @keyframes einblenden-center {
+        from { opacity: 0; transform: translateX(-50%); }
+        to   { opacity: 1; transform: translateX(-50%); }
+    }
+
+    /* ── INFO Button ── */
+    #InfoButton {
+        position: fixed;
+        bottom: max(2px, env(safe-area-inset-bottom));
+        left: calc(50% - var(--breite) / 2);
+        background: #f1f1f1;
+        border-radius: 8px;
+        padding: 3px 10px;
+        font-size: 46px;
+        font-weight: 400;
+        color: #ff009d;
+        cursor: pointer;
+        white-space: nowrap;
+        opacity: 0;
+        animation: einblenden 0.5s ease forwards 0.1s;
+        z-index: 10;
+    }
+
+    /* ── Hauptinhalt ── */
+    #container {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: var(--breite);
+        padding: 2px 0;
+    }
+
+    #Frage1 {
+        font-size: 46px;
+        font-weight: 400;
+        color: #ff009d;
+        text-align: center;
+        line-height: 1.1;
+        opacity: 0;
+        animation: einblenden 0.5s ease forwards 0.4s;
+        background: #f1f1f1;
+        border-radius: 8px;
+        padding: 3px 10px;
+        width: fit-content;
+        margin: 0 auto;
+    }
+
+    #eingabe-gruppe {
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        opacity: 0;
+        animation: einblenden 0.5s ease forwards 0.7s;
+    }
+
+    #Eingabe {
+        background: #f1f1f1;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        padding: 12px 14px;
+        font-size: 46px;
+        font-weight: 500;
+        font-family: Helvetica, Arial, sans-serif;
+        color: #ff009d;
+        caret-color: transparent;
+        width: 100%;
+        resize: none;
+        overflow: hidden;
+        height: 100px;
+    }
+
+    #Submit {
+        background: #f1f1f1;
+        border-radius: 8px;
+        padding: 3px 10px;
+        font-size: 46px;
+        font-weight: 400;
+        cursor: pointer;
+        color: #ff009d;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        width: fit-content;
+    }
+
+    #pfeil {
+        display: inline-block;
+        height: 0.7em;
+        width: 0.7em;
+        background-color: #ff009d;
+        -webkit-mask: url('pfeil2.png') no-repeat center / contain;
+        mask: url('pfeil2.png') no-repeat center / contain;
+        transform: rotate(180deg);
+        vertical-align: middle;
+    }
+
+    #eingabe-wrapper {
+        position: relative;
+        width: 100%;
+    }
+
+    #cursor-bar {
+        position: absolute;
+        top: 12px;
+        left: 14px;
+        width: 4px;
+        height: 46px;
+        background: #ff009d;
+        border-radius: 2px;
+        display: block;
+        animation: cursor-puls 1.4s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    @keyframes cursor-puls {
+        0%, 100% { opacity: 1; }
+        50%       { opacity: 0; }
+    }
+
+    /* ── LANGUAGES Button ── */
+    #LangButton {
+        position: fixed;
+        bottom: max(2px, env(safe-area-inset-bottom));
+        right: calc(50% - var(--breite) / 2);
+        background: #f1f1f1;
+        border-radius: 8px;
+        padding: 3px 10px;
+        font-size: 46px;
+        font-weight: 500;
+        color: #ff009d;
+        cursor: pointer;
+        white-space: nowrap;
+        opacity: 0;
+        animation: einblenden 0.5s ease forwards 1.3s;
+        z-index: 10;
+    }
+
+    /* ── Sprachenansicht ── */
+    #LangView {
+        display: none;
+        position: absolute;
+        top: 2px;
+        left: max(2px, env(safe-area-inset-left));
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    #LangView.aktiv {
+        display: flex;
+    }
+
+    .LangPill {
+        background: #f1f1f1;
+        border-radius: 8px;
+        padding: 3px 20px;
+        font-size: 46px;
+        font-weight: 500;
+        color: #ff009d;
+        cursor: pointer;
+        text-align: center;
+        opacity: 0;
+    }
+
+
+    /* ── Info Ansicht ── */
+    #InfoView {
+        display: none;
+        position: absolute;
+        top: 2px;
+        left: max(2px, env(safe-area-inset-left));
+        right: max(2px, env(safe-area-inset-right));
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    #InfoView.aktiv {
+        display: flex;
+    }
+
+    .InfoPill {
+        background: #f1f1f1;
+        border-radius: 8px;
+        padding: 3px 20px;
+        font-size: 46px;
+        font-weight: 500;
+        color: #ff009d;
+        text-align: center;
+        opacity: 0;
+        line-height: 1;
+        max-width: 80vw;
+        hyphens: auto;
+        word-break: break-word;
+    }
+
+    #InfoPill1 { min-width: 45vw; }
+    #InfoPill2 { min-width: 55vw; }
+    #InfoPill3 { min-width: 30vw; }
+
+    @keyframes langEinblenden {
+        from { opacity: 0; }
+        to   { opacity: 1; }
+    }
+
+    /* ── Links ── */
+    .InfoPill a, #Frage1 a {
+        color: #ff009d;
+        text-decoration: none;
+        display: inline-block;
+    }
+
+    @keyframes wackeln {
+        0%   { transform: rotate(0deg); }
+        15%  { transform: rotate(-8deg); }
+        35%  { transform: rotate(8deg); }
+        55%  { transform: rotate(-5deg); }
+        75%  { transform: rotate(5deg); }
+        100% { transform: rotate(0deg); }
+    }
+
+    a.wackeln {
+        animation: wackeln 0.5s ease;
+    }
+
+    .InfoPill a:hover, #Frage1 a:hover {
+        animation: wackeln 0.4s ease;
+    }
+
+    @media (max-width: 430px) {
+        #Frage1, #Eingabe, #Submit, #InfoButton, #LangButton, .LangPill, .InfoPill {
+            font-size: 32px;
+        }
+    }
+</style>
+<script>
+
+    function syncBreite() {
+        const frage = document.getElementById('Frage1');
+        const gruppe = document.getElementById('eingabe-gruppe');
+        const info = document.getElementById('InfoButton');
+        const lang = document.getElementById('LangButton');
+        const w = frage.offsetWidth;
+        gruppe.style.width = w + 'px';
+        const rect = frage.getBoundingClientRect();
+        info.style.left = rect.left + 'px';
+        lang.style.right = (window.innerWidth - rect.right) + 'px';
+    }
+
+    document.fonts.ready.then(syncBreite);
+    window.addEventListener('resize', syncBreite);
+
+    const uebersetzungen = {
+        de: { frage: 'Was wünschst du<br>dir im neuen <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?', placeholder: "...", absenden: "Absenden", danke: "Danke", leer: "Bitte etwas schreiben.", dir: "ltr", lang: "de", infobtn: "Info", langbtn: "Sprachen", zurueck: "Zurück",
+              info: ["Hallo! Mein Name ist Olivier Wick und ich studiere visuelle Kommunikation in Basel.", 'Für meine Bachelorarbeit sammle ich anonyme Meinungen zum <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> Projekt, diese werden als Installation am Hafen visualisiert.', 'Fragen? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> oder <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        it: { frage: 'Cosa desideri<br>nel nuovo <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?', placeholder: "...", absenden: "Invia", danke: "Grazie", leer: "Scrivi qualcosa.", dir: "ltr", lang: "it", infobtn: "Info", langbtn: "Lingue", zurueck: "Indietro",
+              info: ["Ciao! Mi chiamo Olivier Wick e studio Comunicazione Visiva a Basilea.", 'Per la mia tesi di bachelor raccolgo opinioni anonime sul progetto <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, che verranno visualizzate come installazione al porto.', 'Domande? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> o <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        fr: { frage: 'Que souhaites-tu<br>dans le nouveau <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?', placeholder: "...", absenden: "Envoyer", danke: "Merci", leer: "Écris quelque chose.", dir: "ltr", lang: "fr", infobtn: "Info", langbtn: "Langues", zurueck: "Retour",
+              info: ["Bonjour! Je m'appelle Olivier Wick et j'étudie la Communication Visuelle à Bâle.", 'Pour mon bachelor, je collecte des opinions anonymes sur le projet <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, qui seront visualisées comme installation au port.', 'Questions? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> ou <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        ar: { frage: 'ماذا تتمنى<br>في <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a> الجديد؟', placeholder: "...", absenden: "إرسال", danke: "شكراً", leer: "اكتب شيئاً.", dir: "rtl", lang: "ar", infobtn: "معلومات", langbtn: "اللغات", zurueck: "رجوع",
+              info: ["مرحباً! اسمي أوليفييه ويك وأدرس التواصل البصري في بازل.", 'لأطروحتي أجمع آراء مجهولة حول مشروع <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> وستُعرض كتركيب فني في الميناء.', 'أسئلة؟ Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> أو <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        tr: { frage: 'Yeni <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>\'te<br>ne istersin?', placeholder: "...", absenden: "Gönder", danke: "Teşekkürler", leer: "Bir şeyler yaz.", dir: "ltr", lang: "tr", infobtn: "Bilgi", langbtn: "Diller", zurueck: "Geri",
+              info: ["Merhaba! Adım Olivier Wick ve Basel'de Görsel İletişim okuyorum.", 'Lisans tezim için <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> projesi hakkında anonim görüşler topluyorum; bunlar limanda bir enstalasyon olarak görselleştirilecek.', 'Sorular? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> veya <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        en: { frage: 'What do you wish for<br>in the new <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?', placeholder: "...", absenden: "Submit", danke: "Thank you", leer: "Please write something.", dir: "ltr", lang: "en", infobtn: "Info", langbtn: "Languages", zurueck: "Back",
+              info: ["Hello! My name is Olivier Wick and I study Visual Communication in Basel.", 'For my bachelor\'s thesis I collect anonymous opinions about the <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> project, which will be visualised as an installation at the harbour.', 'Questions? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> or <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        es: { frage: '¿Qué deseas<br>en el nuevo <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?', placeholder: "...", absenden: "Enviar", danke: "Gracias", leer: "Escribe algo.", dir: "ltr", lang: "es", infobtn: "Info", langbtn: "Idiomas", zurueck: "Volver",
+              info: ["¡Hola! Me llamo Olivier Wick y estudio Comunicación Visual en Basilea.", 'Para mi tesis de grado recopilo opiniones anónimas sobre el proyecto <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, que se visualizarán como instalación en el puerto.', '¿Preguntas? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> o <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] },
+        sr: { frage: 'Šta želiš<br>u novom <a href="https://www.klybeckplus.ch" target="_blank">Klybecku</a>?', placeholder: "...", absenden: "Pošalji", danke: "Hvala", leer: "Napiši nešto.", dir: "ltr", lang: "sr", infobtn: "Info", langbtn: "Jezici", zurueck: "Nazad",
+              info: ["Zdravo! Moje ime je Olivier Wick i studiram Vizuelnu Komunikaciju u Bazelu.", 'Za moj bachelor rad prikupljam anonimna mišljenja o projektu <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, koja će biti vizualizovana kao instalacija u luci.', 'Pitanja? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> ili <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'] }
+    };
+
+    let aktiveSprache = "de";
+    let langViewOffen = false;
+    let infoViewOffen = false;
+
+    function versteckeAlles() {
+        document.getElementById("container").style.display = "none";
+        document.getElementById("LangView").classList.remove("aktiv");
+        document.getElementById("InfoView").classList.remove("aktiv");
+    }
+
+    function zeigeHauptansicht() {
+        const t = uebersetzungen[aktiveSprache];
+        document.getElementById("container").style.display = "flex";
+        document.getElementById("LangView").classList.remove("aktiv");
+        document.getElementById("InfoView").classList.remove("aktiv");
+        document.getElementById("LangButton").textContent = "Languages";
+        document.getElementById("InfoButton").textContent = t.infobtn;
+        langViewOffen = false;
+        infoViewOffen = false;
+    }
+
+    function spracheWechseln(lang) {
+        aktiveSprache = lang;
+        const t = uebersetzungen[lang];
+        document.getElementById("Frage1").innerHTML = t.frage;
+        document.getElementById("Eingabe").placeholder = t.placeholder;
+        document.getElementById("SubmitText").textContent = t.absenden;
+        document.getElementById("container").style.direction = t.dir;
+        const pills = document.querySelectorAll(".InfoPill");
+        t.info.forEach(function(text, i) {
+            pills[i].innerHTML = text;
+            pills[i].setAttribute("lang", t.lang);
+        });
+        zeigeHauptansicht();
+        setTimeout(syncBreite, 0);
+    }
+
+    function langViewOeffnen() {
+        langViewOffen = true;
+        infoViewOffen = false;
+        versteckeAlles();
+        document.getElementById("LangButton").textContent = uebersetzungen[aktiveSprache].zurueck;
+        document.getElementById("InfoButton").textContent = uebersetzungen[aktiveSprache].infobtn;
+        const view = document.getElementById("LangView");
+        view.classList.add("aktiv");
+        view.querySelectorAll(".LangPill").forEach(function(pill, i) {
+            pill.style.opacity = "0";
+            pill.style.animation = "none";
+            setTimeout(function() {
+                pill.style.animation = "langEinblenden 0.4s ease forwards";
+            }, i * 120);
+        });
+    }
+
+    function infoViewOeffnen() {
+        infoViewOffen = true;
+        langViewOffen = false;
+        versteckeAlles();
+        document.getElementById("InfoButton").textContent = uebersetzungen[aktiveSprache].zurueck;
+        document.getElementById("LangButton").textContent = "Languages";
+        const view = document.getElementById("InfoView");
+        view.classList.add("aktiv");
+        view.querySelectorAll(".InfoPill").forEach(function(pill, i) {
+            pill.style.opacity = "0";
+            pill.style.animation = "none";
+            setTimeout(function() {
+                pill.style.animation = "langEinblenden 0.4s ease forwards";
+            }, i * 150);
+        });
+    }
+
+    document.getElementById("InfoButton").onclick = function() {
+        if (infoViewOffen) {
+            zeigeHauptansicht();
+        } else {
+            infoViewOeffnen();
+        }
+    };
+
+    document.getElementById("LangButton").onclick = function() {
+        if (langViewOffen) {
+            zeigeHauptansicht();
+        } else {
+            langViewOeffnen();
+        }
+    };
+
+    document.querySelectorAll(".LangPill").forEach(function(pill) {
+        pill.onclick = function() {
+            spracheWechseln(this.dataset.lang);
+        };
+    });
+
+    document.getElementById("Submit").onclick = function() {
+        const text = document.getElementById("Eingabe").value.trim();
+        const btn = document.getElementById("Submit");
+        const t = uebersetzungen[aktiveSprache];
+
+        const submitText = document.getElementById("SubmitText");
+        if (text === "") {
+            submitText.textContent = t.leer;
+            setTimeout(function() { submitText.textContent = t.absenden; }, 3000);
+            return;
+        }
+
+        document.getElementById("Eingabe").value = "";
+        document.getElementById("cursor-bar").style.display = "block";
+        submitText.textContent = t.danke;
+        setTimeout(function() { submitText.textContent = t.absenden; }, 3000);
+
+        fetch("/absenden", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ text: text })
+        });
+    };
+
+    document.getElementById("Eingabe").addEventListener("input", function() {
+        document.getElementById("cursor-bar").style.display = this.value ? "none" : "block";
+    });
+
+    document.getElementById("Eingabe").addEventListener("focus", function() {
+        if (!this.value) {
+            const bar = document.getElementById("cursor-bar");
+            bar.style.animation = "none";
+            bar.offsetHeight;
+            bar.style.animation = "cursor-puls 1.4s ease-in-out infinite";
+        }
+    });
+
+    setInterval(function() {
+        document.querySelectorAll("a").forEach(function(a) {
+            a.classList.add("wackeln");
+            setTimeout(function() { a.classList.remove("wackeln"); }, 500);
+        });
+    }, 10000);
+
+</script>
+</html>
