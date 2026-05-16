@@ -335,18 +335,7 @@
     #InfoText a:hover, #Frage1 a:hover { animation: wackeln 0.4s ease; }
     .qmark { display: inline-block; transform: scaleX(-1); }
 
-    #frage-nav, #Frage1, #InfoButton, #LangButton {
-        transition: filter 0.25s ease;
-        will-change: filter;
-    }
-    body.fokus-aktiv #frage-nav,
-    body.fokus-aktiv #Frage1,
-    body.fokus-aktiv #InfoButton,
-    body.fokus-aktiv #LangButton {
-        filter: blur(5px);
-    }
-
-    @media (max-width: 430px) { :root { --fs: 38px; } }
+@media (max-width: 430px) { :root { --fs: 38px; } }
 </style>
 <script>
 
@@ -639,8 +628,6 @@
             return;
         }
         document.getElementById("Eingabe").value = "";
-        document.getElementById("Eingabe").blur();
-        document.body.classList.remove("fokus-aktiv");
         showCursorBar();
         pfeilEl.style.opacity = "0";
         submitText.textContent = t.danke;
@@ -675,7 +662,6 @@
     });
 
     document.getElementById("Eingabe").addEventListener("focus", function() {
-        document.body.classList.add("fokus-aktiv");
         if (!this.value) {
             barEl.style.opacity = "";
             barEl.style.animation = "none";
@@ -689,7 +675,6 @@
     });
 
     document.getElementById("Eingabe").addEventListener("blur", function() {
-        document.body.classList.remove("fokus-aktiv");
         barEl.style.height = "75px";
         barEl.style.animation = "none";
         requestAnimationFrame(function() {
