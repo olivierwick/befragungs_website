@@ -127,7 +127,7 @@
     #content {
         display: flex;
         flex-direction: column;
-        max-width: 92vw;
+        width: 92vw;
     }
 
     #frage-nav {
@@ -158,7 +158,6 @@
     #frage-next { justify-self: end; margin-right: -12px; }
 
     #Frage1 {
-        border-bottom: var(--linie);
         padding: 3px 14px;
         font-size: var(--fs);
         color: #ff009d;
@@ -169,6 +168,7 @@
 
     #eingabe-wrapper {
         position: relative;
+        border-top: var(--linie);
         border-bottom: var(--linie);
         overflow: hidden;
         opacity: 0;
@@ -308,6 +308,8 @@
     }
     #info-prev { transform: rotate(180deg); margin-left: -12px; }
     #info-next { margin-right: -12px; }
+    #InfoView[dir="rtl"] #info-prev { transform: rotate(0deg); margin-left: 0; margin-right: -12px; }
+    #InfoView[dir="rtl"] #info-next { transform: rotate(180deg); margin-right: 0; margin-left: -12px; }
 
     #InfoText {
         flex: 1;
@@ -331,6 +333,18 @@
 
     a.wackeln { animation: wackeln 0.5s ease; }
     #InfoText a:hover, #Frage1 a:hover { animation: wackeln 0.4s ease; }
+    .qmark { display: inline-block; transform: scaleX(-1); }
+
+    #frage-nav, #Frage1, #InfoButton, #LangButton {
+        transition: filter 0.25s ease;
+        will-change: filter;
+    }
+    body.fokus-aktiv #frage-nav,
+    body.fokus-aktiv #Frage1,
+    body.fokus-aktiv #InfoButton,
+    body.fokus-aktiv #LangButton {
+        filter: blur(5px);
+    }
 
     @media (max-width: 430px) { :root { --fs: 38px; } }
 </style>
@@ -340,8 +354,8 @@
         de: {
             fragen: [
                 'Was stört dich<br>am <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a><br>Projekt?',
-                'Was wünschst<br>du dir im neuen<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?',
-                'Was soll im<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a> nicht<br> verschwinden?'
+                'Was wünschst<br>du dir im neuen<br>Klybeck?',
+                'Was soll im<br>Klybeck nicht<br> verschwinden?'
             ],
             andereFrage: "Fragen",
             placeholder: "", absenden: "Absenden", danke: "Danke", leer: "Schreib etwas",
@@ -355,10 +369,10 @@
         it: {
             fragen: [
                 'Cosa ti disturba<br>del progetto<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>?',
-                'Cosa desideri<br>nel nuovo<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?',
-                'Cosa non dovrebbe<br>sparire dal<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?'
+                'Cosa desideri<br>nel nuovo<br>Klybeck?',
+                'Cosa non dovrebbe<br>sparire dal<br>Klybeck?'
             ],
-            andereFrage: "Fragen",
+            andereFrage: "Domande",
             placeholder: "", absenden: "Invia", danke: "Grazie", leer: "Scrivi qualcosa",
             dir: "ltr", lang: "it", infobtn: "Info", langbtn: "Lingue", zurueck: "Indietro",
             info: [
@@ -370,10 +384,10 @@
         fr: {
             fragen: [
                 "Qu'est-ce qui<br>te dérange dans<br>le projet <a href=\"https://www.klybeckplus.ch\" target=\"_blank\">Klybeck Plus</a>?",
-                'Que souhaites-tu<br>dans le nouveau<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?',
-                'Que ne doit pas<br>disparaître<br>du <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?'
+                'Que souhaites-tu<br>dans le nouveau<br>Klybeck?',
+                'Que ne doit pas<br>disparaître<br>du Klybeck?'
             ],
-            andereFrage: "Fragen",
+            andereFrage: "Questions",
             placeholder: "", absenden: "Envoyer", danke: "Merci", leer: "Écris quelque chose",
             dir: "ltr", lang: "fr", infobtn: "Info", langbtn: "Langues", zurueck: "Retour",
             info: [
@@ -384,26 +398,26 @@
         },
         ar: {
             fragen: [
-                'ما الذي يزعجك<br>في مشروع<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>؟',
-                'ماذا تتمنى<br>في <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a><br>الجديد؟',
-                'ما الذي يجب<br>ألا يختفي من<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>؟'
+                'ما الذي يزعجك<br>في مشروع<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a><span class="qmark">?</span>',
+                'ماذا تتمنى<br>في Klybeck<br>الجديد<span class="qmark">?</span>',
+                'ما الذي يجب<br>ألا يختفي من<br>Klybeck<span class="qmark">?</span>'
             ],
-            andereFrage: "Fragen",
+            andereFrage: "أسئلة",
             placeholder: "", absenden: "إرسال", danke: "شكراً", leer: "اكتب شيئاً",
             dir: "rtl", lang: "ar", infobtn: "معلومات", langbtn: "اللغات", zurueck: "رجوع",
             info: [
                 "مرحباً! اسمي أوليفييه ويك وأدرس التواصل البصري في بازل.",
                 'لأطروحتي أجمع آراء مجهولة حول مشروع <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> وستُعرض كتركيب فني في الميناء.',
-                'أسئلة؟ Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> أو <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'
+                'أسئلة<span class="qmark">?</span> Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> أو <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'
             ]
         },
         tr: {
             fragen: [
                 '<a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a><br>Projesinde seni<br>ne rahatsız ediyor?',
-                "Yeni <a href=\"https://www.klybeckplus.ch\" target=\"_blank\">Klybeck</a>'te<br>ne<br>istersin?",
-                "<a href=\"https://www.klybeckplus.ch\" target=\"_blank\">Klybeck</a>'te<br>ne<br>kaybolmamalı?"
+                "Yeni Klybeck'te<br>ne<br>istersin?",
+                "Klybeck'te<br>ne<br>kaybolmamalı?"
             ],
-            andereFrage: "Fragen",
+            andereFrage: "Sorular",
             placeholder: "", absenden: "Gönder", danke: "Teşekkürler", leer: "Bir şeyler yaz",
             dir: "ltr", lang: "tr", infobtn: "Bilgi", langbtn: "Diller", zurueck: "Geri",
             info: [
@@ -415,11 +429,11 @@
         en: {
             fragen: [
                 'What bothers you<br>about the<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> project?',
-                'What do you<br>wish for in the<br>new <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?',
-                'What should<br>not disappear<br>from <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?'
+                'What do you<br>wish for in the<br>new Klybeck?',
+                'What should<br>not disappear<br>from Klybeck?'
             ],
-            andereFrage: "Fragen",
-            placeholder: "", absenden: "Submit", danke: "Thank you", leer: "Please write something",
+            andereFrage: "Questions",
+            placeholder: "", absenden: "Submit", danke: "Thank you", leer: "Write something",
             dir: "ltr", lang: "en", infobtn: "Info", langbtn: "Languages", zurueck: "Back",
             info: [
                 "Hello! My name is Olivier Wick and I study Visual Communication in Basel.",
@@ -430,10 +444,10 @@
         es: {
             fragen: [
                 '¿Qué te molesta<br>del proyecto<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>?',
-                '¿Qué deseas<br>en el nuevo<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?',
-                '¿Qué no debería<br>desaparecer<br>del <a href="https://www.klybeckplus.ch" target="_blank">Klybeck</a>?'
+                '¿Qué deseas<br>en el nuevo<br>Klybeck?',
+                '¿Qué no debería<br>desaparecer<br>del Klybeck?'
             ],
-            andereFrage: "Fragen",
+            andereFrage: "Preguntas",
             placeholder: "", absenden: "Enviar", danke: "Gracias", leer: "Escribe algo",
             dir: "ltr", lang: "es", infobtn: "Info", langbtn: "Idiomas", zurueck: "Volver",
             info: [
@@ -445,10 +459,10 @@
         sr: {
             fragen: [
                 'Šta te smeta<br>u <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a><br>projektu?',
-                'Šta želiš<br>u novom<br><a href="https://www.klybeckplus.ch" target="_blank">Klybecku</a>?',
-                'Šta ne bi trebalo<br>da nestane<br>iz <a href="https://www.klybeckplus.ch" target="_blank">Klybecka</a>?'
+                'Šta želiš<br>u novom<br>Klybecku?',
+                'Šta ne bi trebalo<br>da nestane<br>iz Klybecka?'
             ],
-            andereFrage: "Fragen",
+            andereFrage: "Pitanja",
             placeholder: "", absenden: "Pošalji", danke: "Hvala", leer: "Napiši nešto",
             dir: "ltr", lang: "sr", infobtn: "Info", langbtn: "Jezici", zurueck: "Nazad",
             info: [
@@ -468,10 +482,14 @@
     function animiereFrageText(el, html) {
         var STEP = 0.07;
         var d = 0;
-        var re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|([^\s<]+)/g;
+        var re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|(<span\b[^>]*?>[\s\S]*?<\/span>)|([^\s<]+)/g;
         var parts = [];
+        var hadSpace = [];
+        var prevEnd = 0;
         var m;
         while ((m = re.exec(html)) !== null) {
+            hadSpace.push(m.index > prevEnd);
+            prevEnd = m.index + m[0].length;
             if (/^<br/i.test(m[0])) {
                 parts.push('<br>');
             } else {
@@ -481,7 +499,7 @@
         }
         var out = '';
         for (var i = 0; i < parts.length; i++) {
-            if (i > 0 && parts[i] !== '<br>' && parts[i - 1] !== '<br>') out += ' ';
+            if (i > 0 && hadSpace[i] && parts[i] !== '<br>') out += ' ';
             out += parts[i];
         }
         el.innerHTML = out;
@@ -566,7 +584,9 @@
         document.getElementById("InfoButton").textContent = uebersetzungen[aktiveSprache].zurueck;
         document.getElementById("LangButton").textContent = "Languages";
         aktiveInfoIndex = 0;
-        document.getElementById("InfoView").style.direction = uebersetzungen[aktiveSprache].dir;
+        const dir = uebersetzungen[aktiveSprache].dir;
+        document.getElementById("InfoView").style.direction = dir;
+        document.getElementById("InfoView").setAttribute("dir", dir);
         document.getElementById("InfoView").classList.add("aktiv");
         zeigeInfoAktuell();
     }
@@ -619,6 +639,8 @@
             return;
         }
         document.getElementById("Eingabe").value = "";
+        document.getElementById("Eingabe").blur();
+        document.body.classList.remove("fokus-aktiv");
         showCursorBar();
         pfeilEl.style.opacity = "0";
         submitText.textContent = t.danke;
@@ -653,6 +675,7 @@
     });
 
     document.getElementById("Eingabe").addEventListener("focus", function() {
+        document.body.classList.add("fokus-aktiv");
         if (!this.value) {
             barEl.style.opacity = "";
             barEl.style.animation = "none";
@@ -666,18 +689,14 @@
     });
 
     document.getElementById("Eingabe").addEventListener("blur", function() {
-        if (this.value) {
-            var el = this;
-            setTimeout(function() { el.focus(); }, 0);
-        } else {
-            barEl.style.height = "75px";
-            barEl.style.animation = "none";
+        document.body.classList.remove("fokus-aktiv");
+        barEl.style.height = "75px";
+        barEl.style.animation = "none";
+        requestAnimationFrame(function() {
             requestAnimationFrame(function() {
-                requestAnimationFrame(function() {
-                    barEl.style.animation = "cursor-puls 2.2s ease-in-out infinite";
-                });
+                barEl.style.animation = "cursor-puls 2.2s ease-in-out infinite";
             });
-        }
+        });
     });
 
     setInterval(function() {
@@ -697,10 +716,14 @@
 
         // Wrap HTML in per-word spans, each with its own delay
         function wordSpans(html) {
-            const re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|([^\s<]+)/g;
+            const re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|(<span\b[^>]*?>[\s\S]*?<\/span>)|([^\s<]+)/g;
             const parts = [];
+            const hadSpace = [];
+            let prevEnd = 0;
             let m;
             while ((m = re.exec(html)) !== null) {
+                hadSpace.push(m.index > prevEnd);
+                prevEnd = m.index + m[0].length;
                 if (/^<br/i.test(m[0])) {
                     parts.push('<br>');
                 } else {
@@ -710,7 +733,7 @@
             }
             let out = '';
             for (let i = 0; i < parts.length; i++) {
-                if (i > 0 && parts[i] !== '<br>' && parts[i - 1] !== '<br>') out += ' ';
+                if (i > 0 && hadSpace[i] && parts[i] !== '<br>') out += ' ';
                 out += parts[i];
             }
             return out;
