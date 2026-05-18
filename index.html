@@ -423,35 +423,35 @@
     #InfoText a:hover, #Frage1 a:hover { animation: wackeln 0.4s ease; }
     .qmark { display: inline-block; transform: scaleX(-1); }
 
-@media (max-width: 430px) { :root { --fs: 38px; --pfeil-abstand: 135px; } }
+@media (max-width: 430px) { :root { --fs: 38px; --pfeil-abstand: 145px; } }
 
-@supports (color: color(display-p3 1 0 0)) {
+@supports (color: oklch(0% 0 0)) {
     :root {
-        --linie: 8px solid color(display-p3 1 0.04 0.43);
+        --linie: 8px solid oklch(66% 0.30 9deg);
     }
     #InfoButton {
         filter: none;
-        color: color(display-p3 1 0.04 0.43);
+        color: oklch(66% 0.30 9deg);
     }
     #LangButton {
         filter: none;
-        color: color(display-p3 1 0.04 0.43);
+        color: oklch(66% 0.30 9deg);
     }
     .LangPill {
         filter: none;
-        color: color(display-p3 1 0.04 0.43);
+        color: oklch(66% 0.30 9deg);
     }
     #content { filter: none; }
     #info-content { filter: none; }
     #frage-nav, #Frage1, #Submit, #Eingabe {
-        color: color(display-p3 1 0.04 0.43);
+        color: oklch(66% 0.30 9deg);
     }
-    #cursor-bar { background: color(display-p3 1 0.04 0.43); }
+    #cursor-bar { background: oklch(66% 0.30 9deg); }
     #info-nav, .info-menu-item, #InfoText, .info-link-item {
-        color: color(display-p3 1 0.04 0.43);
+        color: oklch(66% 0.30 9deg);
     }
     #InfoText a, #Frage1 a {
-        color: color(display-p3 1 0.04 0.43);
+        color: oklch(66% 0.30 9deg);
     }
     #frage-prev, #frage-next, #pfeil, #info-prev, #info-next, img.link-pfeil {
         filter: url(#rosenrot);
