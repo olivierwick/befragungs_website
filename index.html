@@ -62,7 +62,7 @@
 
     body {
         background: white;
-        height: 100dvh;
+        height: 100svh;
         overflow: hidden;
         font-family: Helvetica, Arial, sans-serif;
     }
@@ -86,7 +86,7 @@
         top: max(0px, env(safe-area-inset-top));
         left: 50%;
         transform: translateX(-50%);
-        max-width: 92vw;
+        width: 92vw;
         border-bottom: var(--linie);
         text-align: center;
         padding: var(--pad);
@@ -103,7 +103,7 @@
         bottom: max(0px, env(safe-area-inset-bottom));
         left: 50%;
         transform: translateX(-50%);
-        max-width: 92vw;
+        width: 92vw;
         border-top: var(--linie);
         text-align: center;
         padding: var(--pad);
@@ -249,7 +249,7 @@
         top: 64px; bottom: 64px;
         left: 50%;
         transform: translateX(-50%);
-        max-width: 92vw;
+        width: 92vw;
         flex-direction: column;
         justify-content: center;
         overflow-y: auto;
@@ -276,7 +276,7 @@
         top: 64px; bottom: 64px;
         left: 50%;
         transform: translateX(-50%);
-        max-width: 92vw;
+        width: 92vw;
         flex-direction: column;
         justify-content: center;
         overflow-x: hidden;
@@ -511,16 +511,6 @@
         document.getElementById("InfoView").classList.remove("aktiv");
     }
 
-    let cachedWidth = 0;
-    function syncButtons() {
-        const rect = document.getElementById("content").getBoundingClientRect();
-        if (rect.width > 0) cachedWidth = rect.width;
-        if (cachedWidth === 0) return;
-        ["InfoButton", "LangButton", "LangView", "InfoView"].forEach(function(id) {
-            document.getElementById(id).style.width = cachedWidth + "px";
-        });
-    }
-
     function zeigeHauptansicht() {
         const t = uebersetzungen[aktiveSprache];
         document.getElementById("container").style.display = "flex";
@@ -550,7 +540,6 @@
     }
 
     function langViewOeffnen() {
-        syncButtons();
         langViewOffen = true;
         infoViewOffen = false;
         versteckeAlles();
@@ -566,7 +555,6 @@
     }
 
     function infoViewOeffnen() {
-        syncButtons();
         infoViewOffen = true;
         langViewOffen = false;
         versteckeAlles();
@@ -811,23 +799,6 @@
 
     spracheWechseln("de");
     pageLoadAnimation();
-    requestAnimationFrame(syncButtons);
-    var roScheduled = false;
-    var ro = new ResizeObserver(function(entries) {
-        var w = entries[0].contentRect.width;
-        if (w <= 0 || roScheduled) return;
-        roScheduled = true;
-        requestAnimationFrame(function() {
-            roScheduled = false;
-            if (w > 0) {
-                cachedWidth = w;
-                ["InfoButton", "LangButton", "LangView", "InfoView"].forEach(function(id) {
-                    document.getElementById(id).style.width = w + "px";
-                });
-            }
-        });
-    });
-    ro.observe(document.getElementById("content"));
 
 
 </script>
