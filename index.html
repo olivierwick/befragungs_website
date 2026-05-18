@@ -28,10 +28,28 @@
         </div>
 
         <div id="InfoView">
-            <div id="info-row">
-                <img id="info-prev" src="weiter.png" alt="">
-                <div id="InfoText"></div>
-                <img id="info-next" src="weiter.png" alt="">
+            <div id="info-content">
+                <div id="info-nav">
+                    <img id="info-prev" src="weiter.png" alt="">
+                    <span id="info-nav-label"></span>
+                    <img id="info-next" src="weiter.png" alt="">
+                </div>
+                <div id="info-dropdown">
+                    <div class="info-menu-item" data-key="klybeckplus">Klybeck Plus</div>
+                    <div class="info-menu-item" data-key="kritikpunkte">Kritikpunkte</div>
+                    <div class="info-menu-item" data-key="installation">Installation</div>
+                    <div class="info-menu-item" data-key="kontakt">Kontakt</div>
+                    <div class="info-menu-item" data-key="links">Links</div>
+                </div>
+                <div id="info-links">
+                    <a class="info-link-item" href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus<img class="link-pfeil" src="pfeil.png" alt=""></a>
+                    <a class="info-link-item" href="https://www.bazonline.ch/klybeckplus-basel-verein-kritisiert-rhystadt-ceo-scharf-687275232713" target="_blank">BaZ Online<img class="link-pfeil" src="pfeil.png" alt=""></a>
+                    <a class="info-link-item" href="https://www.zukunftklybeck.ch" target="_blank">Zukunft Klybeck<img class="link-pfeil" src="pfeil.png" alt=""></a>
+                    <a class="info-link-item" href="https://klybeckminus.noblogs.org" target="_blank">Klybeck Minus<img class="link-pfeil" src="pfeil.png" alt=""></a>
+                </div>
+                <div id="info-row">
+                    <div id="InfoText"></div>
+                </div>
             </div>
         </div>
 
@@ -53,16 +71,9 @@
 </body>
 <style>
     :root {
-        --linie: 8px solid #ff009d;
+        --linie: 8px solid white;
         --fs: 46px;
         --pad: 1px 14px;
-    }
-
-    @font-face {
-        font-family: 'Ronzino';
-        src: url('Ronzino-Regular.otf') format('opentype');
-        font-weight: normal;
-        font-style: normal;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -73,7 +84,7 @@
         background: white;
         height: 100%;
         overflow: hidden;
-        font-family: 'Ronzino', Helvetica, Arial, sans-serif;
+        font-family: Helvetica, Arial, sans-serif;
     }
 
     #frame { height: 100%; overflow: hidden; position: relative; }
@@ -83,10 +94,10 @@
     @keyframes cursor-puls { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
     @keyframes wackeln {
         0%   { transform: rotate(0deg); }
-        15%  { transform: rotate(-8deg); }
-        35%  { transform: rotate(8deg); }
-        55%  { transform: rotate(-5deg); }
-        75%  { transform: rotate(5deg); }
+        15%  { transform: rotate(-3deg); }
+        35%  { transform: rotate(3deg); }
+        55%  { transform: rotate(-2deg); }
+        75%  { transform: rotate(2deg); }
         100% { transform: rotate(0deg); }
     }
 
@@ -99,10 +110,11 @@
         text-align: center;
         padding: var(--pad);
         font-size: var(--fs);
-        color: #ff009d;
-        background: white;
+        color: white;
+        background: transparent;
         cursor: pointer;
         z-index: 10;
+        filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(6000%) hue-rotate(319deg) brightness(104%);
     }
 
     #LangButton {
@@ -114,10 +126,11 @@
         text-align: center;
         padding: var(--pad);
         font-size: var(--fs);
-        color: #ff009d;
-        background: white;
+        color: white;
+        background: transparent;
         cursor: pointer;
         z-index: 10;
+        filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(6000%) hue-rotate(319deg) brightness(104%);
     }
 
     #container {
@@ -135,6 +148,7 @@
         display: flex;
         flex-direction: column;
         width: calc(100% - 40px);
+        filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(6000%) hue-rotate(319deg) brightness(104%);
     }
 
     #frage-nav {
@@ -142,11 +156,11 @@
         border-bottom: var(--linie);
         padding: 1px 0;
         font-size: var(--fs);
-        color: #ff009d;
+        color: white;
         display: flex;
         justify-content: center;
         align-items: center;
-        gap: 90px;
+        gap: 1.96em;
         cursor: pointer;
         user-select: none;
     }
@@ -156,7 +170,6 @@
         height: 1.3em;
         width: 1.3em;
         object-fit: contain;
-        filter: brightness(0) saturate(100%) invert(27%) sepia(96%) saturate(7445%) hue-rotate(307deg);
         flex-shrink: 0;
     }
     #frage-prev { transform: rotate(180deg); }
@@ -166,7 +179,7 @@
     #Frage1 {
         padding: 3px 14px;
         font-size: var(--fs);
-        color: #ff009d;
+        color: white;
         text-align: center;
         line-height: 1;
     }
@@ -184,9 +197,9 @@
         outline: none;
         padding: 49px 14px 3px;
         font-size: var(--fs);
-        font-family: 'Ronzino', Helvetica, Arial, sans-serif;
+        font-family: Helvetica, Arial, sans-serif;
         line-height: 1;
-        color: #ff009d;
+        color: white;
         caret-color: transparent;
         width: 100%;
         resize: none;
@@ -203,7 +216,7 @@
         transform: translate(-50%, -50%);
         width: 10px;
         height: 90px;
-        background: #ff009d;
+        background: white;
         border-radius: 20px;
         animation: cursor-puls 2.2s ease-in-out infinite;
         pointer-events: none;
@@ -219,7 +232,7 @@
         border-bottom: var(--linie);
         padding: var(--pad);
         font-size: var(--fs);
-        color: #ff009d;
+        color: white;
         text-align: center;
         cursor: pointer;
         white-space: nowrap;
@@ -227,19 +240,19 @@
 
     #pfeil-phantom {
         display: inline-block;
-        height: 1.3em;
-        width: 1.3em;
-        margin-right: 8px;
+        height: 0.9em;
+        width: 0.9em;
+        margin-right: 5px;
         flex-shrink: 0;
     }
 
     #pfeil {
         display: inline-block;
-        height: 1.3em;
-        width: 1.3em;
-        margin-left: 8px;
+        height: 0.9em;
+        width: 0.9em;
+        margin-left: 5px;
+        vertical-align: -0.05em;
         object-fit: contain;
-        filter: brightness(0) saturate(100%) invert(27%) sepia(96%) saturate(7445%) hue-rotate(307deg);
         flex-shrink: 0;
         opacity: 0;
         will-change: opacity;
@@ -264,12 +277,13 @@
         border-bottom: var(--linie);
         padding: var(--pad);
         font-size: var(--fs);
-        color: #ff009d;
+        color: white;
         text-align: center;
         cursor: pointer;
         opacity: 0;
-        background: white;
+        background: transparent;
         flex-shrink: 0;
+        filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(6000%) hue-rotate(319deg) brightness(104%);
     }
 
     #InfoView {
@@ -287,15 +301,24 @@
     }
     #InfoView.aktiv { display: flex; }
 
-    #info-row {
+    #info-content {
+        width: 100%;
+        filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(6000%) hue-rotate(319deg) brightness(104%);
+    }
+
+    #info-nav {
         border-top: var(--linie);
         border-bottom: var(--linie);
         padding: 1px 0;
         font-size: var(--fs);
+        color: white;
         display: flex;
+        justify-content: center;
         align-items: center;
-        user-select: none;
+        gap: 1.96em;
         cursor: pointer;
+        user-select: none;
+        flex-shrink: 0;
     }
 
     #info-prev, #info-next {
@@ -304,21 +327,59 @@
         height: 1.3em;
         width: 1.3em;
         object-fit: contain;
-        filter: brightness(0) saturate(100%) invert(27%) sepia(96%) saturate(7445%) hue-rotate(307deg);
     }
-    #info-prev { transform: rotate(180deg); margin-left: -12px; }
-    #info-next { margin-right: -12px; }
-    #InfoView[dir="rtl"] #info-prev { transform: rotate(0deg); margin-left: 0; margin-right: -12px; }
-    #InfoView[dir="rtl"] #info-next { transform: rotate(180deg); margin-right: 0; margin-left: -12px; }
+    #info-prev { transform: rotate(180deg); }
+    #InfoView[dir="rtl"] #info-prev { transform: rotate(0deg); }
+    #InfoView[dir="rtl"] #info-next { transform: rotate(180deg); }
+
+    #info-dropdown {
+        display: none;
+    }
+    #info-dropdown.offen {
+        display: block;
+        border-top: var(--linie);
+        animation: einblenden 0.2s ease forwards;
+    }
+
+    .info-menu-item {
+        border-bottom: var(--linie);
+        padding: var(--pad);
+        font-size: var(--fs);
+        color: white;
+        text-align: center;
+        cursor: pointer;
+    }
+
+    #info-row {
+        border-bottom: var(--linie);
+        padding: 3px 14px;
+        font-size: var(--fs);
+    }
+
+    #info-links {
+        display: none;
+        border-bottom: var(--linie);
+        padding: var(--pad);
+        font-size: var(--fs);
+        text-align: center;
+    }
+
+    .info-link-item {
+        display: block;
+        color: white;
+        text-decoration: none;
+        line-height: 1;
+    }
+    #info-links a:hover { animation: wackeln 0.4s ease; }
 
     #InfoText {
-        flex: 1;
-        min-width: 0;
-        padding: 0 14px;
+        max-width: 20ch;
+        margin: 0 auto;
+        padding: 3px 0;
         font-size: var(--fs);
-        color: #ff009d;
+        color: white;
         text-align: center;
-        line-height: 1.15;
+        line-height: 1;
         hyphens: auto;
         overflow-wrap: break-word;
     }
@@ -326,8 +387,17 @@
     .LangPill:first-child { border-top: var(--linie); }
 
     #InfoText a, #Frage1 a {
-        color: #ff009d;
+        color: white;
         text-decoration: none;
+        display: inline-block;
+    }
+
+    img.link-pfeil {
+        height: 0.9em;
+        width: 0.9em;
+        margin-left: 5px;
+        vertical-align: -0.05em;
+        object-fit: contain;
         display: inline-block;
     }
 
@@ -349,10 +419,20 @@
             andereFrage: "Fragen",
             placeholder: "", absenden: "Absenden", danke: "Danke", leer: "Schreib etwas",
             dir: "ltr", lang: "de", infobtn: "Info", langbtn: "Sprachen", zurueck: "Zurück",
+            menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Kritikpunkte", installation: "Installation", kontakt: "Kontakt", links: "Links" },
             info: [
-                "Hallo! Mein Name ist Olivier Wick und ich studiere visuelle Kommunikation in Basel.",
+                'Hallo! Mein Name ist <a href="https://olivierwick.ch" target="_blank">Olivier Wick</a> und ich studiere visuelle Kommunikation in Basel.',
                 'Für meine Bachelorarbeit sammle ich anonyme Meinungen zum <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> Projekt, diese werden als Installation am Hafen visualisiert.',
-                'Fragen? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> oder <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'
+                'Fragen? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> oder <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>',
+                "Auf dem rund 300'000 m² grossen Klybeck-Areal, einem der grössten Transformationsareale der Schweiz, entsteht bis etwa 2050 ein neuer Basler Stadtteil.",
+                "Der bisher abgeschlossene private Industriegürtel zwischen Rhein und Wiese wird schrittweise in öffentlich zugänglichen Stadtraum verwandelt.",
+                "Geplant sind Wohnraum für rund 8'500 Menschen, 7'500 Arbeitsplätze, Schulen, Gewerbe sowie rund 110'000 m² Frei- und Grünraum mit 1'800 neuen Bäumen.",
+                "Mit der rund 8'000 m² grossen Rheinterrasse entsteht der erste grosse Kleinbasler Park am Wasser, der Untere Rheinweg wird autofrei.",
+                "Mindestens ein Drittel des Wohnraums soll preisgünstig sein, 25 % an gemeinnützige Träger gehen. Entwickelt wird das Areal gemeinsam von Swiss Life, Rhystadt AG und dem Kanton Basel-Stadt in mehreren Etappen.",
+                "Kritisiert wird die drohende Gentrifizierung durch das Grossprojekt.",
+                "Bestehende Zwischennutzungen und autonome Räume gehen mit der Bebauung verloren.",
+                "Eine Studie der Ärztinnen und Ärzte für Umweltschutz bemängelt, dass 61 Stoffe, die früher auf dem Areal in grossen Mengen zum Einsatz gekommen und meist sehr toxisch seien, im Analyseprogramm fehlen.",
+                '<a href="https://www.zukunftklybeck.ch" target="_blank">Zukunft Klybeck</a> kritisiert zudem die begrenzten Möglichkeiten zur Mitwirkung der Bevölkerung.'
             ]
         },
         it: {
@@ -364,10 +444,20 @@
             andereFrage: "Domande",
             placeholder: "", absenden: "Invia", danke: "Grazie", leer: "Scrivi qualcosa",
             dir: "ltr", lang: "it", infobtn: "Info", langbtn: "Lingue", zurueck: "Indietro",
+            menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Critiche", installation: "Installazione", kontakt: "Contatto", links: "Link" },
             info: [
-                "Ciao! Mi chiamo Olivier Wick e studio Comunicazione Visiva a Basilea.",
+                'Ciao! Mi chiamo <a href="https://olivierwick.ch" target="_blank">Olivier Wick</a> e studio Comunicazione Visiva a Basilea.',
                 'Per la mia tesi di bachelor raccolgo opinioni anonime sul progetto <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, che verranno visualizzate come installazione al porto.',
-                'Domande? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> o <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'
+                'Domande? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> o <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>',
+                "Auf dem rund 300'000 m² grossen Klybeck-Areal, einem der grössten Transformationsareale der Schweiz, entsteht bis etwa 2050 ein neuer Basler Stadtteil.",
+                "Der bisher abgeschlossene private Industriegürtel zwischen Rhein und Wiese wird schrittweise in öffentlich zugänglichen Stadtraum verwandelt.",
+                "Geplant sind Wohnraum für rund 8'500 Menschen, 7'500 Arbeitsplätze, Schulen, Gewerbe sowie rund 110'000 m² Frei- und Grünraum mit 1'800 neuen Bäumen.",
+                "Mit der rund 8'000 m² grossen Rheinterrasse entsteht der erste grosse Kleinbasler Park am Wasser, der Untere Rheinweg wird autofrei.",
+                "Mindestens ein Drittel des Wohnraums soll preisgünstig sein, 25 % an gemeinnützige Träger gehen. Entwickelt wird das Areal gemeinsam von Swiss Life, Rhystadt AG und dem Kanton Basel-Stadt in mehreren Etappen.",
+                "Kritisiert wird die drohende Gentrifizierung durch das Grossprojekt.",
+                "Bestehende Zwischennutzungen und autonome Räume gehen mit der Bebauung verloren.",
+                "Eine Studie der Ärztinnen und Ärzte für Umweltschutz bemängelt, dass 61 Stoffe, die früher auf dem Areal in grossen Mengen zum Einsatz gekommen und meist sehr toxisch seien, im Analyseprogramm fehlen.",
+                '<a href="https://www.zukunftklybeck.ch" target="_blank">Zukunft Klybeck</a> kritisiert zudem die begrenzten Möglichkeiten zur Mitwirkung der Bevölkerung.'
             ]
         },
         fr: {
@@ -379,10 +469,20 @@
             andereFrage: "Questions",
             placeholder: "", absenden: "Envoyer", danke: "Merci", leer: "Écris quelque chose",
             dir: "ltr", lang: "fr", infobtn: "Info", langbtn: "Langues", zurueck: "Retour",
+            menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Critiques", installation: "Installation", kontakt: "Contact", links: "Liens" },
             info: [
-                "Bonjour! Je m'appelle Olivier Wick et j'étudie la Communication Visuelle à Bâle.",
+                'Bonjour! Je m\'appelle <a href="https://olivierwick.ch" target="_blank">Olivier Wick</a> et j\'étudie la Communication Visuelle à Bâle.',
                 'Pour mon bachelor, je collecte des opinions anonymes sur le projet <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, qui seront visualisées comme installation au port.',
-                'Questions? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> ou <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'
+                'Questions? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> ou <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>',
+                "Auf dem rund 300'000 m² grossen Klybeck-Areal, einem der grössten Transformationsareale der Schweiz, entsteht bis etwa 2050 ein neuer Basler Stadtteil.",
+                "Der bisher abgeschlossene private Industriegürtel zwischen Rhein und Wiese wird schrittweise in öffentlich zugänglichen Stadtraum verwandelt.",
+                "Geplant sind Wohnraum für rund 8'500 Menschen, 7'500 Arbeitsplätze, Schulen, Gewerbe sowie rund 110'000 m² Frei- und Grünraum mit 1'800 neuen Bäumen.",
+                "Mit der rund 8'000 m² grossen Rheinterrasse entsteht der erste grosse Kleinbasler Park am Wasser, der Untere Rheinweg wird autofrei.",
+                "Mindestens ein Drittel des Wohnraums soll preisgünstig sein, 25 % an gemeinnützige Träger gehen. Entwickelt wird das Areal gemeinsam von Swiss Life, Rhystadt AG und dem Kanton Basel-Stadt in mehreren Etappen.",
+                "Kritisiert wird die drohende Gentrifizierung durch das Grossprojekt.",
+                "Bestehende Zwischennutzungen und autonome Räume gehen mit der Bebauung verloren.",
+                "Eine Studie der Ärztinnen und Ärzte für Umweltschutz bemängelt, dass 61 Stoffe, die früher auf dem Areal in grossen Mengen zum Einsatz gekommen und meist sehr toxisch seien, im Analyseprogramm fehlen.",
+                '<a href="https://www.zukunftklybeck.ch" target="_blank">Zukunft Klybeck</a> kritisiert zudem die begrenzten Möglichkeiten zur Mitwirkung der Bevölkerung.'
             ]
         },
         ar: {
@@ -394,10 +494,20 @@
             andereFrage: "أسئلة",
             placeholder: "", absenden: "إرسال", danke: "شكراً", leer: "اكتب شيئاً",
             dir: "rtl", lang: "ar", infobtn: "معلومات", langbtn: "اللغات", zurueck: "رجوع",
+            menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "انتقادات", installation: "التركيب", kontakt: "تواصل", links: "روابط" },
             info: [
-                "مرحباً! اسمي أوليفييه ويك وأدرس التواصل البصري في بازل.",
+                'مرحباً! اسمي <a href="https://olivierwick.ch" target="_blank">أوليفييه ويك</a> وأدرس التواصل البصري في بازل.',
                 'لأطروحتي أجمع آراء مجهولة حول مشروع <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> وستُعرض كتركيب فني في الميناء.',
-                'أسئلة<span class="qmark">?</span> Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> أو <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'
+                'أسئلة<span class="qmark">?</span> Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> أو <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>',
+                "Auf dem rund 300'000 m² grossen Klybeck-Areal, einem der grössten Transformationsareale der Schweiz, entsteht bis etwa 2050 ein neuer Basler Stadtteil.",
+                "Der bisher abgeschlossene private Industriegürtel zwischen Rhein und Wiese wird schrittweise in öffentlich zugänglichen Stadtraum verwandelt.",
+                "Geplant sind Wohnraum für rund 8'500 Menschen, 7'500 Arbeitsplätze, Schulen, Gewerbe sowie rund 110'000 m² Frei- und Grünraum mit 1'800 neuen Bäumen.",
+                "Mit der rund 8'000 m² grossen Rheinterrasse entsteht der erste grosse Kleinbasler Park am Wasser, der Untere Rheinweg wird autofrei.",
+                "Mindestens ein Drittel des Wohnraums soll preisgünstig sein, 25 % an gemeinnützige Träger gehen. Entwickelt wird das Areal gemeinsam von Swiss Life, Rhystadt AG und dem Kanton Basel-Stadt in mehreren Etappen.",
+                "Kritisiert wird die drohende Gentrifizierung durch das Grossprojekt.",
+                "Bestehende Zwischennutzungen und autonome Räume gehen mit der Bebauung verloren.",
+                "Eine Studie der Ärztinnen und Ärzte für Umweltschutz bemängelt, dass 61 Stoffe, die früher auf dem Areal in grossen Mengen zum Einsatz gekommen und meist sehr toxisch seien, im Analyseprogramm fehlen.",
+                '<a href="https://www.zukunftklybeck.ch" target="_blank">Zukunft Klybeck</a> kritisiert zudem die begrenzten Möglichkeiten zur Mitwirkung der Bevölkerung.'
             ]
         },
         tr: {
@@ -409,10 +519,20 @@
             andereFrage: "Sorular",
             placeholder: "", absenden: "Gönder", danke: "Teşekkürler", leer: "Bir şeyler yaz",
             dir: "ltr", lang: "tr", infobtn: "Bilgi", langbtn: "Diller", zurueck: "Geri",
+            menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Eleştiriler", installation: "Kurulum", kontakt: "İletişim", links: "Bağlantılar" },
             info: [
-                "Merhaba! Adım Olivier Wick ve Basel'de Görsel İletişim okuyorum.",
+                'Merhaba! Adım <a href="https://olivierwick.ch" target="_blank">Olivier Wick</a> ve Basel\'de Görsel İletişim okuyorum.',
                 'Lisans tezim için <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> projesi hakkında anonim görüşler topluyorum; bunlar limanda bir enstalasyon olarak görselleştirilecek.',
-                'Sorular? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> veya <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'
+                'Sorular? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> veya <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>',
+                "Auf dem rund 300'000 m² grossen Klybeck-Areal, einem der grössten Transformationsareale der Schweiz, entsteht bis etwa 2050 ein neuer Basler Stadtteil.",
+                "Der bisher abgeschlossene private Industriegürtel zwischen Rhein und Wiese wird schrittweise in öffentlich zugänglichen Stadtraum verwandelt.",
+                "Geplant sind Wohnraum für rund 8'500 Menschen, 7'500 Arbeitsplätze, Schulen, Gewerbe sowie rund 110'000 m² Frei- und Grünraum mit 1'800 neuen Bäumen.",
+                "Mit der rund 8'000 m² grossen Rheinterrasse entsteht der erste grosse Kleinbasler Park am Wasser, der Untere Rheinweg wird autofrei.",
+                "Mindestens ein Drittel des Wohnraums soll preisgünstig sein, 25 % an gemeinnützige Träger gehen. Entwickelt wird das Areal gemeinsam von Swiss Life, Rhystadt AG und dem Kanton Basel-Stadt in mehreren Etappen.",
+                "Kritisiert wird die drohende Gentrifizierung durch das Grossprojekt.",
+                "Bestehende Zwischennutzungen und autonome Räume gehen mit der Bebauung verloren.",
+                "Eine Studie der Ärztinnen und Ärzte für Umweltschutz bemängelt, dass 61 Stoffe, die früher auf dem Areal in grossen Mengen zum Einsatz gekommen und meist sehr toxisch seien, im Analyseprogramm fehlen.",
+                '<a href="https://www.zukunftklybeck.ch" target="_blank">Zukunft Klybeck</a> kritisiert zudem die begrenzten Möglichkeiten zur Mitwirkung der Bevölkerung.'
             ]
         },
         en: {
@@ -424,10 +544,20 @@
             andereFrage: "Questions",
             placeholder: "", absenden: "Submit", danke: "Thank you", leer: "Write something",
             dir: "ltr", lang: "en", infobtn: "Info", langbtn: "Languages", zurueck: "Back",
+            menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Criticism", installation: "Installation", kontakt: "Contact", links: "Links" },
             info: [
-                "Hello! My name is Olivier Wick and I study Visual Communication in Basel.",
+                'Hello! My name is <a href="https://olivierwick.ch" target="_blank">Olivier Wick</a> and I study Visual Communication in Basel.',
                 'For my bachelor\'s thesis I collect anonymous opinions about the <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> project, which will be visualised as an installation at the harbour.',
-                'Questions? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> or <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'
+                'Questions? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> or <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>',
+                "Auf dem rund 300'000 m² grossen Klybeck-Areal, einem der grössten Transformationsareale der Schweiz, entsteht bis etwa 2050 ein neuer Basler Stadtteil.",
+                "Der bisher abgeschlossene private Industriegürtel zwischen Rhein und Wiese wird schrittweise in öffentlich zugänglichen Stadtraum verwandelt.",
+                "Geplant sind Wohnraum für rund 8'500 Menschen, 7'500 Arbeitsplätze, Schulen, Gewerbe sowie rund 110'000 m² Frei- und Grünraum mit 1'800 neuen Bäumen.",
+                "Mit der rund 8'000 m² grossen Rheinterrasse entsteht der erste grosse Kleinbasler Park am Wasser, der Untere Rheinweg wird autofrei.",
+                "Mindestens ein Drittel des Wohnraums soll preisgünstig sein, 25 % an gemeinnützige Träger gehen. Entwickelt wird das Areal gemeinsam von Swiss Life, Rhystadt AG und dem Kanton Basel-Stadt in mehreren Etappen.",
+                "Kritisiert wird die drohende Gentrifizierung durch das Grossprojekt.",
+                "Bestehende Zwischennutzungen und autonome Räume gehen mit der Bebauung verloren.",
+                "Eine Studie der Ärztinnen und Ärzte für Umweltschutz bemängelt, dass 61 Stoffe, die früher auf dem Areal in grossen Mengen zum Einsatz gekommen und meist sehr toxisch seien, im Analyseprogramm fehlen.",
+                '<a href="https://www.zukunftklybeck.ch" target="_blank">Zukunft Klybeck</a> kritisiert zudem die begrenzten Möglichkeiten zur Mitwirkung der Bevölkerung.'
             ]
         },
         es: {
@@ -439,10 +569,20 @@
             andereFrage: "Preguntas",
             placeholder: "", absenden: "Enviar", danke: "Gracias", leer: "Escribe algo",
             dir: "ltr", lang: "es", infobtn: "Info", langbtn: "Idiomas", zurueck: "Volver",
+            menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Críticas", installation: "Instalación", kontakt: "Contacto", links: "Enlaces" },
             info: [
-                "¡Hola! Me llamo Olivier Wick y estudio Comunicación Visual en Basilea.",
+                '¡Hola! Me llamo <a href="https://olivierwick.ch" target="_blank">Olivier Wick</a> y estudio Comunicación Visual en Basilea.',
                 'Para mi tesis de grado recopilo opiniones anónimas sobre el proyecto <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, que se visualizarán como instalación en el puerto.',
-                '¿Preguntas? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> o <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'
+                '¿Preguntas? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> o <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>',
+                "Auf dem rund 300'000 m² grossen Klybeck-Areal, einem der grössten Transformationsareale der Schweiz, entsteht bis etwa 2050 ein neuer Basler Stadtteil.",
+                "Der bisher abgeschlossene private Industriegürtel zwischen Rhein und Wiese wird schrittweise in öffentlich zugänglichen Stadtraum verwandelt.",
+                "Geplant sind Wohnraum für rund 8'500 Menschen, 7'500 Arbeitsplätze, Schulen, Gewerbe sowie rund 110'000 m² Frei- und Grünraum mit 1'800 neuen Bäumen.",
+                "Mit der rund 8'000 m² grossen Rheinterrasse entsteht der erste grosse Kleinbasler Park am Wasser, der Untere Rheinweg wird autofrei.",
+                "Mindestens ein Drittel des Wohnraums soll preisgünstig sein, 25 % an gemeinnützige Träger gehen. Entwickelt wird das Areal gemeinsam von Swiss Life, Rhystadt AG und dem Kanton Basel-Stadt in mehreren Etappen.",
+                "Kritisiert wird die drohende Gentrifizierung durch das Grossprojekt.",
+                "Bestehende Zwischennutzungen und autonome Räume gehen mit der Bebauung verloren.",
+                "Eine Studie der Ärztinnen und Ärzte für Umweltschutz bemängelt, dass 61 Stoffe, die früher auf dem Areal in grossen Mengen zum Einsatz gekommen und meist sehr toxisch seien, im Analyseprogramm fehlen.",
+                '<a href="https://www.zukunftklybeck.ch" target="_blank">Zukunft Klybeck</a> kritisiert zudem die begrenzten Möglichkeiten zur Mitwirkung der Bevölkerung.'
             ]
         },
         sr: {
@@ -454,10 +594,20 @@
             andereFrage: "Pitanja",
             placeholder: "", absenden: "Pošalji", danke: "Hvala", leer: "Napiši nešto",
             dir: "ltr", lang: "sr", infobtn: "Info", langbtn: "Jezici", zurueck: "Nazad",
+            menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Kritike", installation: "Instalacija", kontakt: "Kontakt", links: "Linkovi" },
             info: [
-                "Zdravo! Moje ime je Olivier Wick i studiram Vizuelnu Komunikaciju u Bazelu.",
+                'Zdravo! Moje ime je <a href="https://olivierwick.ch" target="_blank">Olivier Wick</a> i studiram Vizuelnu Komunikaciju u Bazelu.',
                 'Za moj bachelor rad prikupljam anonimna mišljenja o projektu <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>, koja će biti vizualizovana kao instalacija u luci.',
-                'Pitanja? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> ili <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>'
+                'Pitanja? Instagram: <a href="https://instagram.com/076_olivier" target="_blank">076_olivier</a> ili <a href="mailto:olivier.wick@yahoo.com">olivier.wick@yahoo.com</a>',
+                "Auf dem rund 300'000 m² grossen Klybeck-Areal, einem der grössten Transformationsareale der Schweiz, entsteht bis etwa 2050 ein neuer Basler Stadtteil.",
+                "Der bisher abgeschlossene private Industriegürtel zwischen Rhein und Wiese wird schrittweise in öffentlich zugänglichen Stadtraum verwandelt.",
+                "Geplant sind Wohnraum für rund 8'500 Menschen, 7'500 Arbeitsplätze, Schulen, Gewerbe sowie rund 110'000 m² Frei- und Grünraum mit 1'800 neuen Bäumen.",
+                "Mit der rund 8'000 m² grossen Rheinterrasse entsteht der erste grosse Kleinbasler Park am Wasser, der Untere Rheinweg wird autofrei.",
+                "Mindestens ein Drittel des Wohnraums soll preisgünstig sein, 25 % an gemeinnützige Träger gehen. Entwickelt wird das Areal gemeinsam von Swiss Life, Rhystadt AG und dem Kanton Basel-Stadt in mehreren Etappen.",
+                "Kritisiert wird die drohende Gentrifizierung durch das Grossprojekt.",
+                "Bestehende Zwischennutzungen und autonome Räume gehen mit der Bebauung verloren.",
+                "Eine Studie der Ärztinnen und Ärzte für Umweltschutz bemängelt, dass 61 Stoffe, die früher auf dem Areal in grossen Mengen zum Einsatz gekommen und meist sehr toxisch seien, im Analyseprogramm fehlen.",
+                '<a href="https://www.zukunftklybeck.ch" target="_blank">Zukunft Klybeck</a> kritisiert zudem die begrenzten Möglichkeiten zur Mitwirkung der Bevölkerung.'
             ]
         }
     };
@@ -467,6 +617,17 @@
     let aktiveInfoIndex = 0;
     let langViewOffen = false;
     let infoViewOffen = false;
+
+    function addPfeilNachLinks(el) {
+        el.querySelectorAll('a[href*="klybeckplus"], a[href*="olivierwick"], a[href*="zukunftklybeck"]').forEach(function(a) {
+            if (!a.querySelector('img.link-pfeil')) {
+                var img = document.createElement('img');
+                img.src = 'pfeil.png';
+                img.className = 'link-pfeil';
+                a.appendChild(img);
+            }
+        });
+    }
 
     function animiereFrageText(el, html) {
         var STEP = 0.07;
@@ -492,10 +653,11 @@
             out += parts[i];
         }
         el.innerHTML = out;
+        addPfeilNachLinks(el);
         el._animVer = (el._animVer || 0) + 1;
         var ver = el._animVer;
         setTimeout(function() {
-            if (el._animVer === ver) el.innerHTML = html;
+            if (el._animVer === ver) { el.innerHTML = html; addPfeilNachLinks(el); }
         }, Math.round((d + 0.3) * 1000) + 200);
     }
 
@@ -529,6 +691,7 @@
         document.getElementById("SubmitText").textContent = t.absenden;
         document.getElementById("container").style.direction = t.dir;
         document.getElementById("container").setAttribute("dir", t.dir);
+        aktualisiereMenuTexte();
         zeigeFrageAktuell();
         zeigeHauptansicht();
     }
@@ -561,12 +724,13 @@
         versteckeAlles();
         document.getElementById("InfoButton").textContent = uebersetzungen[aktiveSprache].zurueck;
         document.getElementById("LangButton").textContent = "Languages";
-        aktiveInfoIndex = 0;
         const dir = uebersetzungen[aktiveSprache].dir;
         document.getElementById("InfoView").style.direction = dir;
         document.getElementById("InfoView").setAttribute("dir", dir);
         document.getElementById("InfoView").classList.add("aktiv");
-        zeigeInfoAktuell();
+        document.getElementById("info-dropdown").classList.remove("offen");
+        document.getElementById("info-nav").style.display = "";
+        zeigSeite(aktiveSeite);
     }
 
     document.getElementById("InfoButton").onclick = function() {
@@ -581,16 +745,97 @@
         pill.onclick = function() { spracheWechseln(this.dataset.lang); };
     });
 
-    document.getElementById("info-prev").onclick = function() {
-        const t = uebersetzungen[aktiveSprache];
-        aktiveInfoIndex = (aktiveInfoIndex - 1 + t.info.length) % t.info.length;
-        zeigeInfoAktuell();
+    var infoSeitenfolge = [
+        { typ: "info", index: 3, key: "klybeckplus" },
+        { typ: "info", index: 4, key: "klybeckplus" },
+        { typ: "info", index: 5, key: "klybeckplus" },
+        { typ: "info", index: 6, key: "klybeckplus" },
+        { typ: "info", index: 7, key: "klybeckplus" },
+        { typ: "info", index: 8, key: "kritikpunkte" },
+        { typ: "info", index: 9, key: "kritikpunkte" },
+        { typ: "info", index: 10, key: "kritikpunkte" },
+        { typ: "info", index: 11, key: "kritikpunkte" },
+        { typ: "info", index: 0, key: "installation" },
+        { typ: "info", index: 1, key: "installation" },
+        { typ: "info", index: 2, key: "kontakt" },
+        { typ: "links", key: "links" }
+    ];
+    var aktiveSeite = 0;
+
+    function aktuellesMenuLabel(key) {
+        return uebersetzungen[aktiveSprache].menu[key] || key;
+    }
+
+    function aktualisiereMenuTexte() {
+        var t = uebersetzungen[aktiveSprache];
+        document.querySelectorAll(".info-menu-item[data-key]").forEach(function(item) {
+            item.textContent = t.menu[item.dataset.key] || item.dataset.key;
+        });
+        if (aktiveSeite >= 0 && document.getElementById("info-nav-label").textContent !== "") {
+            document.getElementById("info-nav-label").textContent = aktuellesMenuLabel(infoSeitenfolge[aktiveSeite].key);
+        }
+    }
+
+    function zeigSeite(i) {
+        aktiveSeite = i;
+        var seite = infoSeitenfolge[i];
+        document.getElementById("info-nav-label").textContent = aktuellesMenuLabel(seite.key);
+        document.getElementById("info-prev").style.visibility = "";
+        document.getElementById("info-next").style.visibility = "";
+        if (seite.typ === "links") {
+            document.getElementById("info-row").style.display = "none";
+            document.getElementById("info-links").style.display = "block";
+            document.querySelectorAll(".info-link-item").forEach(function(a, i) {
+                a.style.opacity = "0";
+                a.style.animation = "none";
+                setTimeout(function() {
+                    a.style.animation = "langEinblenden 0.4s ease forwards";
+                    a.addEventListener("animationend", function() {
+                        a.style.animation = "";
+                        a.style.opacity = "1";
+                    }, { once: true });
+                }, i * 120);
+            });
+        } else {
+            document.getElementById("info-links").style.display = "none";
+            document.getElementById("info-row").style.display = "";
+            aktiveInfoIndex = seite.index;
+            zeigeInfoAktuell();
+        }
+    }
+
+    document.getElementById("info-nav").onclick = function(e) {
+        var dropdown = document.getElementById("info-dropdown");
+        var offen = dropdown.classList.toggle("offen");
+        if (offen) {
+            document.getElementById("info-nav").style.display = "none";
+            document.getElementById("info-row").style.display = "none";
+            document.getElementById("info-links").style.display = "none";
+        } else {
+            zeigSeite(aktiveSeite);
+        }
     };
 
-    document.getElementById("info-next").onclick = function() {
-        const t = uebersetzungen[aktiveSprache];
-        aktiveInfoIndex = (aktiveInfoIndex + 1) % t.info.length;
-        zeigeInfoAktuell();
+    document.querySelectorAll(".info-menu-item").forEach(function(item) {
+        item.onclick = function(e) {
+            e.stopPropagation();
+            var key = this.dataset.key;
+            if (!key) return;
+            document.getElementById("info-dropdown").classList.remove("offen");
+            document.getElementById("info-nav").style.display = "";
+            var i = infoSeitenfolge.findIndex(function(s) { return s.key === key; });
+            if (i >= 0) zeigSeite(i);
+        };
+    });
+
+    document.getElementById("info-prev").onclick = function(e) {
+        e.stopPropagation();
+        zeigSeite((aktiveSeite - 1 + infoSeitenfolge.length) % infoSeitenfolge.length);
+    };
+
+    document.getElementById("info-next").onclick = function(e) {
+        e.stopPropagation();
+        zeigSeite((aktiveSeite + 1) % infoSeitenfolge.length);
     };
 
     document.getElementById("frage-prev").onclick = function() {
