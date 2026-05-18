@@ -415,6 +415,39 @@
 
 @media (max-width: 430px) { :root { --fs: 38px; } }
 
+@media (color-gamut: p3) {
+    :root {
+        --linie: 8px solid color(display-p3 1 0.04 0.43);
+    }
+    #InfoButton {
+        filter: none;
+        color: color(display-p3 1 0.04 0.43);
+    }
+    #LangButton {
+        filter: none;
+        color: color(display-p3 1 0.04 0.43);
+    }
+    .LangPill {
+        filter: none;
+        color: color(display-p3 1 0.04 0.43);
+    }
+    #content { filter: none; }
+    #info-content { filter: none; }
+    #frage-nav, #Frage1, #Submit, #Eingabe {
+        color: color(display-p3 1 0.04 0.43);
+    }
+    #cursor-bar { background: color(display-p3 1 0.04 0.43); }
+    #info-nav, .info-menu-item, #InfoText, .info-link-item {
+        color: color(display-p3 1 0.04 0.43);
+    }
+    #InfoText a, #Frage1 a {
+        color: color(display-p3 1 0.04 0.43);
+    }
+    #frage-prev, #frage-next, #pfeil, #info-prev, #info-next, img.link-pfeil {
+        filter: url(#rosenrot);
+    }
+}
+
 </style>
 <script>
 
