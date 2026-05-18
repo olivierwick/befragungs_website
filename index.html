@@ -60,9 +60,11 @@
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
 
+    html { height: 100%; }
+
     body {
         background: white;
-        height: 100svh;
+        height: 100%;
         overflow: hidden;
         font-family: Helvetica, Arial, sans-serif;
     }
@@ -84,9 +86,8 @@
     #InfoButton {
         position: fixed;
         top: max(0px, env(safe-area-inset-top));
-        left: 50%;
-        transform: translateX(-50%);
-        width: 92vw;
+        left: 20px;
+        right: 20px;
         border-bottom: var(--linie);
         text-align: center;
         padding: var(--pad);
@@ -94,16 +95,14 @@
         color: #ff009d;
         background: white;
         cursor: pointer;
-        opacity: 0;
         z-index: 10;
     }
 
     #LangButton {
         position: fixed;
         bottom: max(0px, env(safe-area-inset-bottom));
-        left: 50%;
-        transform: translateX(-50%);
-        width: 92vw;
+        left: 20px;
+        right: 20px;
         border-top: var(--linie);
         text-align: center;
         padding: var(--pad);
@@ -111,23 +110,24 @@
         color: #ff009d;
         background: white;
         cursor: pointer;
-        opacity: 0;
         z-index: 10;
     }
 
     #container {
         position: absolute;
-        top: 0; bottom: 0; left: 0; right: 0;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         display: flex;
         flex-direction: column;
-        justify-content: center;
         align-items: center;
+        width: 100%;
     }
 
     #content {
         display: flex;
         flex-direction: column;
-        width: 92vw;
+        width: calc(100% - 40px);
     }
 
     #frage-nav {
@@ -140,7 +140,6 @@
         grid-template-columns: 1fr auto 1fr;
         align-items: center;
         cursor: pointer;
-        opacity: 0;
         user-select: none;
     }
 
@@ -163,7 +162,6 @@
         color: #ff009d;
         text-align: center;
         line-height: 1;
-        opacity: 0;
     }
 
     #eingabe-wrapper {
@@ -171,7 +169,6 @@
         border-top: var(--linie);
         border-bottom: var(--linie);
         overflow: hidden;
-        opacity: 0;
     }
 
     #Eingabe {
@@ -205,6 +202,7 @@
         pointer-events: none;
         z-index: 1;
         transition: height 0.2s ease;
+        will-change: opacity;
     }
 
     #Submit {
@@ -217,7 +215,6 @@
         color: #ff009d;
         text-align: center;
         cursor: pointer;
-        opacity: 0;
         white-space: nowrap;
     }
 
@@ -247,9 +244,8 @@
         display: none;
         position: fixed;
         top: 64px; bottom: 64px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 92vw;
+        left: 20px;
+        right: 20px;
         flex-direction: column;
         justify-content: center;
         overflow-y: auto;
@@ -274,9 +270,8 @@
         display: none;
         position: fixed;
         top: 64px; bottom: 64px;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 92vw;
+        left: 20px;
+        right: 20px;
         flex-direction: column;
         justify-content: center;
         overflow-x: hidden;
@@ -681,124 +676,7 @@
         });
     }, 10000);
 
-    function pageLoadAnimation() {
-        const t = uebersetzungen[aktiveSprache];
-        const STEP = 0.1;
-        const GAP = 0.08;
-        let d = 0.1;
-
-        // Wrap HTML in per-word spans, each with its own delay
-        function wordSpans(html) {
-            const re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|(<span\b[^>]*?>[\s\S]*?<\/span>)|([^\s<]+)/g;
-            const parts = [];
-            const hadSpace = [];
-            let prevEnd = 0;
-            let m;
-            while ((m = re.exec(html)) !== null) {
-                hadSpace.push(m.index > prevEnd);
-                prevEnd = m.index + m[0].length;
-                if (/^<br/i.test(m[0])) {
-                    parts.push('<br>');
-                } else {
-                    parts.push('<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + m[0] + '</span>');
-                    d += STEP;
-                }
-            }
-            let out = '';
-            for (let i = 0; i < parts.length; i++) {
-                if (i > 0 && hadSpace[i] && parts[i] !== '<br>') out += ' ';
-                out += parts[i];
-            }
-            return out;
-        }
-
-        // Make element visible instantly at time d (border hidden by matching background)
-        function startRow(el) {
-            el.style.borderColor = 'white';
-            el.style.animation = 'einblenden 0.001s ease forwards ' + d + 's';
-        }
-
-        // Reveal border after the last word's animation FINISHES (start + 0.3s duration)
-        function endRow(el) {
-            var borderDelay = d - STEP + 0.3; // last word started at d-STEP, takes 0.3s
-            setTimeout(function() { el.style.borderColor = '#ff009d'; }, borderDelay * 1000);
-            d = borderDelay + GAP; // next row starts after border appears
-        }
-
-        // Info button
-        var infoBtn = document.getElementById('InfoButton');
-        startRow(infoBtn);
-        infoBtn.innerHTML = '<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + infoBtn.textContent + '</span>';
-        d += STEP;
-        endRow(infoBtn);
-
-        // frage-nav
-        var nav = document.getElementById('frage-nav');
-        startRow(nav);
-        var prevEl = document.getElementById('frage-prev');
-        prevEl.style.opacity = '0';
-        prevEl.style.animation = 'einblenden 0.3s ease forwards ' + d + 's';
-        d += STEP;
-        document.getElementById('frage-nav-label').innerHTML = t.andereFrage.split(/\s+/).map(function(w) {
-            var s = '<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + w + '</span>';
-            d += STEP; return s;
-        }).join(' ');
-        var nextEl = document.getElementById('frage-next');
-        nextEl.style.opacity = '0';
-        nextEl.style.animation = 'einblenden 0.3s ease forwards ' + d + 's';
-        d += STEP;
-        endRow(nav);
-
-        // Frage1
-        var f1 = document.getElementById('Frage1');
-        startRow(f1);
-        f1.innerHTML = wordSpans(t.fragen[aktiveFrageIndex]);
-        endRow(f1);
-
-        // eingabe-wrapper — no words, fade in whole
-        document.getElementById('eingabe-wrapper').style.animation = 'einblenden 0.3s ease forwards ' + d + 's';
-        d += 0.3 + GAP;
-
-        // Submit
-        var sub = document.getElementById('Submit');
-        startRow(sub);
-        document.getElementById('SubmitText').innerHTML = t.absenden.split(/\s+/).map(function(w) {
-            var s = '<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + w + '</span>';
-            d += STEP; return s;
-        }).join(' ');
-        endRow(sub);
-
-        // LangButton
-        var langBtn = document.getElementById('LangButton');
-        startRow(langBtn);
-        langBtn.innerHTML = '<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + langBtn.textContent + '</span>';
-        d += STEP;
-        endRow(langBtn);
-
-        // After all animations finish, remove spans and set explicit opacity so
-        // the browser doesn't keep evaluating animation-fill-mode on every resize.
-        setTimeout(function() {
-            var t2 = uebersetzungen[aktiveSprache];
-            var els = ['frage-nav', 'Submit', 'eingabe-wrapper'];
-            els.forEach(function(id) {
-                var e = document.getElementById(id);
-                e.style.animation = '';
-                e.style.opacity = '1';
-            });
-            ['frage-prev', 'frage-next'].forEach(function(id) {
-                var e = document.getElementById(id);
-                e.style.animation = '';
-                e.style.opacity = '1';
-            });
-            document.getElementById('InfoButton').textContent = t2.infobtn;
-            document.getElementById('LangButton').textContent = 'Languages';
-            document.getElementById('frage-nav-label').textContent = t2.andereFrage;
-            document.getElementById('SubmitText').textContent = t2.absenden;
-        }, Math.round(d * 1000) + 300);
-    }
-
     spracheWechseln("de");
-    pageLoadAnimation();
 
 
 </script>
