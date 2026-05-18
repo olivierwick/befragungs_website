@@ -12,10 +12,6 @@
     <filter id="rosenrot" color-interpolation-filters="sRGB" x="0" y="0" width="100%" height="100%">
       <fecolormatrix type="matrix" values="0 0 0 0 1  0 0 0 0 0.0627  0 0 0 0 0.4706  0 0 0 1 0"/>
     </filter>
-    <filter id="rosenrot-p3" x="0" y="0" width="100%" height="100%">
-      <feflood flood-color="color(display-p3 1 0.04 0.43)" result="c"/>
-      <fecomposite in="c" in2="SourceGraphic" operator="in"/>
-    </filter>
   </defs>
 </svg>
 
@@ -448,7 +444,7 @@
         color: color(display-p3 1 0.04 0.43);
     }
     #frage-prev, #frage-next, #pfeil, #info-prev, #info-next, img.link-pfeil {
-        filter: url(#rosenrot-p3);
+        filter: url(#rosenrot);
     }
 }
 
