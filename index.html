@@ -909,10 +909,11 @@
         pfeilEl.style.opacity = "0";
         submitText.textContent = t.danke;
         setTimeout(function() { submitText.textContent = t.absenden; }, 3000);
+        const fragenText = uebersetzungen.de.fragen[aktiveFrageIndex].replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
         fetch("/absenden", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ text: text, frage: aktiveFrageIndex })
+            body: JSON.stringify({ text: text, frage: fragenText })
         });
     };
 

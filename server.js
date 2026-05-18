@@ -14,17 +14,18 @@ const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY
 
 app.post("/absenden", async (req, res) => {
     const text = req.body.text;
+    const frage = req.body.frage || null;
     if (!text || text.trim() === "") {
         return res.status(400).json({ fehler: "Kein Text" });
     }
 
     if (filter.check(text)) {
         console.log("Gefilterter Text:", text);
-        await supabase.from("gefiltert").insert({ text, grund: "profanity" });
+        await supabase.from("gefiltert").insert({ text, frage, grund: "profanity" });
         return res.json({ erfolg: true });
     }
 
-    const { error } = await supabase.from("antworten").insert({ text });
+    const { error } = await supabase.from("antworten").insert({ text, frage });
     if (error) {
         console.error("Supabase Fehler:", error.message);
         return res.status(500).json({ fehler: "Fehler beim Speichern" });
