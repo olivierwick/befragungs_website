@@ -17,8 +17,6 @@
 
     <div id="frame">
 
-        <div id="InfoButton">Info</div>
-
         <div id="container">
             <div id="content">
                 <div id="frage-nav">
@@ -72,6 +70,7 @@
             <div class="LangPill" data-lang="sr">Srpski</div>
         </div>
 
+        <div id="InfoButton">Info</div>
         <div id="LangButton">Languages</div>
 
     </div>
@@ -121,9 +120,9 @@
         padding: var(--pad);
         font-size: var(--fs);
         color: white;
-        background: transparent;
+        background: white;
         cursor: pointer;
-        z-index: 10;
+        z-index: 100;
         filter: url(#rosenrot);
     }
 
@@ -137,9 +136,9 @@
         padding: var(--pad);
         font-size: var(--fs);
         color: white;
-        background: transparent;
+        background: white;
         cursor: pointer;
-        z-index: 10;
+        z-index: 100;
         filter: url(#rosenrot);
     }
 
@@ -152,6 +151,7 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
+        z-index: 0;
     }
 
     #content {
@@ -276,13 +276,13 @@
     #LangView {
         display: none;
         position: fixed;
-        top: 64px; bottom: 64px;
+        top: 0; bottom: 0;
         left: 20px;
         right: 20px;
         flex-direction: column;
         justify-content: center;
         overflow-y: auto;
-        z-index: 5;
+        z-index: 50;
         background: white;
     }
     #LangView.aktiv { display: flex; }
@@ -303,14 +303,14 @@
     #InfoView {
         display: none;
         position: fixed;
-        top: 64px; bottom: 64px;
+        top: 0; bottom: 0;
         left: 20px;
         right: 20px;
         flex-direction: column;
         justify-content: center;
         overflow-x: hidden;
         overflow-y: auto;
-        z-index: 5;
+        z-index: 50;
         background: white;
     }
     #InfoView.aktiv { display: flex; }
@@ -500,10 +500,10 @@
                 "Der bisher abgeschlossene private Industriegürtel zwischen Rhein und Wiese wird schrittweise in öffentlich zugänglichen Stadtraum verwandelt.",
                 "Geplant sind Wohnraum für rund 8'500 Menschen, 7'500 Arbeitsplätze, Schulen, Gewerbe sowie rund 110'000 m² Frei- und Grünraum mit 1'800 neuen Bäumen.",
                 "Mindestens ein Drittel des Wohnraums soll preisgünstig sein, 25 % an gemeinnützige Träger gehen.",
-                "Entwickelt wird das Areal gemeinsam von Swiss Life, Rhystadt AG und dem Kanton Basel-Stadt in mehreren Etappen. Die vorangehenden Angaben stammen von ihnen.",
+                'Entwickelt wird das Areal gemeinsam von <a href="https://www.swisslife.ch" target="_blank">Swiss Life</a>, <a href="https://www.rhystadt.ch/de/" target="_blank">Rhystadt AG</a> und dem Kanton <a href="https://www.bs.ch" target="_blank">Basel-Stadt</a> in mehreren Etappen. Die vorangehenden Angaben stammen von ihnen.',
                 "Kritisiert wird die drohende Gentrifizierung durch das Grossprojekt.",
                 "Bestehende Zwischennutzungen und autonome Räume gehen mit der Bebauung verloren.",
-                'Eine Studie der Ärztinnen und Ärzte für <a href="https://www.aefu.ch/2026/03/16/teils-krebs-foerdernde-erbgut-veraendernde-das-kind-im-mutterleib-schaedigende-und-explosive-substanzen-nicht-beruecksichtigt/" target="_blank"><span class="wackel-wort">Umweltschutz</span></a> bemängelt, dass 61 Stoffe, die auf dem Areal in grossen Mengen vorkamen und meist sehr toxisch sind, im Analyseprogramm fehlen.',
+                'Eine Studie der Ärztinnen und Ärzte für <a href="https://www.aefu.ch/2026/03/16/teils-krebs-foerdernde-erbgut-veraendernde-das-kind-im-mutterleib-schaedigende-und-explosive-substanzen-nicht-beruecksichtigt/" target="_blank"><span class="wackel-wort">Umweltschutz</span></a> bemängelt fehlende Analysen zu 61 hochgiftigen Stoffen, die auf dem Areal vorkamen.',
                 '<a href="https://www.zukunftklybeck.ch" target="_blank">Zukunft Klybeck</a> kritisiert zudem die begrenzten Möglichkeiten zur Mitwirkung der Bevölkerung. Genau hier möchte ich ansetzen und die Bevölkerung befragen.'
             ]
         },
@@ -525,7 +525,7 @@
                 "La cintura industriale privata finora chiusa tra il Reno e la Wiese verrà gradualmente trasformata in spazio urbano accessibile al pubblico.",
                 "Sono previsti alloggi per circa 8'500 persone, 7'500 posti di lavoro, scuole, attività commerciali e circa 110'000 m² di spazi verdi e aperti con 1'800 nuovi alberi.",
                 "Almeno un terzo degli alloggi dovrà essere a prezzi accessibili, il 25% andrà a enti senza scopo di lucro.",
-                "Il comprensorio viene sviluppato congiuntamente da Swiss Life, Rhystadt AG e dal Cantone di Basilea-Città in più fasi. Le informazioni precedenti provengono da loro.",
+                'Il comprensorio viene sviluppato congiuntamente da <a href="https://www.swisslife.ch" target="_blank">Swiss Life</a>, <a href="https://www.rhystadt.ch/de/" target="_blank">Rhystadt AG</a> e dal Cantone di <a href="https://www.bs.ch" target="_blank">Basilea-Città</a> in più fasi. Le informazioni precedenti provengono da loro.',
                 "Viene criticata la minaccia di gentrificazione causata dal grande progetto.",
                 "Gli usi temporanei esistenti e gli spazi autonomi andranno persi con la costruzione.",
                 'Uno studio dei medici per la protezione <a href="https://www.aefu.ch/2026/03/16/teils-krebs-foerdernde-erbgut-veraendernde-das-kind-im-mutterleib-schaedigende-und-explosive-substanzen-nicht-beruecksichtigt/" target="_blank"><span class="wackel-wort">ambientale</span></a> rileva che 61 sostanze, utilizzate in passato in grandi quantità nell\'area e per lo più molto tossiche, mancano nel programma di analisi.',
@@ -550,7 +550,7 @@
                 "La ceinture industrielle privée jusqu'ici fermée entre le Rhin et la Wiese sera progressivement transformée en espace urbain accessible au public.",
                 "Il est prévu des logements pour environ 8'500 personnes, 7'500 emplois, des écoles, des commerces ainsi qu'environ 110'000 m² d'espaces verts et ouverts avec 1'800 nouveaux arbres.",
                 "Au moins un tiers des logements devra être abordable, 25 % iront à des porteurs d'utilité publique.",
-                "Le site est développé conjointement par Swiss Life, Rhystadt AG et le Canton de Bâle-Ville en plusieurs étapes. Les informations précédentes proviennent d'eux.",
+                'Le site est développé conjointement par <a href="https://www.swisslife.ch" target="_blank">Swiss Life</a>, <a href="https://www.rhystadt.ch/de/" target="_blank">Rhystadt AG</a> et le Canton de <a href="https://www.bs.ch" target="_blank">Bâle-Ville</a> en plusieurs étapes. Les informations précédentes proviennent d\'eux.',
                 "La menace de gentrification due au grand projet est critiquée.",
                 "Les utilisations intermédiaires existantes et les espaces autonomes seront perdus avec la construction.",
                 'Une étude des médecins pour la protection de <a href="https://www.aefu.ch/2026/03/16/teils-krebs-foerdernde-erbgut-veraendernde-das-kind-im-mutterleib-schaedigende-und-explosive-substanzen-nicht-beruecksichtigt/" target="_blank"><span class="wackel-wort">l\'environnement</span></a> relève que 61 substances, utilisées autrefois en grande quantité sur le site et pour la plupart très toxiques, manquent dans le programme d\'analyse.',
@@ -575,7 +575,7 @@
                 "الحزام الصناعي الخاص المغلق حتى الآن بين نهري الراين وفيزه سيتحوّل تدريجياً إلى فضاء حضري مفتوح للعامة.",
                 "مخطط إنشاء مساكن لنحو 8'500 شخص، و7'500 فرصة عمل، ومدارس، ومحال تجارية، فضلاً عن نحو 110'000 م² من المساحات الخضراء والمفتوحة مع 1'800 شجرة جديدة.",
                 "يُفترض أن يكون ثلث المساكن على الأقل بأسعار معقولة، وأن تذهب 25٪ منها إلى جهات غير ربحية.",
-                "يُطوَّر الموقع بالتعاون بين سويس لايف وريستادت AG وكانتون بازل-شتادت على مراحل متعددة. المعلومات السابقة صادرة عنهم.",
+                'يُطوَّر الموقع بالتعاون بين <a href="https://www.swisslife.ch" target="_blank">سويس لايف</a> و<a href="https://www.rhystadt.ch/de/" target="_blank">ريستادت AG</a> وكانتون <a href="https://www.bs.ch" target="_blank">بازل-شتادت</a> على مراحل متعددة. المعلومات السابقة صادرة عنهم.',
                 "يُنتقد خطر الجنترفة الناجمة عن هذا المشروع الضخم.",
                 "ستُفقَد الاستخدامات المؤقتة القائمة والمساحات المستقلة مع البناء.",
                 'تُشير دراسة لأطباء حماية <a href="https://www.aefu.ch/2026/03/16/teils-krebs-foerdernde-erbgut-veraendernde-das-kind-im-mutterleib-schaedigende-und-explosive-substanzen-nicht-beruecksichtigt/" target="_blank"><span class="wackel-wort">البيئة</span></a> إلى غياب 61 مادة، كانت تُستخدم سابقاً بكميات كبيرة في الموقع ومعظمها شديدة السمية، من برنامج التحليل.',
@@ -600,7 +600,7 @@
                 "Rhein ile Wiese arasındaki şimdiye kadar kapalı olan özel sanayi kuşağı kademeli olarak kamuya açık kentsel alana dönüştürülecek.",
                 "Yaklaşık 8'500 kişi için konut, 7'500 iş yeri, okullar, ticari alanlar ve 1'800 yeni ağaçla birlikte yaklaşık 110'000 m² açık ve yeşil alan planlanmaktadır.",
                 "Konutların en az üçte biri uygun fiyatlı olmalı, %25'i kâr amacı gütmeyen kuruluşlara gidecek.",
-                "Alan, Swiss Life, Rhystadt AG ve Basel-Stadt Kantonu tarafından birkaç aşamada birlikte geliştirilmektedir. Önceki bilgiler onlardan gelmektedir.",
+                'Alan, <a href="https://www.swisslife.ch" target="_blank">Swiss Life</a>, <a href="https://www.rhystadt.ch/de/" target="_blank">Rhystadt AG</a> ve <a href="https://www.bs.ch" target="_blank">Basel-Stadt</a> Kantonu tarafından birkaç aşamada birlikte geliştirilmektedir. Önceki bilgiler onlardan gelmektedir.',
                 "Büyük proje nedeniyle yaşanması beklenen soylaştırma tehlikesi eleştirilmektedir.",
                 "Mevcut geçici kullanımlar ve özerk alanlar yapılaşmayla birlikte kaybolacak.",
                 'Çevre Koruma <a href="https://www.aefu.ch/2026/03/16/teils-krebs-foerdernde-erbgut-veraendernde-das-kind-im-mutterleib-schaedigende-und-explosive-substanzen-nicht-beruecksichtigt/" target="_blank"><span class="wackel-wort">Doktorları\'nın</span></a> bir araştırması, alanda daha önce büyük miktarlarda kullanılan ve çoğunlukla çok toksik olan 61 maddenin analiz programında bulunmadığını tespit etmiştir.',
@@ -625,7 +625,7 @@
                 "The previously closed private industrial belt between the Rhine and the Wiese river will be gradually transformed into publicly accessible urban space.",
                 "Planned are housing for around 8,500 people, 7,500 jobs, schools, businesses, and approximately 110,000 m² of open and green space with 1,800 new trees.",
                 "At least one third of the housing is to be affordable, with 25% going to non-profit organisations.",
-                "The site is being developed jointly by Swiss Life, Rhystadt AG and the Canton of Basel-Stadt in several phases. The preceding information comes from them.",
+                'The site is being developed jointly by <a href="https://www.swisslife.ch" target="_blank">Swiss Life</a>, <a href="https://www.rhystadt.ch/de/" target="_blank">Rhystadt AG</a> and the Canton of <a href="https://www.bs.ch" target="_blank">Basel-Stadt</a> in several phases. The preceding information comes from them.',
                 "The looming gentrification caused by the major project is being criticised.",
                 "Existing temporary uses and autonomous spaces will be lost with the development.",
                 'A study by doctors for environmental <a href="https://www.aefu.ch/2026/03/16/teils-krebs-foerdernde-erbgut-veraendernde-das-kind-im-mutterleib-schaedigende-und-explosive-substanzen-nicht-beruecksichtigt/" target="_blank"><span class="wackel-wort">protection</span></a> notes that 61 substances, previously used in large quantities on the site and mostly highly toxic, are missing from the analysis programme.',
@@ -650,7 +650,7 @@
                 "El cinturón industrial privado hasta ahora cerrado entre el Rin y el Wiese se irá transformando gradualmente en espacio urbano de acceso público.",
                 "Se planean viviendas para unas 8'500 personas, 7'500 puestos de trabajo, escuelas, comercios y unos 110'000 m² de espacios verdes y abiertos con 1'800 nuevos árboles.",
                 "Al menos un tercio de las viviendas deberá ser asequible, el 25% irá a entidades sin ánimo de lucro.",
-                "El área se desarrolla conjuntamente por Swiss Life, Rhystadt AG y el Cantón de Basilea-Ciudad en varias etapas. La información anterior proviene de ellos.",
+                'El área se desarrolla conjuntamente por <a href="https://www.swisslife.ch" target="_blank">Swiss Life</a>, <a href="https://www.rhystadt.ch/de/" target="_blank">Rhystadt AG</a> y el Cantón de <a href="https://www.bs.ch" target="_blank">Basilea-Ciudad</a> en varias etapas. La información anterior proviene de ellos.',
                 "Se critica la amenaza de gentrificación que conlleva el gran proyecto.",
                 "Los usos temporales existentes y los espacios autónomos se perderán con la edificación.",
                 'Un estudio de médicos para la protección del medio <a href="https://www.aefu.ch/2026/03/16/teils-krebs-foerdernde-erbgut-veraendernde-das-kind-im-mutterleib-schaedigende-und-explosive-substanzen-nicht-beruecksichtigt/" target="_blank"><span class="wackel-wort">ambiente</span></a> señala que 61 sustancias, utilizadas anteriormente en grandes cantidades en el área y en su mayoría muy tóxicas, no aparecen en el programa de análisis.',
@@ -675,7 +675,7 @@
                 "Dosadašnji privatni industrijski pojas između Rajne i Wiese postepeno se pretvara u javno dostupan urbani prostor.",
                 "Planirani su stanovi za oko 8'500 ljudi, 7'500 radnih mesta, škole, poslovni prostori i oko 110'000 m² slobodnog i zelenog prostora sa 1'800 novih stabala.",
                 "Najmanje trećina stanova treba da bude pristupačna, 25% ide neprofitnim organizacijama.",
-                "Lokaciju zajedno razvijaju Swiss Life, Rhystadt AG i Kanton Basel-Stadt u više etapa. Prethodne informacije potiču od njih.",
+                'Lokaciju zajedno razvijaju <a href="https://www.swisslife.ch" target="_blank">Swiss Life</a>, <a href="https://www.rhystadt.ch/de/" target="_blank">Rhystadt AG</a> i Kanton <a href="https://www.bs.ch" target="_blank">Basel-Stadt</a> u više etapa. Prethodne informacije potiču od njih.',
                 "Kritikuje se preteća gentrifikacija kao posledica ovog velikog projekta.",
                 "Postojeće privremene namene i autonomni prostori gube se izgradnjom.",
                 'Studija lekara za zaštitu životne <a href="https://www.aefu.ch/2026/03/16/teils-krebs-foerdernde-erbgut-veraendernde-das-kind-im-mutterleib-schaedigende-und-explosive-substanzen-nicht-beruecksichtigt/" target="_blank"><span class="wackel-wort">sredine</span></a> ukazuje da 61 supstanca, koja je ranije korišćena u velikim količinama na lokaciji i uglavnom je veoma toksična, nedostaje u programu analize.',
@@ -691,7 +691,7 @@
     let infoViewOffen = false;
 
     function addPfeilNachLinks(el) {
-        el.querySelectorAll('a[href*="klybeckplus"], a[href*="olivierwick"], a[href*="zukunftklybeck"], a[href*="aefu.ch"], a[href*="instagram.com"], a[href^="mailto:"]').forEach(function(a) {
+        el.querySelectorAll('a[href*="klybeckplus"], a[href*="olivierwick"], a[href*="zukunftklybeck"], a[href*="aefu.ch"], a[href*="instagram.com"], a[href^="mailto:"], a[href*="swisslife"], a[href*="rhystadt"], a[href*="bs.ch"]').forEach(function(a) {
             if (!a.querySelector('img.link-pfeil')) {
                 var img = document.createElement('img');
                 img.src = 'pfeil.png';
