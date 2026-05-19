@@ -101,7 +101,7 @@
     #frame { height: 100%; overflow: hidden; position: relative; }
 
     @keyframes einblenden { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes langEinblenden { from { opacity: 0; } to { opacity: 1; } }
+    @keyframes langEinblenden { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0% 0); } }
     @keyframes cursor-puls { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
     @keyframes wackeln {
         0%   { transform: rotate(0deg); }
@@ -295,7 +295,7 @@
         color: white;
         text-align: center;
         cursor: pointer;
-        opacity: 0;
+        clip-path: inset(0 0 100% 0);
         background: transparent;
         flex-shrink: 0;
         filter: url(#rosenrot);
@@ -366,7 +366,7 @@
         color: white;
         text-align: center;
         cursor: pointer;
-        opacity: 0;
+        clip-path: inset(0 0 100% 0);
         white-space: nowrap;
     }
 
@@ -808,7 +808,7 @@
         const view = document.getElementById("LangView");
         view.classList.add("aktiv");
         view.querySelectorAll(".LangPill").forEach(function(pill, i) {
-            pill.style.opacity = "0";
+            pill.style.clipPath = "inset(0 0 100% 0)";
             pill.style.animation = "none";
             setTimeout(function() { pill.style.animation = "langEinblenden 0.4s ease forwards"; }, i * 120);
         });
@@ -881,13 +881,13 @@
             document.getElementById("info-links").style.display = "block";
             var linkItems = document.querySelectorAll(".info-link-item");
             linkItems.forEach(function(a, i) {
-                a.style.opacity = "0";
+                a.style.clipPath = "inset(0 0 100% 0)";
                 a.style.animation = "none";
                 setTimeout(function() {
                     a.style.animation = "langEinblenden 0.4s ease forwards";
                     a.addEventListener("animationend", function() {
                         a.style.animation = "";
-                        a.style.opacity = "1";
+                        a.style.clipPath = "";
                     }, { once: true });
                 }, i * 120);
             });
@@ -909,7 +909,7 @@
             document.getElementById("info-row").style.display = "none";
             document.getElementById("info-links").style.display = "none";
             dropdown.querySelectorAll(".info-menu-item").forEach(function(item, i) {
-                item.style.opacity = "0";
+                item.style.clipPath = "inset(0 0 100% 0)";
                 item.style.animation = "none";
                 setTimeout(function() {
                     item.style.animation = "langEinblenden 0.4s ease forwards";
