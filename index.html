@@ -430,6 +430,7 @@
     .qmark { display: inline-block; transform: scaleX(-1); }
 
 @media (max-width: 430px) { :root { --fs: 38px; --pfeil-abstand: 145px; } }
+@media (pointer: coarse) { #InfoView, #LangView { background: black; } }
 
 @supports (color: oklch(0% 0 0)) {
     :root {
@@ -470,7 +471,7 @@
         .LangPill   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; }
         #content   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); }
         #info-content { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); }
-        #InfoView, #LangView { background: transparent; }
+        #InfoView, #LangView { background: black; }
         #frage-nav, #Frage1, #Submit, #Eingabe,
         #info-nav, .info-menu-item, #InfoText, .info-link-item,
         #InfoText a, #Frage1 a { color: white; }
