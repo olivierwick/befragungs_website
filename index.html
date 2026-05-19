@@ -15,7 +15,6 @@
   </defs>
 </svg>
 
-    <div id="diag-banner">MOBILE CSS AKTIV</div>
     <div id="frame">
 
         <div id="InfoButton">Info</div>
@@ -87,11 +86,6 @@
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
-
-    #diag-banner { display: none; }
-    @media (pointer: coarse) {
-        #diag-banner { display: block; position: fixed; top: 0; left: 0; right: 0; background: red; color: white; z-index: 9999; padding: 8px; text-align: center; font-size: 16px; font-weight: bold; }
-    }
 
     html { height: 100%; }
 
@@ -432,6 +426,10 @@
 @media (max-width: 430px) { :root { --fs: 38px; --pfeil-abstand: 145px; } }
 
 @supports (color: oklch(0% 0 0)) {
+    ::selection {
+        background-color: oklch(66% 0.30 9deg);
+        color: transparent;
+    }
     :root {
         --linie: 8px solid oklch(66% 0.30 9deg);
     }
