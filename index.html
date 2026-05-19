@@ -122,9 +122,9 @@
         padding: var(--pad);
         font-size: var(--fs);
         color: white;
-        background: white;
+        background: transparent;
         cursor: pointer;
-        z-index: 100;
+        z-index: 10;
         filter: url(#rosenrot);
     }
 
@@ -138,9 +138,9 @@
         padding: var(--pad);
         font-size: var(--fs);
         color: white;
-        background: white;
+        background: transparent;
         cursor: pointer;
-        z-index: 100;
+        z-index: 10;
         filter: url(#rosenrot);
     }
 
@@ -153,7 +153,6 @@
         flex-direction: column;
         align-items: center;
         width: 100%;
-        z-index: 0;
     }
 
     #content {
@@ -278,13 +277,13 @@
     #LangView {
         display: none;
         position: fixed;
-        top: 0; bottom: 0;
+        top: 64px; bottom: 64px;
         left: 20px;
         right: 20px;
         flex-direction: column;
         justify-content: center;
         overflow-y: auto;
-        z-index: 50;
+        z-index: 5;
         background: white;
     }
     #LangView.aktiv { display: flex; }
@@ -305,14 +304,14 @@
     #InfoView {
         display: none;
         position: fixed;
-        top: 0; bottom: 0;
+        top: 64px; bottom: 64px;
         left: 20px;
         right: 20px;
         flex-direction: column;
         justify-content: center;
         overflow-x: hidden;
         overflow-y: auto;
-        z-index: 50;
+        z-index: 5;
         background: white;
     }
     #InfoView.aktiv { display: flex; }
