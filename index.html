@@ -467,14 +467,14 @@
         #InfoButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; }
         #LangButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; }
         .LangPill   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; }
-        #content   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); }
-        #info-content { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); }
+        #frage-nav, #Submit, #Eingabe,
+        #info-nav, .info-menu-item, .info-link-item { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); }
         #frage-nav, #Frage1, #Submit, #Eingabe,
         #info-nav, .info-menu-item, #InfoText, .info-link-item,
         #InfoText a, #Frage1 a { color: white; }
         #cursor-bar { background: white; }
         #frage-prev, #frage-next, #pfeil, #info-prev, #info-next, img.link-pfeil { filter: none; }
-        #Frage1 span, #InfoText span { animation: none !important; opacity: 1 !important; }
+        #InfoView, #LangView { background: black; }
     }
 }
 
@@ -707,6 +707,8 @@
     }
 
     function animiereFrageText(el, html) {
+        var isMobile = window.matchMedia('(pointer: coarse)').matches;
+        var mF = 'brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%)';
         var STEP = 0.07;
         var d = 0;
         var re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|(<span\b[^>]*?>[\s\S]*?<\/span>)|([^\s<]+)/g;
@@ -720,7 +722,8 @@
             if (/^<br/i.test(m[0])) {
                 parts.push('<br>');
             } else {
-                parts.push('<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + m[0] + '</span>');
+                var spanStyle = 'opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's' + (isMobile ? ';filter:' + mF : '');
+                parts.push('<span style="' + spanStyle + '">' + m[0] + '</span>');
                 d += STEP;
             }
         }
@@ -729,12 +732,17 @@
             if (i > 0 && hadSpace[i] && parts[i] !== '<br>') out += ' ';
             out += parts[i];
         }
+        if (isMobile) el.style.filter = '';
         el.innerHTML = out;
         addPfeilNachLinks(el);
         el._animVer = (el._animVer || 0) + 1;
         var ver = el._animVer;
         setTimeout(function() {
-            if (el._animVer === ver) { el.innerHTML = html; addPfeilNachLinks(el); }
+            if (el._animVer === ver) {
+                el.innerHTML = html;
+                addPfeilNachLinks(el);
+                if (isMobile) el.style.filter = mF;
+            }
         }, Math.round((d + 0.3) * 1000) + 200);
     }
 
