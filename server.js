@@ -8,6 +8,12 @@ filter.add(filter.getDictionary("fr"));
 
 const app = express();
 app.use(express.json());
+app.use((req, res, next) => {
+    if (req.path === "/" || req.path.endsWith(".html")) {
+        res.set("Cache-Control", "no-store");
+    }
+    next();
+});
 app.use(express.static(__dirname));
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_KEY);
