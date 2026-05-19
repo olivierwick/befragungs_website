@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="color-scheme" content="light">
-    <title>Klybeck</title>
+    <title>klycheck.ch</title>
 </head>
 <body>
 <svg style="display:none">
@@ -464,16 +464,16 @@
 
     @media (pointer: coarse) {
         :root { --linie: 6px solid oklch(66% 0.30 9deg); }
-        #InfoButton { filter: none; background: oklch(66% 0.30 9deg); color: oklch(66% 0.30 9deg); }
-        #LangButton { filter: none; background: oklch(66% 0.30 9deg); color: oklch(66% 0.30 9deg); }
+        #InfoButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; }
+        #LangButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; }
         .LangPill   { filter: none; color: oklch(66% 0.30 9deg); }
-        #content    { filter: none; }
-        #info-content { filter: none; }
-        #frage-nav, #Frage1, #Submit, #Eingabe,
-        #info-nav, .info-menu-item, #InfoText, .info-link-item,
-        #InfoText a, #Frage1 a { color: oklch(66% 0.30 9deg); }
-        #cursor-bar { background: oklch(66% 0.30 9deg); }
-        #frage-prev, #frage-next, #pfeil, #info-prev, #info-next, img.link-pfeil { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); }
+        #content    { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); }
+        #frage-nav, #Frage1, #Frage1 a, #Submit, #Eingabe { color: white; }
+        #info-nav, .info-menu-item, #InfoText, .info-link-item, #InfoText a { color: oklch(66% 0.30 9deg); }
+        #cursor-bar { background: white; }
+        #frage-prev, #frage-next, #pfeil { filter: none; }
+        #info-prev, #info-next, img.link-pfeil { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); }
+        #Frage1 span { animation: none !important; opacity: 1 !important; }
     }
 }
 
