@@ -351,6 +351,9 @@
     #info-next { left: calc(50% + var(--pfeil-abstand)); transform: translate(-50%, -50%); }
     #InfoView[dir="rtl"] #info-prev { left: calc(50% + var(--pfeil-abstand)); transform: translate(-50%, -50%) rotate(0deg); }
     #InfoView[dir="rtl"] #info-next { left: calc(50% - var(--pfeil-abstand)); transform: translate(-50%, -50%) rotate(180deg); }
+    #container[dir="rtl"] img.link-pfeil,
+    #container[dir="rtl"] #pfeil,
+    #InfoView[dir="rtl"] img.link-pfeil { transform: scaleX(-1); }
 
     #info-dropdown {
         display: none;
@@ -503,7 +506,7 @@
             info: [
                 'Für meine Bachelorarbeit sammle ich anonyme Meinungen zum <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> Projekt. Diese will ich voraussichtlich am Hafen auf eine Fläche als Visual projizieren.',
                 'Für meine Bachelorarbeit sammle ich anonyme Meinungen zum <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> Projekt, diese werden als Installation am Hafen visualisiert.',
-                'Ich heisse <a href="https://olivierwick.ch" target="_blank">Olivier</a> und studiere visuelle Kommunikation<br>in Basel.<br>Falls du Fragen hast, melde dich unter<br><a href="mailto:olivier.wick@yahoo.com">E-Mail</a><br><a href="https://instagram.com/076_olivier" target="_blank">Instagram</a>',
+                'Ich heisse <a href="https://olivierwick.ch" target="_blank">Olivier</a> und studiere visuelle Kommunikation in Basel. Falls du Fragen hast, melde dich unter<br><a href="mailto:olivier.wick@yahoo.com">E-Mail</a><br><a href="https://instagram.com/076_olivier" target="_blank">Instagram</a>',
                 "Auf dem rund 300'000 m² grossen Klybeck-Areal, einem der grössten Transformationsareale der Schweiz, entsteht bis etwa 2050 ein neuer Basler Stadtteil.",
                 "Der bisher abgeschlossene private Industriegürtel zwischen Rhein und Wiese wird schrittweise in öffentlich zugänglichen Stadtraum verwandelt.",
                 "Geplant sind Wohnraum für rund 8'500 Menschen, 7'500 Arbeitsplätze, Schulen, Gewerbe sowie rund 110'000 m² Frei- und Grünraum mit 1'800 neuen Bäumen.",
@@ -511,7 +514,7 @@
                 'Entwickelt wird das Areal gemeinsam von <a href="https://www.swisslife.ch" target="_blank">Swiss Life</a>, <a href="https://www.rhystadt.ch/de/" target="_blank">Rhystadt AG</a> und dem Kanton <a href="https://www.bs.ch" target="_blank">Basel-Stadt</a> in mehreren Etappen. Die vorangehenden Angaben stammen von ihnen.',
                 "Kritisiert wird die drohende Gentrifizierung durch das Grossprojekt.",
                 "Bestehende Zwischennutzungen und autonome Räume gehen mit der Bebauung verloren.",
-                'Eine Studie der Ärztinnen und<br>Ärzte für <a href="https://www.aefu.ch/2026/03/16/teils-krebs-foerdernde-erbgut-veraendernde-das-kind-im-mutterleib-schaedigende-und-explosive-substanzen-nicht-beruecksichtigt/" target="_blank"><span class="wackel-wort">Umweltschutz</span></a> bemängelt fehlende Analysen zu 61 hochgiftigen Stoffen, die auf dem Areal vorkamen.',
+                'Eine Studie der Ärz-<br>tinnen und Ärzte für<br><a href="https://www.aefu.ch/2026/03/16/teils-krebs-foerdernde-erbgut-veraendernde-das-kind-im-mutterleib-schaedigende-und-explosive-substanzen-nicht-beruecksichtigt/" target="_blank"><span class="wackel-wort">Umweltschutz</span></a> bemängelt fehlende Analysen zu 61 hochgiftigen Stoffen, die auf dem Areal vorkamen.',
                 '<a href="https://www.zukunftklybeck.ch" target="_blank">Zukunft Klybeck</a> kritisiert zudem die begrenzten Möglichkeiten zur Mitwirkung der Bevölkerung. Genau hier möchte ich ansetzen und die Bevölkerung befragen.'
             ]
         },
@@ -585,14 +588,14 @@
             dir: "rtl", lang: "ar", infobtn: "معلومات", langbtn: "اللغات", zurueck: "رجوع",
             menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "انتقادات", installation: "المشروع", kontakt: "تواصل", links: "روابط" },
             info: [
-                'لأطروحتي أجمع آراء مجهولة حول مشروع <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>. ستُعرض هذه الآراء كـvisual مُسقَط، على الأرجح في الميناء.',
+                'لأطروحتي أجمع آراء مجهولة حول مشروع <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>. ستُعرض هذه الآراء كعرض مرئي مُسقَط، على الأرجح في الميناء.',
                 'لأطروحتي أجمع آراء مجهولة حول مشروع <a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a> وستُعرض كتركيب فني في الميناء.',
-                'اسمي <a href="https://olivierwick.ch" target="_blank">أوليفييه</a> وأدرس التواصل البصري<br>في بازل.<br>إن كان لديك أي سؤال، تواصل معي عبر<br><a href="mailto:olivier.wick@yahoo.com">E-Mail</a><br><a href="https://instagram.com/076_olivier" target="_blank">Instagram</a>',
-                "على أرض كليبيك البالغة مساحتها نحو 300'000 م²، إحدى أكبر مناطق التحوّل في سويسرا، سيُشيَّد حيٌّ بازلي جديد بحلول عام 2050.",
+                'اسمي <a href="https://olivierwick.ch" target="_blank">أوليفييه</a> وأدرس التواصل البصري<br>في بازل.<br>إن كان لديك أي سؤال، تواصل معي عبر<br><a href="mailto:olivier.wick@yahoo.com">بريد إلكتروني</a><br><a href="https://instagram.com/076_olivier" target="_blank">Instagram</a>',
+                "على أرض كليبيك البالغة مساحتها نحو <bdi>300'000</bdi> م²، إحدى أكبر مناطق التحوّل في سويسرا، سيُشيَّد حيٌّ بازلي جديد بحلول عام 2050.",
                 "الحزام الصناعي الخاص المغلق حتى الآن بين نهري الراين وفيزه سيتحوّل تدريجياً إلى فضاء حضري مفتوح للعامة.",
-                "مخطط إنشاء مساكن لنحو 8'500 شخص، و7'500 فرصة عمل، ومدارس، ومحال تجارية، فضلاً عن نحو 110'000 م² من المساحات الخضراء والمفتوحة مع 1'800 شجرة جديدة.",
+                "مخطط إنشاء مساكن لنحو <bdi>8'500</bdi> شخص، و<bdi>7'500</bdi> فرصة عمل، ومدارس، ومحال تجارية، فضلاً عن نحو <bdi>110'000</bdi> م² من المساحات الخضراء والمفتوحة مع <bdi>1'800</bdi> شجرة جديدة.",
                 "يُفترض أن يكون ثلث المساكن على الأقل بأسعار معقولة، وأن تذهب 25٪ منها إلى جهات غير ربحية.",
-                'يُطوَّر الموقع بالتعاون بين <a href="https://www.swisslife.ch" target="_blank">سويس لايف</a> و<a href="https://www.rhystadt.ch/de/" target="_blank">ريستادت AG</a> وكانتون <a href="https://www.bs.ch" target="_blank">بازل-شتادت</a> على مراحل متعددة. المعلومات السابقة صادرة عنهم.',
+                'يُطوَّر الموقع بالتعاون بين <a href="https://www.swisslife.ch" target="_blank">Swiss Life</a> و<a href="https://www.rhystadt.ch/de/" target="_blank">ريستادت AG</a> وكانتون <a href="https://www.bs.ch" target="_blank">بازل-شتادت</a> على مراحل متعددة. المعلومات السابقة صادرة عنهم.',
                 "يُنتقد خطر الجنترفة الناجمة عن هذا المشروع الضخم.",
                 "ستُفقَد الاستخدامات المؤقتة القائمة والمساحات المستقلة مع البناء.",
                 'تُشير دراسة لأطباء حماية <a href="https://www.aefu.ch/2026/03/16/teils-krebs-foerdernde-erbgut-veraendernde-das-kind-im-mutterleib-schaedigende-und-explosive-substanzen-nicht-beruecksichtigt/" target="_blank"><span class="wackel-wort">البيئة</span></a> إلى غياب 61 مادة، كانت تُستخدم سابقاً بكميات كبيرة في الموقع ومعظمها شديدة السمية، من برنامج التحليل.',
