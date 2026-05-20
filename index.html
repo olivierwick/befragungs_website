@@ -820,7 +820,7 @@
         var mobile = window.matchMedia("(pointer: coarse)").matches;
         view.querySelectorAll(".LangPill").forEach(function(pill, i) {
             if (mobile) {
-                pill.style.opacity = "";
+                pill.style.opacity = "1";
                 pill.style.animation = "";
             } else {
                 pill.style.opacity = "0";
