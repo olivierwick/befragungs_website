@@ -295,6 +295,7 @@
         color: white;
         text-align: center;
         cursor: pointer;
+        clip-path: inset(0 0 100% 0);
         background: transparent;
         flex-shrink: 0;
         filter: url(#rosenrot);
@@ -365,6 +366,7 @@
         color: white;
         text-align: center;
         cursor: pointer;
+        clip-path: inset(0 0 100% 0);
         white-space: nowrap;
     }
 
@@ -464,6 +466,7 @@
     @media (pointer: coarse) {
         :root { --linie: 6px solid oklch(66% 0.30 9deg); }
         #Frage1 span, #InfoText span { animation: none !important; opacity: 1 !important; }
+        .LangPill, .info-menu-item { transform: translateZ(0); }
     }
 }
 
@@ -808,13 +811,7 @@
         view.querySelectorAll(".LangPill").forEach(function(pill, i) {
             pill.style.clipPath = "inset(0 0 100% 0)";
             pill.style.animation = "none";
-            setTimeout(function() {
-                pill.style.animation = "langEinblenden 0.4s ease forwards";
-                pill.addEventListener("animationend", function() {
-                    pill.style.animation = "";
-                    pill.style.clipPath = "none";
-                }, { once: true });
-            }, i * 120);
+            setTimeout(function() { pill.style.animation = "langEinblenden 0.4s ease forwards"; }, i * 120);
         });
     }
 
@@ -917,10 +914,6 @@
                 item.style.animation = "none";
                 setTimeout(function() {
                     item.style.animation = "langEinblenden 0.4s ease forwards";
-                    item.addEventListener("animationend", function() {
-                        item.style.animation = "";
-                        item.style.clipPath = "none";
-                    }, { once: true });
                 }, i * 120);
             });
         } else {
