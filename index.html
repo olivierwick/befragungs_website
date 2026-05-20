@@ -745,7 +745,7 @@
             } else if (m[4] !== undefined) {
                 parts.push(m[0]);
             } else {
-                parts.push('<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + m[0] + '</span>');
+                parts.push('<span data-anim style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + m[0] + '</span>');
                 d += STEP;
             }
         }
@@ -759,7 +759,13 @@
         el._animVer = (el._animVer || 0) + 1;
         var ver = el._animVer;
         setTimeout(function() {
-            if (el._animVer === ver) { el.innerHTML = html; addPfeilNachLinks(el); }
+            if (el._animVer !== ver) return;
+            el.querySelectorAll('span[data-anim]').forEach(function(span) {
+                var parent = span.parentNode;
+                if (!parent) return;
+                while (span.firstChild) parent.insertBefore(span.firstChild, span);
+                parent.removeChild(span);
+            });
         }, Math.round((d + 0.3) * 1000) + 200);
     }
 
