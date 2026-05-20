@@ -732,7 +732,7 @@
     function animiereFrageText(el, html) {
         var STEP = 0.07;
         var d = 0;
-        var re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|(<span\b[^>]*?>[\s\S]*?<\/span>)|([^\s<]+)/g;
+        var re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|(<span\b[^>]*?>[\s\S]*?<\/span>)|(<[^>]+>)|([^\s<]+)/g;
         var parts = [];
         var hadSpace = [];
         var prevEnd = 0;
@@ -742,6 +742,8 @@
             prevEnd = m.index + m[0].length;
             if (/^<br/i.test(m[0])) {
                 parts.push('<br>');
+            } else if (m[4] !== undefined) {
+                parts.push(m[0]);
             } else {
                 parts.push('<span style="opacity:0;animation:einblenden 0.3s ease forwards ' + d + 's">' + m[0] + '</span>');
                 d += STEP;
