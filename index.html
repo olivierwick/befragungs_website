@@ -817,10 +817,16 @@
         document.getElementById("InfoButton").textContent = uebersetzungen[aktiveSprache].infobtn;
         const view = document.getElementById("LangView");
         view.classList.add("aktiv");
+        var mobile = window.matchMedia("(pointer: coarse)").matches;
         view.querySelectorAll(".LangPill").forEach(function(pill, i) {
-            pill.style.opacity = "0";
-            pill.style.animation = "none";
-            setTimeout(function() { pill.style.animation = "langEinblenden 0.4s ease forwards"; }, i * 120);
+            if (mobile) {
+                pill.style.opacity = "";
+                pill.style.animation = "";
+            } else {
+                pill.style.opacity = "0";
+                pill.style.animation = "none";
+                setTimeout(function() { pill.style.animation = "langEinblenden 0.4s ease forwards"; }, i * 120);
+            }
         });
     }
 
