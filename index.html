@@ -1109,6 +1109,12 @@
         });
     }, 10000);
 
+    document.addEventListener('touchstart', function(e) {
+        if (e.touches.length > 0 && e.touches[0].clientX <= 15) {
+            e.preventDefault();
+        }
+    }, { passive: false });
+
     spracheWechseln("de");
 
 
