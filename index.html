@@ -469,7 +469,7 @@
         #LangButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; }
         .LangPill   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; transform: translateZ(0); }
         #content   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); }
-        #info-content { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); }
+        #info-content { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); transform: translateZ(0); }
         #frage-nav, #Frage1, #Submit, #Eingabe,
         #info-nav, .info-menu-item, #InfoText, .info-link-item,
         #InfoText a, #Frage1 a { color: white; }
@@ -817,16 +817,10 @@
         document.getElementById("InfoButton").textContent = uebersetzungen[aktiveSprache].infobtn;
         const view = document.getElementById("LangView");
         view.classList.add("aktiv");
-        var mobile = window.matchMedia("(pointer: coarse)").matches;
         view.querySelectorAll(".LangPill").forEach(function(pill, i) {
-            if (mobile) {
-                pill.style.opacity = "1";
-                pill.style.animation = "";
-            } else {
-                pill.style.opacity = "0";
-                pill.style.animation = "none";
-                setTimeout(function() { pill.style.animation = "langEinblenden 0.4s ease forwards"; }, i * 120);
-            }
+            pill.style.opacity = "0";
+            pill.style.animation = "none";
+            setTimeout(function() { pill.style.animation = "langEinblenden 0.4s ease forwards"; }, i * 120);
         });
     }
 
