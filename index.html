@@ -101,7 +101,7 @@
     #frame { height: 100%; overflow: hidden; position: relative; }
 
     @keyframes einblenden { from { opacity: 0; } to { opacity: 1; } }
-    @keyframes langEinblenden { from { clip-path: inset(0 0 100% 0); } to { clip-path: inset(0 0 0% 0); } }
+    @keyframes langEinblenden { from { opacity: 0; } to { opacity: 1; } }
     @keyframes cursor-puls { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
     @keyframes wackeln {
         0%   { transform: rotate(0deg); }
@@ -125,7 +125,7 @@
         background: transparent;
         cursor: pointer;
         z-index: 10;
-        /* filter: url(#rosenrot); */
+        filter: url(#rosenrot);
     }
 
     #LangButton {
@@ -295,7 +295,7 @@
         color: white;
         text-align: center;
         cursor: pointer;
-        clip-path: inset(0 0 100% 0);
+        opacity: 0;
         background: transparent;
         flex-shrink: 0;
         filter: url(#rosenrot);
@@ -366,7 +366,7 @@
         color: white;
         text-align: center;
         cursor: pointer;
-        clip-path: inset(0 0 100% 0);
+        opacity: 0;
         white-space: nowrap;
     }
 
@@ -429,7 +429,7 @@
     .wackel-wort.wackeln-auto, a.info-link-item.wackeln-auto { animation: wackeln 0.4s ease; }
     .qmark { display: inline-block; transform: scaleX(-1); }
 
-@media (max-width: 430px) { :root { --fs: 37px; --pfeil-abstand: 145px; } }
+@media (max-width: 430px) { :root { --fs: 38px; --pfeil-abstand: 145px; } }
 
 @supports (color: oklch(0% 0 0)) {
     :root {
@@ -464,7 +464,17 @@
     }
 
     @media (pointer: coarse) {
-        :root { --linie: 6px solid oklch(66% 0.30 9deg); }
+        :root { --linie: 6px solid white; }
+        #InfoButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; }
+        #LangButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; }
+        .LangPill   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; }
+        #content   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); }
+        #info-content { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); }
+        #frage-nav, #Frage1, #Submit, #Eingabe,
+        #info-nav, .info-menu-item, #InfoText, .info-link-item,
+        #InfoText a, #Frage1 a { color: white; }
+        #cursor-bar { background: white; }
+        #frage-prev, #frage-next, #pfeil, #info-prev, #info-next, img.link-pfeil { filter: none; }
         #Frage1 span, #InfoText span { animation: none !important; opacity: 1 !important; }
     }
 }
@@ -807,9 +817,10 @@
         document.getElementById("InfoButton").textContent = uebersetzungen[aktiveSprache].infobtn;
         const view = document.getElementById("LangView");
         view.classList.add("aktiv");
-        view.querySelectorAll(".LangPill").forEach(function(pill) {
-            pill.style.clipPath = "";
-            pill.style.animation = "";
+        view.querySelectorAll(".LangPill").forEach(function(pill, i) {
+            pill.style.opacity = "0";
+            pill.style.animation = "none";
+            setTimeout(function() { pill.style.animation = "langEinblenden 0.4s ease forwards"; }, i * 120);
         });
     }
 
@@ -880,13 +891,13 @@
             document.getElementById("info-links").style.display = "block";
             var linkItems = document.querySelectorAll(".info-link-item");
             linkItems.forEach(function(a, i) {
-                a.style.clipPath = "inset(0 0 100% 0)";
+                a.style.opacity = "0";
                 a.style.animation = "none";
                 setTimeout(function() {
                     a.style.animation = "langEinblenden 0.4s ease forwards";
                     a.addEventListener("animationend", function() {
                         a.style.animation = "";
-                        a.style.clipPath = "";
+                        a.style.opacity = "1";
                     }, { once: true });
                 }, i * 120);
             });
@@ -907,9 +918,12 @@
             document.getElementById("info-nav").style.display = "none";
             document.getElementById("info-row").style.display = "none";
             document.getElementById("info-links").style.display = "none";
-            dropdown.querySelectorAll(".info-menu-item").forEach(function(item) {
-                item.style.clipPath = "";
-                item.style.animation = "";
+            dropdown.querySelectorAll(".info-menu-item").forEach(function(item, i) {
+                item.style.opacity = "0";
+                item.style.animation = "none";
+                setTimeout(function() {
+                    item.style.animation = "langEinblenden 0.4s ease forwards";
+                }, i * 120);
             });
         } else {
             zeigSeite(aktiveSeite);
