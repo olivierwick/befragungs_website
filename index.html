@@ -103,6 +103,7 @@
     @keyframes einblenden { from { opacity: 0; } to { opacity: 1; } }
     @keyframes langEinblenden { from { opacity: 0; } to { opacity: 1; } }
     @keyframes cursor-puls { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
+    @keyframes forceGPU { from { transform: translateZ(0); } to { transform: translateZ(0.001px); } }
     @keyframes wackeln {
         0%   { transform: rotate(0deg); }
         15%  { transform: rotate(-3deg); }
@@ -468,8 +469,8 @@
         #InfoButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; }
         #LangButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; }
         .LangPill   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); color: white; transform: translateZ(0); }
-        #content   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); transform: translateZ(0); }
-        #info-content { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); transform: translateZ(0); }
+        #content   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); animation: forceGPU 29s linear infinite alternate; }
+        #info-content { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(4000%) hue-rotate(293deg) brightness(104%); animation: forceGPU 29s linear infinite alternate; }
         #frage-nav, #Frage1, #Submit, #Eingabe,
         #info-nav, .info-menu-item, #InfoText, .info-link-item,
         #InfoText a, #Frage1 a { color: white; }
