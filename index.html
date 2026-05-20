@@ -428,7 +428,6 @@
     #InfoText a:hover, #Frage1 a:hover { animation: wackeln 0.4s ease; }
     #InfoText a:has(.wackel-wort):hover, #Frage1 a:has(.wackel-wort):hover { animation: none; }
     #InfoText a:hover .wackel-wort, #Frage1 a:hover .wackel-wort { animation: wackeln 0.4s ease; }
-    .wackel-gruppe:hover .wackel-wort { animation: wackeln 0.4s ease; }
     .wackel-wort.wackeln-auto, a.info-link-item.wackeln-auto, #InfoText a.wackeln-auto { animation: wackeln 0.4s ease; }
     .qmark { display: inline-block; transform: scaleX(-1); }
 
@@ -492,7 +491,7 @@
                 'Was darf im<br>Klybeck nicht<br>verschwinden?',
                 'Was macht das<br>Klybeck für dich<br>besonders?',
                 'Was fehlt dir<br>im heutigen<br>Klybeck?',
-                'Was erhoffst du<br>dir vom <span class="wackel-gruppe"><span class="wackel-wort">Klybeck</span><br><a href="https://www.klybeckplus.ch" target="_blank"><span class="wackel-wort">Plus</span></a></span> Projekt?'
+                'Was erhoffst du<br>dir vom <a href="https://www.klybeckplus.ch" target="_blank">Klybeck<br>Plus</a> Projekt?'
             ],
             andereFrage: "Fragen",
             placeholder: "", absenden: "Absenden", danke: "Danke", leer: "Schreib etwas",
@@ -973,16 +972,23 @@
         zeigSeite((aktiveSeite + 1) % infoSeitenfolge.length);
     };
 
+    function mitTapSchutz(fn) {
+        var el = document.getElementById("Frage1");
+        el.style.pointerEvents = "none";
+        setTimeout(function() { el.style.pointerEvents = ""; }, 600);
+        fn();
+    }
+
     document.getElementById("frage-prev").onclick = function() {
         const t = uebersetzungen[aktiveSprache];
         aktiveFrageIndex = (aktiveFrageIndex - 1 + t.fragen.length) % t.fragen.length;
-        zeigeFrageAktuell();
+        mitTapSchutz(zeigeFrageAktuell);
     };
 
     document.getElementById("frage-next").onclick = function() {
         const t = uebersetzungen[aktiveSprache];
         aktiveFrageIndex = (aktiveFrageIndex + 1) % t.fragen.length;
-        zeigeFrageAktuell();
+        mitTapSchutz(zeigeFrageAktuell);
     };
 
     document.getElementById("Submit").onclick = function() {
