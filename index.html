@@ -429,7 +429,7 @@
     .wackel-wort.wackeln-auto, a.info-link-item.wackeln-auto { animation: wackeln 0.4s ease; }
     .qmark { display: inline-block; transform: scaleX(-1); }
 
-@media (max-width: 430px) { :root { --fs: 38px; --pfeil-abstand: 145px; } }
+@media (max-width: 430px) { :root { --fs: 37px; --pfeil-abstand: 145px; } }
 
 @supports (color: oklch(0% 0 0)) {
     :root {
@@ -807,10 +807,9 @@
         document.getElementById("InfoButton").textContent = uebersetzungen[aktiveSprache].infobtn;
         const view = document.getElementById("LangView");
         view.classList.add("aktiv");
-        view.querySelectorAll(".LangPill").forEach(function(pill, i) {
-            pill.style.clipPath = "inset(0 0 100% 0)";
-            pill.style.animation = "none";
-            setTimeout(function() { pill.style.animation = "langEinblenden 0.4s ease forwards"; }, i * 120);
+        view.querySelectorAll(".LangPill").forEach(function(pill) {
+            pill.style.clipPath = "";
+            pill.style.animation = "";
         });
     }
 
@@ -908,12 +907,9 @@
             document.getElementById("info-nav").style.display = "none";
             document.getElementById("info-row").style.display = "none";
             document.getElementById("info-links").style.display = "none";
-            dropdown.querySelectorAll(".info-menu-item").forEach(function(item, i) {
-                item.style.clipPath = "inset(0 0 100% 0)";
-                item.style.animation = "none";
-                setTimeout(function() {
-                    item.style.animation = "langEinblenden 0.4s ease forwards";
-                }, i * 120);
+            dropdown.querySelectorAll(".info-menu-item").forEach(function(item) {
+                item.style.clipPath = "";
+                item.style.animation = "";
             });
         } else {
             zeigSeite(aktiveSeite);
