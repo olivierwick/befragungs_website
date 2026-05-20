@@ -51,10 +51,10 @@
                     <div class="info-menu-item" data-key="links">Links</div>
                 </div>
                 <div id="info-links">
-                    <a class="info-link-item" href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus<img class="link-pfeil" src="pfeil.png" alt=""></a>
-                    <a class="info-link-item" href="https://www.bazonline.ch/klybeckplus-basel-verein-kritisiert-rhystadt-ceo-scharf-687275232713" target="_blank">BaZ Online<img class="link-pfeil" src="pfeil.png" alt=""></a>
-                    <a class="info-link-item" href="https://www.zukunftklybeck.ch" target="_blank">Zukunft Klybeck<img class="link-pfeil" src="pfeil.png" alt=""></a>
-                    <a class="info-link-item" href="https://klybeckminus.noblogs.org" target="_blank">Klybeck Minus<img class="link-pfeil" src="pfeil.png" alt=""></a>
+                    <a class="info-link-item" href="https://www.klybeckplus.ch" target="_blank" rel="noopener noreferrer">Klybeck Plus<img class="link-pfeil" src="pfeil.png" alt=""></a>
+                    <a class="info-link-item" href="https://www.bazonline.ch/klybeckplus-basel-verein-kritisiert-rhystadt-ceo-scharf-687275232713" target="_blank" rel="noopener noreferrer">BaZ Online<img class="link-pfeil" src="pfeil.png" alt=""></a>
+                    <a class="info-link-item" href="https://www.zukunftklybeck.ch" target="_blank" rel="noopener noreferrer">Zukunft Klybeck<img class="link-pfeil" src="pfeil.png" alt=""></a>
+                    <a class="info-link-item" href="https://klybeckminus.noblogs.org" target="_blank" rel="noopener noreferrer">Klybeck Minus<img class="link-pfeil" src="pfeil.png" alt=""></a>
                 </div>
                 <div id="info-row">
                     <div id="InfoText"></div>
@@ -968,18 +968,25 @@
 
     document.getElementById("info-prev").onclick = function(e) {
         e.stopPropagation();
-        zeigSeite((aktiveSeite - 1 + infoSeitenfolge.length) % infoSeitenfolge.length);
+        mitInfoTapSchutz(function() { zeigSeite((aktiveSeite - 1 + infoSeitenfolge.length) % infoSeitenfolge.length); });
     };
 
     document.getElementById("info-next").onclick = function(e) {
         e.stopPropagation();
-        zeigSeite((aktiveSeite + 1) % infoSeitenfolge.length);
+        mitInfoTapSchutz(function() { zeigSeite((aktiveSeite + 1) % infoSeitenfolge.length); });
     };
 
     function mitTapSchutz(fn) {
         var el = document.getElementById("Frage1");
         el.style.pointerEvents = "none";
         setTimeout(function() { el.style.pointerEvents = ""; }, 600);
+        fn();
+    }
+
+    function mitInfoTapSchutz(fn) {
+        var el = document.getElementById("info-content");
+        el.style.pointerEvents = "none";
+        setTimeout(function() { el.style.pointerEvents = ""; }, 800);
         fn();
     }
 
