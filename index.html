@@ -470,11 +470,11 @@
 
     @media (pointer: coarse) {
         :root { --linie: 6px solid white; }
-        #InfoButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(140%); color: white; }
-        #LangButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(140%); color: white; }
-        .LangPill   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(140%); color: white; transform: translateZ(0); }
-        #content   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(140%); will-change: filter; animation: forceGPU 3s linear infinite alternate; }
-        #info-content { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(140%); will-change: filter; animation: forceGPU 3s linear infinite alternate; }
+        #InfoButton { filter: url(#rosenrot); color: white; will-change: filter; animation: forceGPU 3s linear infinite alternate; }
+        #LangButton { filter: url(#rosenrot); color: white; will-change: filter; animation: forceGPU 3s linear infinite alternate; }
+        .LangPill   { filter: url(#rosenrot); color: white; transform: translateZ(0); will-change: filter; }
+        #content    { filter: url(#rosenrot); will-change: filter; animation: forceGPU 3s linear infinite alternate; }
+        #info-content { filter: url(#rosenrot); will-change: filter; animation: forceGPU 3s linear infinite alternate; }
         #frage-nav, #Frage1, #Submit, #Eingabe,
         #info-nav, .info-menu-item, #InfoText, .info-link-item,
         #InfoText a, #Frage1 a { color: white; }
