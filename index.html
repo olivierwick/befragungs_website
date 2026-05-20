@@ -430,7 +430,7 @@
     #InfoText a:hover .wackel-wort, #Frage1 a:hover .wackel-wort { animation: wackeln 0.4s ease; }
     .wackel-gruppe { font-weight: inherit; }
     .wackel-gruppe:hover .wackel-wort { animation: wackeln 0.4s ease; }
-    .wackel-wort.wackeln-auto, a.info-link-item.wackeln-auto, #InfoText a.wackeln-auto { animation: wackeln 0.4s ease; }
+    .wackel-wort.wackeln-auto, a.info-link-item.wackeln-auto, #InfoText a.wackeln-auto, #Frage1 a.wackeln-auto { animation: wackeln 0.4s ease; }
     .qmark { display: inline-block; transform: scaleX(-1); }
 
 @media (max-width: 430px) { :root { --fs: 38px; --pfeil-abstand: 145px; } }
@@ -659,7 +659,10 @@
             fragen: [
                 '¿Qué te molesta<br>del proyecto<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>?',
                 '¿Qué deseas<br>en el nuevo<br>Klybeck?',
-                '¿Qué no debería<br>desaparecer<br>del Klybeck?'
+                '¿Qué no debería<br>desaparecer<br>del Klybeck?',
+                '¿Qué hace especial<br>el Klybeck<br>para ti?',
+                '¿Qué falta<br>en el Klybeck<br>actual?',
+                '¿Qué esperas<br>del proyecto<br><a href="https://www.klybeckplus.ch" target="_blank">Klybeck Plus</a>?'
             ],
             andereFrage: "Preguntas",
             placeholder: "", absenden: "Enviar", danke: "Gracias", leer: "Escribe algo",
@@ -770,6 +773,30 @@
                 while (span.firstChild) parent.insertBefore(span.firstChild, span);
                 parent.removeChild(span);
             });
+            setTimeout(function() {
+                if (el._animVer !== ver) return;
+                var triggered = new Set();
+                el.querySelectorAll('a').forEach(function(a) {
+                    var ww = a.querySelectorAll('.wackel-wort');
+                    var targets = ww.length > 0 ? Array.from(ww) : [a];
+                    targets.forEach(function(t) {
+                        if (triggered.has(t)) return;
+                        triggered.add(t);
+                        t.classList.remove('wackeln-auto');
+                        void t.offsetWidth;
+                        t.classList.add('wackeln-auto');
+                        setTimeout(function() { t.classList.remove('wackeln-auto'); }, 400);
+                    });
+                });
+                el.querySelectorAll('.wackel-wort').forEach(function(ww) {
+                    if (triggered.has(ww)) return;
+                    triggered.add(ww);
+                    ww.classList.remove('wackeln-auto');
+                    void ww.offsetWidth;
+                    ww.classList.add('wackeln-auto');
+                    setTimeout(function() { ww.classList.remove('wackeln-auto'); }, 400);
+                });
+            }, 150);
         }, Math.round((d + 0.3) * 1000) + 200);
     }
 
