@@ -472,17 +472,19 @@
     }
 
     @media (pointer: coarse) {
-        :root { --linie: 6px solid white; }
-        #InfoButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(104%); color: white; }
-        #LangButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(104%); color: white; }
-        .LangPill   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(104%); color: white; transform: translateZ(0); }
-        #content   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(104%); will-change: filter; animation: forceGPU 3s linear infinite alternate; }
-        #info-content { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(104%); will-change: filter; animation: forceGPU 3s linear infinite alternate; }
+        :root { --linie: 6px solid color(display-p3 1 0 0.45); }
+        #InfoButton   { filter: none; color: color(display-p3 1 0 0.45); }
+        #LangButton   { filter: none; color: color(display-p3 1 0 0.45); }
+        .LangPill     { filter: none; color: color(display-p3 1 0 0.45); transform: translateZ(0); }
+        #content      { filter: none; will-change: auto; animation: none; }
+        #info-content { filter: none; will-change: auto; animation: none; }
         #frage-nav, #Frage1, #Submit, #Eingabe,
         #info-nav, .info-menu-item, #InfoText, .info-link-item,
-        #InfoText a, #Frage1 a { color: white; }
-        #cursor-bar { background: white; }
-        #frage-prev, #frage-next, #pfeil, #info-prev, #info-next, img.link-pfeil { filter: none; }
+        #InfoText a, #Frage1 a { color: color(display-p3 1 0 0.45); }
+        #cursor-bar { background: color(display-p3 1 0 0.45); }
+        #frage-prev, #frage-next, #pfeil, #info-prev, #info-next, img.link-pfeil {
+            filter: brightness(0) saturate(100%) invert(21%) sepia(100%) saturate(3711%) hue-rotate(324deg) brightness(102%) contrast(108%);
+        }
     }
 }
 
