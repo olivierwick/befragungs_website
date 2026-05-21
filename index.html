@@ -473,11 +473,11 @@
 
     @media (pointer: coarse) {
         :root { --linie: 6px solid white; }
-        #InfoButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(104%); color: white; }
-        #LangButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(104%); color: white; }
-        .LangPill   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(104%); color: white; transform: translateZ(0); }
-        #content   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(104%); will-change: filter; animation: forceGPU 3s linear infinite alternate; }
-        #info-content { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(293deg) brightness(104%); will-change: filter; animation: forceGPU 3s linear infinite alternate; }
+        #InfoButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(20000%) hue-rotate(293deg) brightness(104%); color: white; }
+        #LangButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(20000%) hue-rotate(293deg) brightness(104%); color: white; }
+        .LangPill   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(20000%) hue-rotate(293deg) brightness(104%); color: white; transform: translateZ(0); }
+        #content   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(20000%) hue-rotate(293deg) brightness(104%); will-change: filter; animation: forceGPU 3s linear infinite alternate; }
+        #info-content { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(20000%) hue-rotate(293deg) brightness(104%); will-change: filter; animation: forceGPU 3s linear infinite alternate; }
         #frage-nav, #Frage1, #Submit, #Eingabe,
         #info-nav, .info-menu-item, #InfoText, .info-link-item,
         #InfoText a, #Frage1 a { color: white; }
@@ -739,7 +739,7 @@
         });
     }
 
-    function animiereFrageText(el, html) {
+    function animiereFrageText(el, html, onFertig) {
         var STEP = 0.07;
         var d = 0;
         var re = /(<br\s*\/?>)|(<a\b[^>]*?>[\s\S]*?<\/a>)|(<span\b[^>]*?>[\s\S]*?<\/span>)|(<[^>]+>)|([^\s<]+)/g;
@@ -778,27 +778,23 @@
             });
             setTimeout(function() {
                 if (el._animVer !== ver) return;
-                var candidates = [];
-                el.querySelectorAll('a').forEach(function(a) {
-                    var ww = a.querySelectorAll('.wackel-wort');
-                    candidates.push(ww.length > 0 ? ww[ww.length - 1] : a);
-                });
-                el.querySelectorAll('.wackel-wort').forEach(function(ww) {
-                    if (!ww.closest('a')) candidates.push(ww);
-                });
-                if (!candidates.length) return;
-                var ziel = candidates[Math.floor(Math.random() * candidates.length)];
-                ziel.classList.remove('wackeln-auto');
-                void ziel.offsetWidth;
-                ziel.classList.add('wackeln-auto');
-                setTimeout(function() { ziel.classList.remove('wackeln-auto'); }, 400);
+                if (onFertig) onFertig();
             }, 150);
         }, Math.round((d + 0.3) * 1000) + 200);
     }
 
+    function zufaelligeFrage() {
+        const t = uebersetzungen[aktiveSprache];
+        return Math.floor(Math.random() * (t.fragen.length - 1));
+    }
+
     function zeigeFrageAktuell() {
         const t = uebersetzungen[aktiveSprache];
-        animiereFrageText(document.getElementById("Frage1"), t.fragen[aktiveFrageIndex]);
+        stoppeAutoWackeln();
+        var myGen = wackelGeneration;
+        animiereFrageText(document.getElementById("Frage1"), t.fragen[aktiveFrageIndex], function() {
+            if (myGen === wackelGeneration) starteAutoWackeln(true);
+        });
         document.getElementById("frage-nav-label").textContent = t.andereFrage;
     }
 
@@ -809,29 +805,100 @@
     }
 
     var autoWackelTimer = null;
-    var wackelLaeuft = false;
+    var letzterWackelIndex = -1;
+    var wackelGeneration = 0;
+    var wackelHoverTargets = [];
 
-    function starteAutoWackeln() {
-        stoppeAutoWackeln();
-        function naechstesWackeln() {
-            if (wackelLaeuft) { autoWackelTimer = setTimeout(naechstesWackeln, 200); return; }
-            var infoLinks = document.getElementById("info-links");
-            var elemente = (infoLinks && infoLinks.style.display !== "none")
-                ? Array.from(document.querySelectorAll("a.info-link-item"))
-                : Array.from(document.querySelectorAll("#InfoText a"));
-            if (!elemente.length) { autoWackelTimer = setTimeout(naechstesWackeln, 1000); return; }
-            var ziel = elemente[Math.floor(Math.random() * elemente.length)];
-            wackelLaeuft = true;
-            ziel.classList.add("wackeln-auto");
-            setTimeout(function() { ziel.classList.remove("wackeln-auto"); wackelLaeuft = false; }, 400);
-            autoWackelTimer = setTimeout(naechstesWackeln, 1500 + Math.random() * 3000);
+    function getWackelElemente() {
+        var infoView = document.getElementById("InfoView");
+        if (infoView && infoView.classList.contains("aktiv")) {
+            var infoLinksEl = document.getElementById("info-links");
+            if (infoLinksEl && infoLinksEl.style.display !== "none") {
+                return Array.from(document.querySelectorAll("a.info-link-item"));
+            }
+            return Array.from(document.querySelectorAll("#InfoText a"));
         }
-        autoWackelTimer = setTimeout(naechstesWackeln, 800 + Math.random() * 1500);
+        return Array.from(document.querySelectorAll("#Frage1 a"));
+    }
+
+    function wackelIstGehoverd() {
+        return getWackelElemente().some(function(el) {
+            return (el.closest('.wackel-gruppe') || el).matches(':hover');
+        });
+    }
+
+    function fuhreWackelAus(elemente) {
+        if (!elemente.length) return;
+        var ziel;
+        if (elemente.length > 1) {
+            var kandidaten = elemente.filter(function(_, i) { return i !== letzterWackelIndex; });
+            if (!kandidaten.length) kandidaten = elemente;
+            ziel = kandidaten[Math.floor(Math.random() * kandidaten.length)];
+            letzterWackelIndex = elemente.indexOf(ziel);
+        } else {
+            ziel = elemente[0];
+            letzterWackelIndex = 0;
+        }
+        var wackelWorte = ziel.querySelectorAll('.wackel-wort');
+        var animZiel = wackelWorte.length ? wackelWorte[wackelWorte.length - 1] : ziel;
+        animZiel.classList.remove('wackeln-auto');
+        void animZiel.offsetWidth;
+        animZiel.classList.add('wackeln-auto');
+        setTimeout(function() { animZiel.classList.remove('wackeln-auto'); }, 400);
+    }
+
+    function wackelPlanNext(gen) {
+        if (autoWackelTimer) { clearTimeout(autoWackelTimer); autoWackelTimer = null; }
+        if (gen !== wackelGeneration) return;
+        autoWackelTimer = setTimeout(function() {
+            autoWackelTimer = null;
+            if (gen !== wackelGeneration) return;
+            if (wackelIstGehoverd()) return;
+            fuhreWackelAus(getWackelElemente());
+            wackelPlanNext(gen);
+        }, 6000);
+    }
+
+    function wackelOnEnter() {
+        if (autoWackelTimer) { clearTimeout(autoWackelTimer); autoWackelTimer = null; }
+    }
+
+    function wackelOnLeave() {
+        var gen = wackelGeneration;
+        setTimeout(function() {
+            if (gen !== wackelGeneration) return;
+            if (!wackelIstGehoverd()) wackelPlanNext(gen);
+        }, 50);
     }
 
     function stoppeAutoWackeln() {
+        wackelGeneration++;
         if (autoWackelTimer) { clearTimeout(autoWackelTimer); autoWackelTimer = null; }
-        wackelLaeuft = false;
+        wackelHoverTargets.forEach(function(t) {
+            t.removeEventListener('mouseenter', wackelOnEnter);
+            t.removeEventListener('mouseleave', wackelOnLeave);
+        });
+        wackelHoverTargets = [];
+        letzterWackelIndex = -1;
+    }
+
+    function starteAutoWackeln(sofort) {
+        stoppeAutoWackeln();
+        var elemente = getWackelElemente();
+        if (!elemente.length) return;
+        var targets = [];
+        elemente.forEach(function(el) {
+            var g = el.closest('.wackel-gruppe');
+            var t = g || el;
+            if (targets.indexOf(t) === -1) targets.push(t);
+        });
+        targets.forEach(function(t) {
+            t.addEventListener('mouseenter', wackelOnEnter);
+            t.addEventListener('mouseleave', wackelOnLeave);
+        });
+        wackelHoverTargets = targets;
+        if (sofort) fuhreWackelAus(elemente);
+        wackelPlanNext(wackelGeneration);
     }
 
     function zeigeHauptansicht() {
@@ -844,6 +911,8 @@
         langViewOffen = false;
         infoViewOffen = false;
         stoppeAutoWackeln();
+        aktiveFrageIndex = zufaelligeFrage();
+        zeigeFrageAktuell();
     }
 
     function spracheWechseln(lang) {
@@ -855,7 +924,6 @@
         document.getElementById("container").style.direction = t.dir;
         document.getElementById("container").setAttribute("dir", t.dir);
         aktualisiereMenuTexte();
-        zeigeFrageAktuell();
         zeigeHauptansicht();
     }
 
@@ -863,7 +931,11 @@
         const t = uebersetzungen[aktiveSprache];
         const el = document.getElementById("InfoText");
         el.setAttribute("lang", t.lang);
-        animiereFrageText(el, t.info[aktiveInfoIndex]);
+        stoppeAutoWackeln();
+        var myGen = wackelGeneration;
+        animiereFrageText(el, t.info[aktiveInfoIndex], function() {
+            if (myGen === wackelGeneration) starteAutoWackeln(true);
+        });
     }
 
     function langViewOeffnen() {
@@ -938,6 +1010,8 @@
     }
 
     function zeigSeite(i) {
+        stoppeAutoWackeln();
+        var myGen = wackelGeneration;
         aktiveSeite = i;
         var seite = infoSeitenfolge[i];
         document.getElementById("info-nav-label").textContent = aktuellesMenuLabel(seite.key);
@@ -958,13 +1032,12 @@
                     }, { once: true });
                 }, i * 120);
             });
-            setTimeout(starteAutoWackeln, linkItems.length * 120 + 600);
+            setTimeout(function() { if (myGen === wackelGeneration) starteAutoWackeln(true); }, linkItems.length * 120 + 600);
         } else {
             document.getElementById("info-links").style.display = "none";
             document.getElementById("info-row").style.display = "";
             aktiveInfoIndex = seite.index;
             zeigeInfoAktuell();
-            starteAutoWackeln();
         }
     }
 
@@ -1133,14 +1206,6 @@
         }
     });
 
-    setInterval(function() {
-        document.querySelectorAll("a").forEach(function(a) {
-            if (a.textContent.trim().includes("Plus")) {
-                a.classList.add("wackeln");
-                setTimeout(function() { a.classList.remove("wackeln"); }, 500);
-            }
-        });
-    }, 10000);
 
     document.addEventListener('touchstart', function(e) {
         if (e.touches.length > 0 && e.touches[0].clientX <= 15) {
