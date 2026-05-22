@@ -439,52 +439,50 @@
 @media (max-width: 430px) { :root { --fs: 38px; --pfeil-abstand: 145px; } }
 @media (max-width: 375px) and (max-height: 667px) { :root { --fs: 32px; } }
 
-@supports (color: oklch(0% 0 0)) {
+@supports (color: color(display-p3 1 0 0)) {
     :root {
-        --linie: 8px solid oklch(66% 0.30 9deg);
+        --linie: 8px solid color(display-p3 1 0 0.45);
     }
     #InfoButton {
         filter: none;
-        color: oklch(66% 0.30 9deg);
+        color: color(display-p3 1 0 0.45);
     }
     #LangButton {
         filter: none;
-        color: oklch(66% 0.30 9deg);
+        color: color(display-p3 1 0 0.45);
     }
     .LangPill {
         filter: none;
-        color: oklch(66% 0.30 9deg);
+        color: color(display-p3 1 0 0.45);
     }
     #content { filter: none; }
     #info-content { filter: none; }
     #frage-nav, #Frage1, #Submit, #Eingabe {
-        color: oklch(66% 0.30 9deg);
+        color: color(display-p3 1 0 0.45);
     }
-    #cursor-bar { background: oklch(66% 0.30 9deg); }
+    #cursor-bar { background: color(display-p3 1 0 0.45); }
     #info-nav, .info-menu-item, #InfoText, .info-link-item {
-        color: oklch(66% 0.30 9deg);
+        color: color(display-p3 1 0 0.45);
     }
     #InfoText a, #Frage1 a {
-        color: oklch(66% 0.30 9deg);
+        color: color(display-p3 1 0 0.45);
     }
     #frage-prev, #frage-next, #pfeil, #info-prev, #info-next, img.link-pfeil {
         filter: url(#rosenrot);
     }
 
     @media (pointer: coarse) {
-        :root { --linie: 6px solid color(display-p3 1 0 0.45); }
-        #InfoButton   { filter: none; color: color(display-p3 1 0 0.45); }
-        #LangButton   { filter: none; color: color(display-p3 1 0 0.45); }
-        .LangPill     { filter: none; color: color(display-p3 1 0 0.45); transform: translateZ(0); }
-        #content      { filter: none; will-change: auto; animation: none; }
-        #info-content { filter: none; will-change: auto; animation: none; }
+        :root { --linie: 6px solid white; }
+        #InfoButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(292.5deg) brightness(104%); color: white; }
+        #LangButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(292.5deg) brightness(104%); color: white; }
+        .LangPill   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(292.5deg) brightness(104%); color: white; transform: translateZ(0); }
+        #content   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(292.5deg) brightness(104%); will-change: filter; animation: forceGPU 3s linear infinite alternate; }
+        #info-content { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(292.5deg) brightness(104%); will-change: filter; animation: forceGPU 3s linear infinite alternate; }
         #frage-nav, #Frage1, #Submit, #Eingabe,
         #info-nav, .info-menu-item, #InfoText, .info-link-item,
-        #InfoText a, #Frage1 a { color: color(display-p3 1 0 0.45); }
-        #cursor-bar { background: color(display-p3 1 0 0.45); }
-        #frage-prev, #frage-next, #pfeil, #info-prev, #info-next, img.link-pfeil {
-            filter: brightness(0) saturate(100%) invert(21%) sepia(100%) saturate(3711%) hue-rotate(324deg) brightness(102%) contrast(108%);
-        }
+        #InfoText a, #Frage1 a { color: white; }
+        #cursor-bar { background: white; }
+        #frage-prev, #frage-next, #pfeil, #info-prev, #info-next, img.link-pfeil { filter: none; }
     }
 }
 
