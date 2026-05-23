@@ -472,7 +472,7 @@
     }
 
     @media (pointer: coarse) {
-        :root { --linie: 6px solid white; }
+        :root { --linie: 7px solid white; }
         #InfoButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(292.5deg) brightness(104%); color: white; }
         #LangButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(292.5deg) brightness(104%); color: white; }
         .LangPill   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(292.5deg) brightness(104%); color: white; transform: translateZ(0); }
@@ -793,7 +793,7 @@
         stoppeAutoWackeln();
         var myGen = wackelGeneration;
         animiereFrageText(document.getElementById("Frage1"), t.fragen[aktiveFrageIndex], function() {
-            if (myGen === wackelGeneration) starteAutoWackeln(true);
+            if (myGen === wackelGeneration) starteAutoWackeln();
         });
         document.getElementById("frage-nav-label").textContent = t.andereFrage;
     }
@@ -807,7 +807,6 @@
     var autoWackelTimer = null;
     var letzterWackelIndex = -1;
     var wackelGeneration = 0;
-    var wackelHoverTargets = [];
 
     function getWackelElemente() {
         var infoView = document.getElementById("InfoView");
@@ -821,24 +820,14 @@
         return Array.from(document.querySelectorAll("#Frage1 a"));
     }
 
-    function wackelIstGehoverd() {
-        return getWackelElemente().some(function(el) {
-            return (el.closest('.wackel-gruppe') || el).matches(':hover');
-        });
-    }
-
     function fuhreWackelAus(elemente) {
         if (!elemente.length) return;
-        var ziel;
-        if (elemente.length > 1) {
-            var kandidaten = elemente.filter(function(_, i) { return i !== letzterWackelIndex; });
-            if (!kandidaten.length) kandidaten = elemente;
-            ziel = kandidaten[Math.floor(Math.random() * kandidaten.length)];
-            letzterWackelIndex = elemente.indexOf(ziel);
-        } else {
-            ziel = elemente[0];
-            letzterWackelIndex = 0;
-        }
+        var kandidaten = elemente.length > 1
+            ? elemente.filter(function(_, i) { return i !== letzterWackelIndex; })
+            : elemente;
+        if (!kandidaten.length) kandidaten = elemente;
+        var ziel = kandidaten[Math.floor(Math.random() * kandidaten.length)];
+        letzterWackelIndex = elemente.indexOf(ziel);
         var wackelWorte = ziel.querySelectorAll('.wackel-wort');
         var animZiel = wackelWorte.length ? wackelWorte[wackelWorte.length - 1] : ziel;
         animZiel.classList.remove('wackeln-auto');
@@ -847,58 +836,21 @@
         setTimeout(function() { animZiel.classList.remove('wackeln-auto'); }, 400);
     }
 
-    function wackelPlanNext(gen) {
-        if (autoWackelTimer) { clearTimeout(autoWackelTimer); autoWackelTimer = null; }
-        if (gen !== wackelGeneration) return;
-        autoWackelTimer = setTimeout(function() {
-            autoWackelTimer = null;
-            if (gen !== wackelGeneration) return;
-            if (wackelIstGehoverd()) return;
-            fuhreWackelAus(getWackelElemente());
-            wackelPlanNext(gen);
-        }, 6000);
-    }
-
-    function wackelOnEnter() {
-        if (autoWackelTimer) { clearTimeout(autoWackelTimer); autoWackelTimer = null; }
-    }
-
-    function wackelOnLeave() {
-        var gen = wackelGeneration;
-        setTimeout(function() {
-            if (gen !== wackelGeneration) return;
-            if (!wackelIstGehoverd()) wackelPlanNext(gen);
-        }, 50);
-    }
-
     function stoppeAutoWackeln() {
         wackelGeneration++;
         if (autoWackelTimer) { clearTimeout(autoWackelTimer); autoWackelTimer = null; }
-        wackelHoverTargets.forEach(function(t) {
-            t.removeEventListener('mouseenter', wackelOnEnter);
-            t.removeEventListener('mouseleave', wackelOnLeave);
-        });
-        wackelHoverTargets = [];
         letzterWackelIndex = -1;
     }
 
-    function starteAutoWackeln(sofort) {
+    function starteAutoWackeln() {
         stoppeAutoWackeln();
-        var elemente = getWackelElemente();
-        if (!elemente.length) return;
-        var targets = [];
-        elemente.forEach(function(el) {
-            var g = el.closest('.wackel-gruppe');
-            var t = g || el;
-            if (targets.indexOf(t) === -1) targets.push(t);
-        });
-        targets.forEach(function(t) {
-            t.addEventListener('mouseenter', wackelOnEnter);
-            t.addEventListener('mouseleave', wackelOnLeave);
-        });
-        wackelHoverTargets = targets;
-        if (sofort) fuhreWackelAus(elemente);
-        wackelPlanNext(wackelGeneration);
+        var gen = wackelGeneration;
+        function tick() {
+            if (gen !== wackelGeneration) return;
+            fuhreWackelAus(getWackelElemente());
+            autoWackelTimer = setTimeout(tick, 6000);
+        }
+        autoWackelTimer = setTimeout(tick, 2000);
     }
 
     function zeigeHauptansicht() {
@@ -934,7 +886,7 @@
         stoppeAutoWackeln();
         var myGen = wackelGeneration;
         animiereFrageText(el, t.info[aktiveInfoIndex], function() {
-            if (myGen === wackelGeneration) starteAutoWackeln(true);
+            if (myGen === wackelGeneration) starteAutoWackeln();
         });
     }
 
@@ -1032,7 +984,7 @@
                     }, { once: true });
                 }, i * 120);
             });
-            setTimeout(function() { if (myGen === wackelGeneration) starteAutoWackeln(true); }, linkItems.length * 120 + 600);
+            setTimeout(function() { if (myGen === wackelGeneration) starteAutoWackeln(); }, linkItems.length * 120 + 600);
         } else {
             document.getElementById("info-links").style.display = "none";
             document.getElementById("info-row").style.display = "";
