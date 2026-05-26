@@ -1151,7 +1151,7 @@
         var ta = document.getElementById("Eingabe");
         var fontSize = parseFloat(window.getComputedStyle(ta).fontSize);
         var contentWidth = ta.clientWidth - 28;
-        var charsPerLine = Math.floor(contentWidth / (fontSize * 0.47));
+        var charsPerLine = Math.floor(contentWidth / (fontSize * 0.52));
         return Math.min(20, Math.max(8, charsPerLine));
     }
 
@@ -1174,17 +1174,14 @@
             e.preventDefault();
             const before = ta.value.slice(0, pos);
             const after = ta.value.slice(ta.selectionEnd);
-            const trailingWord = (before.match(/[^\s\-]*$/) || [''])[0];
-            if (trailingWord.length > 0 && trailingWord.length < 4 && !/\s/.test(e.key)) {
+            const trailingWord = (before.match(/[^\s]*$/) || [''])[0];
+            if (trailingWord.length > 0 && !/\s/.test(e.key)) {
                 const beforeWord = before.slice(0, before.length - trailingWord.length).trimEnd();
                 ta.value = beforeWord + '\n' + trailingWord + e.key + after;
                 ta.selectionStart = ta.selectionEnd = beforeWord.length + 1 + trailingWord.length + 1;
             } else {
-                const lastChar = before.slice(-1);
-                const addHyphen = lastChar && !/[\s\-]/.test(lastChar) && !/\s/.test(e.key);
-                const insert = (addHyphen ? '-' : '') + '\n' + e.key;
-                ta.value = before + insert + after;
-                ta.selectionStart = ta.selectionEnd = pos + insert.length;
+                ta.value = before + '\n' + e.key + after;
+                ta.selectionStart = ta.selectionEnd = pos + 2;
             }
             ta.scrollTop = ta.scrollHeight;
             ta.dispatchEvent(new Event('input'));
