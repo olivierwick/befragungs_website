@@ -1147,6 +1147,14 @@
         barEl.style.opacity = "0";
     }
 
+    function getMaxCharsPerLine() {
+        var ta = document.getElementById("Eingabe");
+        var fontSize = parseFloat(window.getComputedStyle(ta).fontSize);
+        var contentWidth = ta.clientWidth - 28;
+        var charsPerLine = Math.floor(contentWidth / (fontSize * 0.52));
+        return Math.min(20, Math.max(8, charsPerLine));
+    }
+
     document.getElementById("Eingabe").addEventListener("keydown", function(e) {
         const ta = this;
         const pos = ta.selectionStart;
@@ -1162,7 +1170,7 @@
 
         if (e.key === 'Enter') return;
 
-        if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && posInLine >= 20) {
+        if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && posInLine >= getMaxCharsPerLine()) {
             e.preventDefault();
             const before = ta.value.slice(0, pos);
             const after = ta.value.slice(ta.selectionEnd);
