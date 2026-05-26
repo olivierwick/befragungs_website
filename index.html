@@ -113,6 +113,14 @@
         75%  { transform: rotate(5deg); }
         100% { transform: rotate(0deg); }
     }
+    @keyframes wackeln-rtl {
+        0%   { transform: scaleX(-1) rotate(0deg); }
+        15%  { transform: scaleX(-1) rotate(-8deg); }
+        35%  { transform: scaleX(-1) rotate(8deg); }
+        55%  { transform: scaleX(-1) rotate(-5deg); }
+        75%  { transform: scaleX(-1) rotate(5deg); }
+        100% { transform: scaleX(-1) rotate(0deg); }
+    }
 
     #InfoButton {
         position: fixed;
@@ -443,6 +451,12 @@
     .wackel-gruppe { font-weight: inherit; }
     .wackel-gruppe:hover img.link-pfeil { animation: wackeln 0.4s ease; }
     img.link-pfeil.wackeln-auto { animation: wackeln 0.4s ease; }
+    html[lang="ar"] img.link-pfeil { transform: scaleX(-1); margin-left: 0; margin-right: 5px; }
+    html[lang="ar"] #InfoText a:hover img.link-pfeil,
+    html[lang="ar"] #Frage1 a:hover img.link-pfeil,
+    html[lang="ar"] #info-links a:hover img.link-pfeil,
+    html[lang="ar"] .wackel-gruppe:hover img.link-pfeil,
+    html[lang="ar"] img.link-pfeil.wackeln-auto { animation: wackeln-rtl 0.4s ease; }
     .qmark { display: inline-block; transform: scaleX(-1); }
 
 @media (max-width: 430px) { :root { --fs: 38px; --pfeil-abstand: 145px; } }
