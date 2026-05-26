@@ -1151,7 +1151,7 @@
         var ta = document.getElementById("Eingabe");
         var fontSize = parseFloat(window.getComputedStyle(ta).fontSize);
         var contentWidth = ta.clientWidth - 28;
-        var charsPerLine = Math.floor(contentWidth / (fontSize * 0.52));
+        var charsPerLine = Math.floor(contentWidth / (fontSize * 0.47));
         return Math.min(20, Math.max(8, charsPerLine));
     }
 
@@ -1175,7 +1175,7 @@
             const before = ta.value.slice(0, pos);
             const after = ta.value.slice(ta.selectionEnd);
             const trailingWord = (before.match(/[^\s\-]*$/) || [''])[0];
-            if (trailingWord.length > 0 && trailingWord.length < 5 && !/\s/.test(e.key)) {
+            if (trailingWord.length > 0 && trailingWord.length < 4 && !/\s/.test(e.key)) {
                 const beforeWord = before.slice(0, before.length - trailingWord.length).trimEnd();
                 ta.value = beforeWord + '\n' + trailingWord + e.key + after;
                 ta.selectionStart = ta.selectionEnd = beforeWord.length + 1 + trailingWord.length + 1;
