@@ -32,10 +32,11 @@ async function pruefeMitKI(text, frage) {
 
 Antwort: "${text}"
 
-Regel 1 — "zuKurz": Lehne ab NUR wenn:
+Regel 1 — "zuKurz": Lehne ab wenn:
 - Zufällige Buchstaben ohne Wörter (z.B. "akjbdkjwbd")
-- Dasselbe Wort 3x oder mehr wiederholt (z.B. "hallo hallo hallo")
+- Dasselbe Wort 2x oder mehr direkt hintereinander am Anfang (z.B. "hallo hallo", "test test was")
 - Nur aufgezählte unverbundene Wörter (z.B. "basel klybeck hallo beton tisch")
+- Offensichtlicher Fülltext ohne echte Meinung — wirkt wie Tastatur-Test, nicht wie echtes Feedback (z.B. "hallo hallo was soll das eigentlich werden man", "asdf asdf ich weiß nicht naja so")
 
 Regel 2 — "schimpfwort": Enthält Schimpfwörter oder Beleidigungen (in irgendeiner Sprache).
 
