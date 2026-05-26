@@ -1166,11 +1166,18 @@
             e.preventDefault();
             const before = ta.value.slice(0, pos);
             const after = ta.value.slice(ta.selectionEnd);
-            const lastChar = before.slice(-1);
-            const addHyphen = lastChar && !/[\s\-]/.test(lastChar) && !/\s/.test(e.key);
-            const insert = (addHyphen ? '-' : '') + '\n' + e.key;
-            ta.value = before + insert + after;
-            ta.selectionStart = ta.selectionEnd = pos + insert.length;
+            const trailingWord = (before.match(/[^\s\-]*$/) || [''])[0];
+            if (trailingWord.length > 0 && trailingWord.length < 5 && !/\s/.test(e.key)) {
+                const beforeWord = before.slice(0, before.length - trailingWord.length).trimEnd();
+                ta.value = beforeWord + '\n' + trailingWord + e.key + after;
+                ta.selectionStart = ta.selectionEnd = beforeWord.length + 1 + trailingWord.length + 1;
+            } else {
+                const lastChar = before.slice(-1);
+                const addHyphen = lastChar && !/[\s\-]/.test(lastChar) && !/\s/.test(e.key);
+                const insert = (addHyphen ? '-' : '') + '\n' + e.key;
+                ta.value = before + insert + after;
+                ta.selectionStart = ta.selectionEnd = pos + insert.length;
+            }
             ta.scrollTop = ta.scrollHeight;
             ta.dispatchEvent(new Event('input'));
         }

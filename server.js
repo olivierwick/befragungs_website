@@ -6,6 +6,7 @@ const Anthropic = require("@anthropic-ai/sdk");
 
 filter.loadDictionary("en");
 filter.add(filter.getDictionary("fr"));
+filter.add(['wichser', 'wixer', 'wichsen', 'hurensohn', 'hurenbock', 'ficken', 'fick', 'gefickt', 'fotze', 'nutte', 'schlampe', 'arschloch', 'vollidiot', 'vollpfosten', 'drecksau', 'dreckssau', 'miststück', 'schwuchtel', 'orospu', 'siktir', 'amk', 'piç']);
 
 const app = express();
 app.use(express.json());
