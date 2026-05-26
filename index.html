@@ -212,7 +212,7 @@
         background: transparent;
         border: none;
         outline: none;
-        padding: 49px 14px 3px;
+        padding: 5px 14px 3px;
         font-size: var(--fs);
         font-family: Helvetica, Arial, sans-serif;
         line-height: 1;
@@ -220,11 +220,13 @@
         caret-color: transparent;
         width: 100%;
         resize: none;
-        overflow: hidden;
+        overflow-y: scroll;
+        scrollbar-width: none;
         height: 144px;
         text-align: center;
         display: block;
     }
+    #Eingabe::-webkit-scrollbar { display: none; }
 
     #cursor-bar {
         position: absolute;
@@ -502,7 +504,7 @@
                 'Was willst du<br>sonst noch<br>sagen?'
             ],
             andereFrage: "Fragen",
-            placeholder: "", absenden: "Absenden", danke: "Danke", leer: "Schreib etwas",
+            placeholder: "", absenden: "Absenden", danke: "Danke", leer: "Schreib etwas", zuKurz: "Einen Satz bitte",
             dir: "ltr", lang: "de", infobtn: "Info", langbtn: "Sprachen", zurueck: "Zurück",
             menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Kritikpunkte", installation: "Vorhaben", kontakt: "Kontakt", links: "Links" },
             info: [
@@ -530,7 +532,7 @@
                 'Cos\'altro<br>vuoi<br>dire?'
             ],
             andereFrage: "Domande",
-            placeholder: "", absenden: "Invia", danke: "Grazie", leer: "Scrivi qualcosa",
+            placeholder: "", absenden: "Invia", danke: "Grazie", leer: "Scrivi qualcosa", zuKurz: "Una frase",
             dir: "ltr", lang: "it", infobtn: "Info", langbtn: "Lingue", zurueck: "Indietro",
             menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Critiche", installation: "Progetto", kontakt: "Contatto", links: "Link" },
             info: [
@@ -558,7 +560,7 @@
                 "Qu'est-ce que<br>tu veux encore<br>dire?"
             ],
             andereFrage: "Questions",
-            placeholder: "", absenden: "Envoyer", danke: "Merci", leer: "Écris quelque chose",
+            placeholder: "", absenden: "Envoyer", danke: "Merci", leer: "Écris quelque chose", zuKurz: "Une phrase",
             dir: "ltr", lang: "fr", infobtn: "Info", langbtn: "Langues", zurueck: "Retour",
             menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Critiques", installation: "Projet", kontakt: "Contact", links: "Liens" },
             info: [
@@ -586,7 +588,7 @@
                 'ماذا تريد<br>أن تضيف<br>أيضاً<span class="qmark">?</span>'
             ],
             andereFrage: "أسئلة",
-            placeholder: "", absenden: "إرسال", danke: "شكراً", leer: "اكتب شيئاً",
+            placeholder: "", absenden: "إرسال", danke: "شكراً", leer: "اكتب شيئاً", zuKurz: "جملة كاملة",
             dir: "rtl", lang: "ar", infobtn: "معلومات", langbtn: "اللغات", zurueck: "رجوع",
             menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "انتقادات", installation: "المشروع", kontakt: "تواصل", links: "روابط" },
             info: [
@@ -614,7 +616,7 @@
                 'Başka ne<br>söylemek<br>istersin?'
             ],
             andereFrage: "Sorular",
-            placeholder: "", absenden: "Gönder", danke: "Teşekkürler", leer: "Bir şeyler yaz",
+            placeholder: "", absenden: "Gönder", danke: "Teşekkürler", leer: "Bir şeyler yaz", zuKurz: "Bir cümle lütfen",
             dir: "ltr", lang: "tr", infobtn: "Bilgi", langbtn: "Diller", zurueck: "Geri",
             menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Eleştiriler", installation: "Proje", kontakt: "İletişim", links: "Bağlantılar" },
             info: [
@@ -642,7 +644,7 @@
                 'What else<br>do you want<br>to say?'
             ],
             andereFrage: "Questions",
-            placeholder: "", absenden: "Submit", danke: "Thank you", leer: "Write something",
+            placeholder: "", absenden: "Submit", danke: "Thank you", leer: "Write something", zuKurz: "One sentence",
             dir: "ltr", lang: "en", infobtn: "Info", langbtn: "Languages", zurueck: "Back",
             menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Criticism", installation: "Project", kontakt: "Contact", links: "Links" },
             info: [
@@ -670,7 +672,7 @@
                 '¿Qué más<br>quieres<br>decir?'
             ],
             andereFrage: "Preguntas",
-            placeholder: "", absenden: "Enviar", danke: "Gracias", leer: "Escribe algo",
+            placeholder: "", absenden: "Enviar", danke: "Gracias", leer: "Escribe algo", zuKurz: "Una frase",
             dir: "ltr", lang: "es", infobtn: "Info", langbtn: "Idiomas", zurueck: "Volver",
             menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Críticas", installation: "Proyecto", kontakt: "Contacto", links: "Enlaces" },
             info: [
@@ -698,7 +700,7 @@
                 'Šta još<br>želiš da<br>kažeš?'
             ],
             andereFrage: "Pitanja",
-            placeholder: "", absenden: "Pošalji", danke: "Hvala", leer: "Napiši nešto",
+            placeholder: "", absenden: "Pošalji", danke: "Hvala", leer: "Napiši nešto", zuKurz: "Jednu rečenicu",
             dir: "ltr", lang: "sr", infobtn: "Info", langbtn: "Jezici", zurueck: "Nazad",
             menu: { klybeckplus: "Klybeck Plus", kritikpunkte: "Kritike", installation: "Projekat", kontakt: "Kontakt", links: "Linkovi" },
             info: [
@@ -1078,17 +1080,58 @@
             }, 3000);
             return;
         }
-        document.getElementById("Eingabe").value = "";
-        showCursorBar();
-        pfeilEl.style.transition = "none";
-        pfeilEl.style.opacity = "0";
-        submitText.textContent = t.danke;
-        setTimeout(function() { submitText.textContent = uebersetzungen[aktiveSprache].absenden; }, 3000);
+        if (text.split(/\s+/).filter(Boolean).length < 4 || text.length < 15) {
+            pfeilEl.style.transition = "none";
+            pfeilEl.style.opacity = "0";
+            animiereFrageText(submitText, t.zuKurz);
+            setTimeout(function() {
+                submitText.textContent = uebersetzungen[aktiveSprache].absenden;
+                if (document.getElementById("Eingabe").value.trim()) {
+                    pfeilEl.style.transition = "";
+                    pfeilEl.style.opacity = "1";
+                }
+            }, 3000);
+            return;
+        }
+        var eingabe = document.getElementById("Eingabe");
         const fragenText = uebersetzungen.de.fragen[aktiveFrageIndex].replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
         fetch("/absenden", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ text: text, frage: fragenText })
+        })
+        .then(function(r) { return r.json(); })
+        .then(function(data) {
+            if (data.fehler === "zuKurz") {
+                pfeilEl.style.opacity = "0";
+                animiereFrageText(submitText, uebersetzungen[aktiveSprache].zuKurz);
+                setTimeout(function() {
+                    submitText.textContent = uebersetzungen[aktiveSprache].absenden;
+                    if (eingabe.value.trim()) {
+                        pfeilEl.style.transition = "";
+                        pfeilEl.style.opacity = "1";
+                    }
+                }, 3000);
+            } else {
+                eingabe.value = "";
+                showCursorBar();
+                pfeilEl.style.transition = "none";
+                pfeilEl.style.opacity = "0";
+                submitText.textContent = uebersetzungen[aktiveSprache].danke;
+                setTimeout(function() {
+                    submitText.textContent = uebersetzungen[aktiveSprache].absenden;
+                }, 3000);
+            }
+        })
+        .catch(function() {
+            eingabe.value = "";
+            showCursorBar();
+            pfeilEl.style.transition = "none";
+            pfeilEl.style.opacity = "0";
+            submitText.textContent = uebersetzungen[aktiveSprache].danke;
+            setTimeout(function() {
+                submitText.textContent = uebersetzungen[aktiveSprache].absenden;
+            }, 3000);
         });
     };
 
@@ -1123,13 +1166,18 @@
             e.preventDefault();
             const before = ta.value.slice(0, pos);
             const after = ta.value.slice(ta.selectionEnd);
-            ta.value = before + '\n' + e.key + after;
-            ta.selectionStart = ta.selectionEnd = pos + 2;
+            const lastChar = before.slice(-1);
+            const addHyphen = lastChar && !/[\s\-]/.test(lastChar) && !/\s/.test(e.key);
+            const insert = (addHyphen ? '-' : '') + '\n' + e.key;
+            ta.value = before + insert + after;
+            ta.selectionStart = ta.selectionEnd = pos + insert.length;
+            ta.scrollTop = ta.scrollHeight;
             ta.dispatchEvent(new Event('input'));
         }
     });
 
     document.getElementById("Eingabe").addEventListener("input", function() {
+        this.scrollTop = this.scrollHeight;
         if (this.value) {
             hideCursorBar();
             pfeilEl.style.transition = "";
