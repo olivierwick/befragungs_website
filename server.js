@@ -28,8 +28,9 @@ async function pruefeMitKI(text, frage) {
             max_tokens: 50,
             messages: [{
                 role: "user",
-                content: `Du prüfst Antworten auf eine Umfrage über das Klybeck-Viertel in Basel.
+                content: `Du prüfst Antworten auf eine Umfrage über das Klybeck Plus Projekt in Basel.
 
+Frage: "${frage}"
 Antwort: "${text}"
 
 Regel 1 — "zuKurz": Lehne ab wenn:
@@ -40,10 +41,13 @@ Regel 1 — "zuKurz": Lehne ab wenn:
 
 Regel 2 — "schimpfwort": Enthält Schimpfwörter oder Beleidigungen (in irgendeiner Sprache).
 
+Regel 3 — "offTopic": Die Antwort handelt von einem anderen Thema als dem Klybeck-Viertel oder Klybeck Plus. Test: Könnte diese Antwort sinnvoll auf die obige Frage passen? Wenn nein → offTopic. Andere Orte in Basel (z.B. Barfüsserplatz, Marktplatz) sind off-topic. Persönliche Erfahrungen im Klybeck-Viertel sind on-topic, auch ohne explizite Nennung von "Klybeck".
+
 Antworte NUR mit einem dieser JSON-Werte (kein weiterer Text):
 {"ok":true}
 {"ok":false,"grund":"zuKurz"}
-{"ok":false,"grund":"schimpfwort"}`
+{"ok":false,"grund":"schimpfwort"}
+{"ok":false,"grund":"offTopic"}`
             }]
         });
         const responseText = message.content[0].text;
@@ -80,6 +84,9 @@ app.post("/absenden", async (req, res) => {
         if (ki.grund === "schimpfwort") {
             const { data: d1, error: e1 } = await supabase.from("schimpfwoerter").insert({ text, frage }).select();
             console.log("schimpfwoerter insert result:", JSON.stringify({ data: d1, error: e1 }));
+        }
+        if (ki.grund === "offTopic") {
+            await supabase.from("offtopic").insert({ text, frage });
         }
         return res.json({ erfolg: true });
     }

@@ -1139,7 +1139,7 @@
             return;
         }
         var eingabe = document.getElementById("Eingabe");
-        const fragenText = uebersetzungen.de.fragen[aktiveFrageIndex].replace(/<[^>]*>/g, '').replace(/\s+/g, ' ').trim();
+        const fragenText = uebersetzungen.de.fragen[aktiveFrageIndex].replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim();
         fetch("/absenden", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
