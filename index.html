@@ -55,6 +55,7 @@
                     <a class="info-link-item" href="https://www.bazonline.ch/klybeckplus-basel-verein-kritisiert-rhystadt-ceo-scharf-687275232713" target="_blank" rel="noopener noreferrer">BaZ Online<img class="link-pfeil" src="pfeil.png" alt=""></a>
                     <a class="info-link-item" href="https://www.zukunftklybeck.ch" target="_blank" rel="noopener noreferrer">Zukunft Klybeck<img class="link-pfeil" src="pfeil.png" alt=""></a>
                     <a class="info-link-item" href="https://klybeckminus.noblogs.org" target="_blank" rel="noopener noreferrer">Klybeck Minus<img class="link-pfeil" src="pfeil.png" alt=""></a>
+                    <a class="info-link-item" href="https://www.collletttivo.it" target="_blank" rel="noopener noreferrer">Font von<br>Collletttivo<img class="link-pfeil" src="pfeil.png" alt=""></a>
                 </div>
                 <div id="info-row">
                     <div id="InfoText"></div>
@@ -80,6 +81,14 @@
 
 </body>
 <style>
+    @font-face {
+        font-family: 'Ronzino';
+        src: url('Ronzino-Medium.woff2') format('woff2'),
+             url('Ronzino-Medium.otf') format('opentype');
+        font-weight: normal;
+        font-style: normal;
+    }
+
     :root {
         --linie: 8px solid white;
         --fs: 46px;
@@ -96,7 +105,8 @@
         background: rgb(255, 255, 255);
         height: 100%;
         overflow: hidden;
-        font-family: Helvetica, Arial, sans-serif;
+        font-family: 'Ronzino', Arial, sans-serif;
+        text-transform: uppercase;
     }
 
     #frame { height: 100%; overflow: hidden; position: relative; }
