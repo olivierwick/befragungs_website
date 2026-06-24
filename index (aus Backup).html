@@ -2472,6 +2472,13 @@
             nurEineMeinung = !(texts[1] && texts[2]);
             maxSeite = texts[2] ? 2 : (texts[1] ? 1 : 0);
             if (aktuelleSeite > maxSeite) zeigeSeite(maxSeite);
+            // Steht in diesem Batch keine Antwort in Spalte 0 (Wall zeigt z.B. nur
+            // noch 1-2 Restantworten weiter rechts), landet der Nutzer sonst auf
+            // einer leeren weissen Seite 0 und muesste selbst aufs Hinschwippen
+            // kommen - daher automatisch zur ersten tatsaechlich befuellten Seite springen.
+            if (!texts[0] && aktuelleSeite === 0) {
+                zeigeSeite(texts[1] ? 1 : (texts[2] ? 2 : 0));
+            }
             if (!c0) reconcileSeite(seitenElemente[0], texts[0], tapStates[0], 0);
             if (!c1) reconcileSeite(seitenElemente[1], texts[1], tapStates[1], 1);
             if (!c2) reconcileSeite(seitenElemente[2], texts[2], tapStates[2], 2);
