@@ -11,7 +11,9 @@ filter.add(['wichser', 'wixer', 'wichsen', 'hurensohn', 'hurenbock', 'ficken', '
 const app = express();
 app.use(express.json());
 app.use((req, res, next) => {
-    if (req.path === "/" || req.path.endsWith(".html")) {
+    if (req.path.endsWith('.woff2') || req.path.endsWith('.otf')) {
+        res.set("Cache-Control", "max-age=604800, immutable");
+    } else {
         res.set("Cache-Control", "no-store");
     }
     next();
