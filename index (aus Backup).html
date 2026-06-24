@@ -2502,7 +2502,18 @@
             if (istFrage) return;
             frageAktiv = false;
             var oldAntworten = mobileAntworten.slice();
-            var c0 = texts[0] !== domText;
+            // Gegen domText vergleichen war hier der Bug: domText wird erst NACH
+            // Ablauf der 150ms-Verzoegerung + Wort-Rollout in zeige() gesetzt,
+            // waehrend laufenderText sofort bei Aufruf von zeige() aktualisiert
+            // wird. Trifft ein Resend mit demselben Text ein, WAEHREND diese
+            // Verzoegerung noch laeuft, war c0 hier faelschlich noch true (domText
+            // hinkt nach) - countdownAusstehendeRollins wurde dadurch hochgezaehlt,
+            // obwohl zeige() wegen "text === laufenderText" gar keinen weiteren
+            // countdownRollinFertig()-Aufruf mehr ausloeste. Der Zaehler blieb dann
+            // dauerhaft > 0 haengen und der Countdown startete nie. laufenderText
+            // ist hier die korrekte Vergleichsbasis, da es exakt denselben Zustand
+            // widerspiegelt, den zeige() selbst fuer seine Dedup-Entscheidung nutzt.
+            var c0 = texts[0] !== laufenderText;
             var c1 = texts[1] !== oldAntworten[1];
             var c2 = texts[2] !== oldAntworten[2];
             if (c0) {
