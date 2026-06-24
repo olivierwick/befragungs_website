@@ -2803,11 +2803,18 @@
                 if (nRoomClose) {
                     var speed = Math.abs(dx) / Math.max(1, dt);
                     if (window.__raum && (speed > 0.3 || Math.abs(dx) > nSW * 0.3)) {
+                        // Raum wird wirklich geschlossen - Seite fuer den naechsten
+                        // Besuch zuruecksetzen, ist hier unproblematisch da nicht sichtbar.
                         window.__raum.snap(false);
+                        zeigeSeite(0);
                     } else {
+                        // Geste war nicht entschieden genug, Raum bleibt offen. NICHT
+                        // hart auf Seite 0 zuruecksetzen - das hat bisher jede
+                        // automatische Korrektur (siehe __seiteSyncBeimOeffnen in
+                        // snap()) sofort wieder ueberschrieben und den Nutzer auf einer
+                        // leeren Seite gefangen, wenn Seite 0 gerade keine Antwort hat.
                         if (window.__raum) window.__raum.snap(true);
                     }
-                    zeigeSeite(0);
                     return;
                 }
 
