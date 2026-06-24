@@ -2285,10 +2285,35 @@
             entry.farben = arr.join('|');
         }
 
+        // Vereint zwei Tap-Zustaende (pro Wort, pro Farbe) statt einen einfach den
+        // anderen ueberschreiben zu lassen. Notwendig, weil ein word-tap von einem
+        // FREMDEN Handy, der waehrend der ~150ms-Verzoegerung+Rollout eines neuen
+        // Batches eintrifft, ueber applyTapToCacheText() bereits korrekt lokal in
+        // tapCache[text] zwischengespeichert wird - der serverState-Snapshot, der
+        // mit derselben wall2-text-Nachricht mitkam, ist zu diesem Zeitpunkt aber
+        // noch der AELTERE Stand von der Wall (kannte diesen Tap noch nicht). Ohne
+        // Merge wuerde dieser aeltere Snapshot den gerade aktualisierten lokalen
+        // Stand wieder ueberschreiben - der Balken war dann fuer den Rest dieser
+        // Anzeige nicht mehr sichtbar, obwohl die Wall ihn longst zeigte.
+        function mergeTapStates(a, b) {
+            if (!a) return b;
+            if (!b) return a;
+            var len = Math.max(a.length, b.length), out = [];
+            for (var i = 0; i < len; i++) {
+                var ea = a[i] || { farben: '', direction: '' };
+                var eb = b[i] || { farben: '', direction: '' };
+                var arrA = ea.farben ? ea.farben.split('|') : [];
+                var arrB = eb.farben ? eb.farben.split('|') : [];
+                var merged = arrA.slice();
+                for (var k = 0; k < arrB.length; k++) { if (merged.indexOf(arrB[k]) === -1) merged.push(arrB[k]); }
+                out[i] = { farben: merged.join('|'), direction: ea.direction || eb.direction || '' };
+            }
+            return out;
+        }
         function restoreTapState(pageEl, text, serverState) {
-            var state = serverState || tapCache[text];
+            var state = mergeTapStates(serverState, tapCache[text]);
             if (!text || !state) return;
-            tapCache[text] = state; // lokalen Cache mit dem autoritativen Wall-Status abgleichen
+            tapCache[text] = state; // lokalen Cache mit dem zusammengefuehrten Stand abgleichen
             var words = [].slice.call(pageEl.querySelectorAll('.wort'));
             var farbenSplit = [], maxLvl = 0;
             for (var i = 0; i < state.length && i < words.length; i++) {
