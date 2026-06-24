@@ -1669,6 +1669,11 @@
             if (v) {
                 instrukZaehler++;
                 if (!ersteInstrukErledigt || instrukZaehler % 3 === 1) zeigeInstruk();
+                // Sicherheitsnetz: steht die Seite, auf der der Nutzer hineinschwippt,
+                // gerade leer da (z.B. weil zwischen Verbinden und dem ersten
+                // Hineinwischen schon ein 1-2-Antworten-Batch lief), nochmal zur
+                // ersten befuellten Seite springen (siehe __seiteSyncBeimOeffnen).
+                if (window.__seiteSyncBeimOeffnen) window.__seiteSyncBeimOeffnen();
             }
         }
 
@@ -1824,6 +1829,15 @@
             seitenContainer.style.transition = SEITEN_T;
             seitenContainer.style.transform = 'translateX(' + (-idx * window.innerWidth) + 'px)';
         }
+
+        // Wird von snap() (siehe weiter oben im ersten IIFE) beim Hineinwischen in
+        // den Reagieren-Modus aufgerufen, falls die aktuelle Seite gerade leer ist
+        // - zusaetzliches Sicherheitsnetz neben der Pruefung in wendeBatchAn().
+        window.__seiteSyncBeimOeffnen = function() {
+            if (!mobileAntworten[aktuelleSeite]) {
+                zeigeSeite(mobileAntworten[0] ? 0 : (mobileAntworten[1] ? 1 : (mobileAntworten[2] ? 2 : 0)));
+            }
+        };
 
 
         function getNextWort(w) {
@@ -2472,12 +2486,15 @@
             nurEineMeinung = !(texts[1] && texts[2]);
             maxSeite = texts[2] ? 2 : (texts[1] ? 1 : 0);
             if (aktuelleSeite > maxSeite) zeigeSeite(maxSeite);
-            // Steht in diesem Batch keine Antwort in Spalte 0 (Wall zeigt z.B. nur
-            // noch 1-2 Restantworten weiter rechts), landet der Nutzer sonst auf
-            // einer leeren weissen Seite 0 und muesste selbst aufs Hinschwippen
-            // kommen - daher automatisch zur ersten tatsaechlich befuellten Seite springen.
-            if (!texts[0] && aktuelleSeite === 0) {
-                zeigeSeite(texts[1] ? 1 : (texts[2] ? 2 : 0));
+            // Steht die Seite, auf der der Nutzer gerade ist, in diesem Batch leer
+            // da (Wall zeigt z.B. nur noch 1-2 Restantworten weiter rechts), landet
+            // er sonst auf einer leeren weissen Seite und muesste selbst aufs
+            // Hinschwippen kommen - daher automatisch zur ersten tatsaechlich
+            // befuellten Seite springen. Greift bewusst bei JEDEM Aufruf (nicht nur
+            // bei Seite 0), da der Nutzer auch auf einer anderen Seite landen kann,
+            // die gerade durch denselben Batch-Wechsel leer wird.
+            if (!texts[aktuelleSeite]) {
+                zeigeSeite(texts[0] ? 0 : (texts[1] ? 1 : (texts[2] ? 2 : 0)));
             }
             if (!c0) reconcileSeite(seitenElemente[0], texts[0], tapStates[0], 0);
             if (!c1) reconcileSeite(seitenElemente[1], texts[1], tapStates[1], 1);
