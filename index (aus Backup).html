@@ -1784,6 +1784,23 @@
             document.getElementById('raum-antwort-2'),
         ];
         var seitenContainer = document.getElementById('seiten-container');
+        // Wrapper-Divs (.seite) der drei Sparten - werden komplett aus dem Flex-
+        // Layout entfernt (display:none), wenn die jeweilige Spalte gerade keine
+        // Antwort hat. So existiert eine leere Sparte fuer den Swipe ueberhaupt
+        // nicht mehr, statt nur per Index-Grenzen unerreichbar zu sein (gleiches
+        // Prinzip wie beim Aufsplitten einer langen Antwort auf Seite 0+1, wo
+        // Seite 2 schon bisher korrekt nie erreichbar war).
+        var seitenWrapper = seitenElemente.map(function(e) { return e.parentElement; });
+        // Zaehlt, wie viele Sparten VOR der gegebenen (wall-spalte-indizierten)
+        // Position gerade sichtbar sind - daraus ergibt sich die tatsaechliche
+        // visuelle Position im Flex-Layout, da ausgeblendete Sparten keinen Platz
+        // mehr belegen.
+        function sichtbarePosition(spalte) {
+            var p = 0;
+            for (var i = 0; i < spalte; i++) if (seitenSichtbar[i]) p++;
+            return p;
+        }
+        var seitenSichtbar = [true, true, true];
 
         // Balken sind absolut positioniert und kennen ihre Wort-Position nur zum
         // Berechnungszeitpunkt. Egal WAS einen Umbruch ausloest (Resize, Tastatur,
@@ -1828,7 +1845,7 @@
         function zeigeSeite(idx) {
             aktuelleSeite = idx;
             seitenContainer.style.transition = SEITEN_T;
-            seitenContainer.style.transform = 'translateX(' + (-idx * window.innerWidth) + 'px)';
+            seitenContainer.style.transform = 'translateX(' + (-sichtbarePosition(idx) * window.innerWidth) + 'px)';
         }
 
         // Wird von snap() (siehe weiter oben im ersten IIFE) beim Hineinwischen in
@@ -2480,6 +2497,16 @@
                 countdownAusstehendeRollins = (texts[0] ? 1 : 0) + (c1 && texts[1] ? 1 : 0) + (c2 && texts[2] ? 1 : 0);
                 if (countdownAusstehendeRollins <= 0) countdownPending = false;
             }
+            // Leere Sparten komplett aus dem Flex-Layout nehmen statt sie nur
+            // unerreichbar zu machen - so existieren bei 1-2 Restantworten
+            // tatsaechlich nur noch 1-2 Sparten zum Swipen, keine leere mehr.
+            // VOR dem Wort-Aufbau umschalten, damit Woerter nie in einem gerade
+            // unsichtbaren (display:none) Element aufgebaut werden - sonst liefern
+            // getBoundingClientRect()-Abfragen beim Einrollen Nullwerte.
+            seitenSichtbar = [!!texts[0], !!texts[1], !!texts[2]];
+            for (var siVis = 0; siVis < 3; siVis++) {
+                seitenWrapper[siVis].style.display = seitenSichtbar[siVis] ? '' : 'none';
+            }
             mobileAntworten = texts;
             if (c1) baueWoerterFuerSeite(seitenElemente[1], oldAntworten[1], texts[1] || '', tapStates[1]);
             if (c2) baueWoerterFuerSeite(seitenElemente[2], oldAntworten[2], texts[2] || '', tapStates[2]);
@@ -2701,7 +2728,7 @@
                     nRoomClose = false;
                     var cdx = (aktuelleSeite >= maxSeite && dx < 0) ? 0 : ((aktuelleSeite <= minSeite && dx > 0) ? 0 : dx);
                     seitenContainer.style.transform =
-                        'translateX(' + (-aktuelleSeite * nSW + cdx) + 'px)';
+                        'translateX(' + (-sichtbarePosition(aktuelleSeite) * nSW + cdx) + 'px)';
                 }
             }, { passive: false });
 
