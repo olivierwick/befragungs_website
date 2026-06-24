@@ -118,6 +118,11 @@
     @media (pointer: fine) { #weisser-raum { display: none; } }
 
     @media (pointer: coarse) {
+        /* Langes Antippen eines Wortes (zum Tap-Balken setzen) loeste bisher die
+           native Textmarkierung (blauer Marker) bzw. bei iOS zusaetzlich das
+           Auswahl-Menue aus - beides stoert die eigentliche Tap-Geste. */
+        html, body { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+        #Eingabe { -webkit-user-select: text; user-select: text; -webkit-touch-callout: default; }
         #weisser-raum {
             position: fixed;
             inset: 0;
@@ -2025,20 +2030,29 @@
             // marginBottom pro Wort (Platz fuer eigene Balken)
             for (var i = 0; i < n; i++) words[i].style.marginBottom = taps[i] > 0 ? (taps[i] * 10 - 2) + 'px' : '';
 
-            // Pro Wort das Zentrum der untersten (verbundenen) Gruppe -> alle Balken eines Wortes drehen
-            // um dasselbe Zentrum, damit der Abstand zwischen den Balken ueberall gleich bleibt.
+            // Pro Wort das Zentrum der GESAMTEN Rotations-Cluster-Gruppe (clusterOf von
+            // weiter oben, ueber ALLE Ebenen hinweg) -> alle Balken eines Wortes drehen
+            // um dasselbe Zentrum, damit der Abstand zwischen den Balken ueberall gleich
+            // bleibt. Frueher wurde hier nur nach Level-0-Farbe gruppiert - siehe gleicher
+            // Fix in wall3.html fuer die ausfuehrliche Begruendung.
             var grpCx = [], grpCy = [];
-            var q = 0;
-            while (q < n) {
-                if (!farbenArr[q].length) { q++; continue; }
-                var c0 = farbenArr[q][0];
-                var rs = q, re = q;
-                while (re + 1 < n && nextIdx[re] === re + 1 && farbenArr[re + 1].length && farbenArr[re + 1][0] === c0) re++;
-                q = re + 1;
-                var ql = Infinity, qr = -Infinity, qt = Infinity, qb = -Infinity;
-                for (var k = rs; k <= re; k++) { var qc = words[k].getBoundingClientRect(); if (qc.left < ql) ql = qc.left; if (qc.right > qr) qr = qc.right; if (qc.top < qt) qt = qc.top; if (qc.bottom > qb) qb = qc.bottom; }
-                var cgx = Math.round((ql + qr) / 2 - cRect.left), cgy = Math.round((qt + qb) / 2 - cRect.top);
-                for (var k = rs; k <= re; k++) { grpCx[k] = cgx; grpCy[k] = cgy; }
+            var clusterBoxes = {};
+            for (var i = 0; i < n; i++) {
+                if (!farbenArr[i].length) continue;
+                var root = clFind(i);
+                var rc = words[i].getBoundingClientRect();
+                var box = clusterBoxes[root];
+                if (!box) { box = clusterBoxes[root] = { l: Infinity, r: -Infinity, t: Infinity, b: -Infinity }; }
+                if (rc.left < box.l) box.l = rc.left;
+                if (rc.right > box.r) box.r = rc.right;
+                if (rc.top < box.t) box.t = rc.top;
+                if (rc.bottom > box.b) box.b = rc.bottom;
+            }
+            for (var i = 0; i < n; i++) {
+                if (!farbenArr[i].length) continue;
+                var box = clusterBoxes[clFind(i)];
+                grpCx[i] = Math.round((box.l + box.r) / 2 - cRect.left);
+                grpCy[i] = Math.round((box.t + box.b) / 2 - cRect.top);
             }
             var maxBars = 0; for (var i = 0; i < n; i++) if (farbenArr[i].length > maxBars) maxBars = farbenArr[i].length;
             var barMap = {};
