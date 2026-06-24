@@ -105,7 +105,8 @@
 <style>
 
     :root {
-        --linie: 8px solid white;
+        --linie-dicke: 8px;
+        --linie: var(--linie-dicke) solid white;
         --fs: 43px;
         --pad: 1px 14px;
         --pfeil-abstand: 200px;
@@ -200,7 +201,7 @@
         position: relative;
     }
     @keyframes balkenEin { from { opacity: 0; } to { opacity: 1; } }
-    .group-bar { position: absolute; height: 8px; background: color(display-p3 1 0 0.45); pointer-events: none; animation: balkenEin 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
+    .group-bar { position: absolute; height: var(--linie-dicke); background: color(display-p3 1 0 0.45); pointer-events: none; animation: balkenEin 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards; }
     .wort { display: inline; }
     .wort-inner { display: inline; position: relative; transition: filter 0.35s ease, opacity 0.35s ease; }
     /* vertical-align: top verhindert, dass Woerter mit unterschiedlich vielen
@@ -613,7 +614,7 @@
 
 @supports (color: color(display-p3 1 0 0)) {
     :root {
-        --linie: 8px solid color(display-p3 1 0 0.45);
+        --linie: var(--linie-dicke) solid color(display-p3 1 0 0.45);
     }
     #InfoButton {
         filter: none;
@@ -644,7 +645,7 @@
     }
 
     @media (pointer: coarse) {
-        :root { --linie: 7px solid white; }
+        :root { --linie-dicke: 7px; --linie: var(--linie-dicke) solid white; }
         #InfoButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(292.5deg) brightness(104%); color: white; }
         #LangButton { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(292.5deg) brightness(104%); color: white; }
         .LangPill   { filter: brightness(0) saturate(100%) invert(23%) sepia(96%) saturate(5000%) hue-rotate(292.5deg) brightness(104%); color: white; transform: translateZ(0); }
