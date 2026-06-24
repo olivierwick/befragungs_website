@@ -1806,6 +1806,7 @@
         var frageAktiv = false;
         var nurEineMeinung = false;
         var maxSeite = 0;
+        var minSeite = 0;
 
         // Eindeutige Neon-Farbe pro Besucher (bleibt im Browser gespeichert)
         var userFarbe = localStorage.getItem('userFarbe');
@@ -1835,7 +1836,7 @@
         // - zusaetzliches Sicherheitsnetz neben der Pruefung in wendeBatchAn().
         window.__seiteSyncBeimOeffnen = function() {
             if (!mobileAntworten[aktuelleSeite]) {
-                zeigeSeite(mobileAntworten[0] ? 0 : (mobileAntworten[1] ? 1 : (mobileAntworten[2] ? 2 : 0)));
+                zeigeSeite(minSeite);
             }
         };
 
@@ -2484,8 +2485,12 @@
             if (c2) baueWoerterFuerSeite(seitenElemente[2], oldAntworten[2], texts[2] || '', tapStates[2]);
             zeige(texts[0] || '', tapStates[0]);
             nurEineMeinung = !(texts[1] && texts[2]);
+            // minSeite/maxSeite grenzen den swipbaren Bereich auf genau die Seiten
+            // ein, die wirklich Inhalt haben - bei z.B. nur 2 Restantworten in
+            // Spalte 1+2 darf Spalte 0 (leer) gar nicht erst erreichbar sein.
+            minSeite = texts[0] ? 0 : (texts[1] ? 1 : 2);
             maxSeite = texts[2] ? 2 : (texts[1] ? 1 : 0);
-            if (aktuelleSeite > maxSeite) zeigeSeite(maxSeite);
+            if (minSeite > maxSeite) minSeite = maxSeite; // Sonderfall: gar kein Text vorhanden
             // Steht die Seite, auf der der Nutzer gerade ist, in diesem Batch leer
             // da (Wall zeigt z.B. nur noch 1-2 Restantworten weiter rechts), landet
             // er sonst auf einer leeren weissen Seite und muesste selbst aufs
@@ -2494,7 +2499,7 @@
             // bei Seite 0), da der Nutzer auch auf einer anderen Seite landen kann,
             // die gerade durch denselben Batch-Wechsel leer wird.
             if (!texts[aktuelleSeite]) {
-                zeigeSeite(texts[0] ? 0 : (texts[1] ? 1 : (texts[2] ? 2 : 0)));
+                zeigeSeite(minSeite);
             }
             if (!c0) reconcileSeite(seitenElemente[0], texts[0], tapStates[0], 0);
             if (!c1) reconcileSeite(seitenElemente[1], texts[1], tapStates[1], 1);
@@ -2689,12 +2694,12 @@
                 e.stopPropagation();
                 if (frageAktiv) return;
                 var dx = e.touches[0].clientX - nX;
-                if (aktuelleSeite === 0 && dx > 0) {
+                if (aktuelleSeite === minSeite && dx > 0) {
                     nRoomClose = true;
                     if (window.__raum) window.__raum.track(dx);
                 } else {
                     nRoomClose = false;
-                    var cdx = (aktuelleSeite >= maxSeite && dx < 0) ? 0 : dx;
+                    var cdx = (aktuelleSeite >= maxSeite && dx < 0) ? 0 : ((aktuelleSeite <= minSeite && dx > 0) ? 0 : dx);
                     seitenContainer.style.transform =
                         'translateX(' + (-aktuelleSeite * nSW + cdx) + 'px)';
                 }
@@ -2821,7 +2826,7 @@
                 // Seitennavigation
                 var ziel = aktuelleSeite;
                 if (dx < -50 && aktuelleSeite < maxSeite) ziel++;
-                else if (dx > 50 && aktuelleSeite > 0) ziel--;
+                else if (dx > 50 && aktuelleSeite > minSeite) ziel--;
                 zeigeSeite(ziel);
             }, { passive: false });
         }
