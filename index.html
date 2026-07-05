@@ -612,10 +612,12 @@
 
 @media (max-width: 430px) { :root { --fs: 35px; --pfeil-abstand: 145px; } }
 @media (max-width: 375px) and (max-height: 667px) { :root { --fs: 29px; } }
-/* Tablet / iPad: breiter als 430px (faellt durch alle Handy-Regeln), hat aber
-   ueber pointer:coarse das Touch-Layout -> die 43px-Basisschrift wirkt zu klein.
-   Daher hier zentral vergroessern (skaliert alle var(--fs)-Texte mit). */
-@media (pointer: coarse) and (min-width: 431px) { :root { --fs: 60px; --pfeil-abstand: 260px; } }
+/* Tablet / iPad: nur die Meinungs-Swipes (#raum-antwort*) und der Reagieren-
+   Info-/Instruktionstext (#instruk-text) groesser. Landingpage/Formular (--fs)
+   bleibt bewusst unveraendert. */
+@media (pointer: coarse) and (min-width: 431px) {
+    #raum-antwort, #raum-antwort-1, #raum-antwort-2, #instruk-text { font-size: 44px; }
+}
 /* Nur die Antworten-Swipe-Spalten (#raum-antwort*) auf iPhone X-Groesse (375x812)
    etwas kleiner - betrifft nicht --fs (Landingpage/Formular-Texte). */
 @media (max-width: 390px) and (min-height: 760px) and (max-height: 850px) {
